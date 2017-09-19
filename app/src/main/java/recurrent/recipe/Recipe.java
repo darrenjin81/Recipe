@@ -5,10 +5,7 @@ package recurrent.recipe;
  *
  */
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
 
 class Recipe{
     //every recipe will have its own id.
@@ -17,13 +14,10 @@ class Recipe{
     //name of user's recipe
     private String name;
     private String instructions;
-    //image of user's recipe - might be wrong
-    private Drawable image;
 
-    public Recipe(String name, String instructions, Drawable image) {
+    public Recipe(String name, String instructions) {
         this.name = name;
         this.instructions = instructions;
-        this.image = image;
     }
 
 
@@ -32,9 +26,6 @@ class Recipe{
     }
     public String getInstructions(){
         return instructions;
-    }
-    public Drawable getImageDrawable() {
-        return image;
     }
 
 }
