@@ -13,13 +13,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import static android.content.ContentValues.TAG;
 
 public class RecipeView extends Fragment {
-    //hard code for now.
-    //TODO: have to delete these hard codes later
     String name = "pizza";
     String instructions = "1. Make the base: Put the flour into a large bowl, then stir in the yeast and salt." +
             " Make a well, pour in 200ml warm water and the olive oil and bring together with a wooden spoon until you have a soft," +
@@ -43,63 +42,88 @@ public class RecipeView extends Fragment {
             "\n" +
             "Only parts of Under the Influence can be seen in this installation. As with many contemporary projects, the work exists across several platforms, which may be considered in relation to one another for a fuller picture without necessarily looking to the photographer for an explanation. On the artist’s website vivid text describes what actually happens in the church services – extreme bodily experience is looped through microphones, screens and speakers. At one point, “A woman runs to the front and casts herself down on the floor. She vomits and spits into the tissues placed in front of her. Another runs forward. Stretched out on the floor, they are surrounded by the ministers and cameramen.” Interspersed with the website’s text and images are hypnotic black and white video clips, YouTube extracts posted by the churches reconfigured by the artist into elegant vertical rectangles, unfocused and slowed-down. Too vague to act as documentary evidence (it would not be possible to identify a particular person or activity), they offer a strangely distanced view of physical and spiritual fervour.\n" +
             "\n";
+    final static String RecipeArgKey = "recipes";
+    Recipe recipe;
+    View view;
+    //FirebaseDatabase database = FirebaseDatabase.getInstance();
+    //DatabaseReference ref = database.getReference().child("recipes");
 
-
-
-//    private void writeNewUser(DatabaseReference myRef, String name, String instructions) {
-//        Recipe r = new Recipe(name, instructions);
-//        myRef.child("recipes").child(name).setValue(r);
-//    }
 
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup parent, Bundle savedInstanceState) {
-        //in your OnCreate() method
-        View view = inflater.inflate(R.layout.recipe_view, parent, false);
-        //firebase stuff
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference dr = database.getReference();
+        Recipe temp = new Recipe(name, instructions);
+        dr.child("recipes").child("0").setValue(temp);
         DatabaseReference myRef = database.getReference();
-        //write into database
-        //writeNewUser(myRef, name, instructions);
-        Recipe curr_recipe = new Recipe(name, instructions);
-        myRef.child("recipes").child(name).setValue(curr_recipe);
 
-//        ValueEventListener postListener = new ValueEventListener() {
+        myRef.child("recipes").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                for(DataSnapshot child: children){
+                    recipe = child.getValue(Recipe.class);
+                    TextView tvName, tvInstructions;
+                    tvName  = (TextView) view.findViewById(R.id.tvRecipeName);
+                    tvName.setText(recipe.getName());
+
+                    tvInstructions = (TextView) view.findViewById(R.id.tvInstructions);
+                    tvInstructions.setText(recipe.getInstructions());
+
+                    ImageView ivRecipeImage;
+                    ivRecipeImage = (ImageView) view.findViewById(R.id.ivRecipeImage);
+                    int id = getResources().getIdentifier(recipe.getName(),"drawable",getContext().getPackageName());
+                    ivRecipeImage.setImageResource(id);
+                }
+                //Log.d(TAG, "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
+        view = inflater.inflate(R.layout.recipe_view, parent, false);
+
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("Name");
+//            // Read from the database
+//        myRef.addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // Get Post object and use the values to update the UI
-//                dataSnapshot.child("recipes");
-//                Recipe post = dataSnapshot.getValue(Recipe.class);
-//
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                String myname = dataSnapshot.getValue(String.class);
 //            }
 //
 //            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-//                // ...
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.w(TAG, "Failed to read value.", error.toException());
 //            }
-//        };
-        //DatabaseReference recipe_addr = database.getReference().child("recipes");
-//      myRef.addListenerForSingleValueEvent(postListener);
+//        });
 
-        TextView tvName, tvInstructions;
-        tvName  = (TextView) view.findViewById(R.id.tvRecipeName);
-        tvName.setText(curr_recipe.getName());
-
-        tvInstructions = (TextView) view.findViewById(R.id.tvInstructions);
-        tvInstructions.setText(curr_recipe.getInstructions());
-
-        ImageView ivRecipeImage;
-        ivRecipeImage = (ImageView) view.findViewById(R.id.ivRecipeImage);
-        int id = getResources().getIdentifier(curr_recipe.getName(),"drawable",getContext().getPackageName());
-        ivRecipeImage.setImageResource(id);
+//        TextView tvName, tvInstructions;
+//        tvName  = (TextView) view.findViewById(R.id.tvRecipeName);
+//        tvName.setText(recipe.getName());
+//
+//        tvInstructions = (TextView) view.findViewById(R.id.tvInstructions);
+//        tvInstructions.setText(recipe.getInstructions());
+//
+//        ImageView ivRecipeImage;
+//        ivRecipeImage = (ImageView) view.findViewById(R.id.ivRecipeImage);
+//        int id = getResources().getIdentifier(recipe.getName(),"drawable",getContext().getPackageName());
+//        ivRecipeImage.setImageResource(id);
 
         return view;
-
-
     }
 
     // This event is triggered soon after onCreateView().
