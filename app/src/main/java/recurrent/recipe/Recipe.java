@@ -16,6 +16,10 @@ class Recipe implements Parcelable {
     private String name;
     private String instructions;
 
+    public Recipe(){
+
+    }
+
     public Recipe(String name, String instructions) {
         this.name = name;
         this.instructions = instructions;

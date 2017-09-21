@@ -76,9 +76,9 @@ public class MainActivity extends AppCompatActivity {
                 Factory f = new Factory();
 //                args.putParcelable(RecipeView.RecipeArgKey, );
                 break;
-            case R.id.browse_recipes:
-                fragmentClass = BrowseRecipes.class;
-                break;
+//            case R.id.browse_recipes:
+//                fragmentClass = BrowseRecipes.class;
+//                break;
             default:
                 fragmentClass = Login.class;
         }

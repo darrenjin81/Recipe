@@ -5,7 +5,6 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "recurrent.recipe"
-        multiDexEnabled true
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
