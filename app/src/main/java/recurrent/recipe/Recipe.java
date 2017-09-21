@@ -20,7 +20,7 @@ class Recipe{
         this.instructions = instructions;
     }
 
-
+    //getters
     public String getName() {
         return name;
     }
