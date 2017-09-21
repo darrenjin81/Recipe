@@ -26,6 +26,11 @@
             android:id="@+id/nav_search_recipes"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/navigation_search_recipes" />
+
+        <item
+            android:id="@+id/nav_view_recipe"
+            android:icon="@mipmap/ic_launcher"
+            android:title="View a recipe"/>
     </group>
 
     <!--Leave this here for when we have more navigation options-->

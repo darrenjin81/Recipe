@@ -69,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_search_recipes:
                 fragmentClass = SearchRecipes.class;
                 break;
+            case R.id.nav_view_recipe:
+                fragmentClass = RecipeView.class;
+                break;
             case R.id.browse_recipes:
                 fragmentClass = BrowseRecipes.class;
                 break;
