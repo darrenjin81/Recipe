@@ -1,5 +1,7 @@
 package recurrent.recipe;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -21,16 +23,17 @@ import static android.content.ContentValues.TAG;
 public class RecipeView extends Fragment {
 
     final static String RecipeArgKey = "recipes";
-    Recipe recipe;
 
     public RecipeView(){
-        recipe = (Recipe)getActivity().getIntent().getExtras().get(RecipeArgKey);
+
     }
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup parent, Bundle savedInstanceState) {
+
+        Recipe recipe = (Recipe)getArguments().getParcelable(RecipeArgKey);
 
         View view = inflater.inflate(R.layout.recipe_view, parent, false);
 

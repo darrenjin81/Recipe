@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = RecipeView.class;
                 // lets just open the pizza page here :)
                 Factory f = new Factory();
-                args.putParcelable(RecipeView.RecipeArgKey, f.loadTopN(1).get(0));
+                Recipe r = new Recipe("hi", "jin");
+                args.putParcelable(RecipeView.RecipeArgKey, r);//f.loadTopN(1).get(0));
                 break;
             case R.id.browse_recipes:
                 fragmentClass = BrowseRecipes.class;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
+            fragment.setArguments(args);
         } catch (Exception e) {
             e.printStackTrace();
         }
