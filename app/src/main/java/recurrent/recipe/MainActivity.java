@@ -24,13 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle drawerToggle;
 
-    private GridView simpleList;
-    private ArrayList recipes=new ArrayList<>();
-
-
-    //private EditText searchBox;
-    //private Button searchBtn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
