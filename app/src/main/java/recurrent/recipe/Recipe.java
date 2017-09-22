@@ -7,7 +7,7 @@ package recurrent.recipe;
 
 import android.graphics.drawable.Drawable;
 
-class Recipe{
+public class Recipe{
     //every recipe will have its own id.
     static int id = 0;
 

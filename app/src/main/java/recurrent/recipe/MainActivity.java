@@ -1,6 +1,7 @@
 package recurrent.recipe;
 
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.*;
+import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
@@ -18,6 +23,13 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView nvDrawer;
 
     private ActionBarDrawerToggle drawerToggle;
+
+    private GridView simpleList;
+    private ArrayList recipes=new ArrayList<>();
+
+
+    //private EditText searchBox;
+    //private Button searchBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +51,21 @@ public class MainActivity extends AppCompatActivity {
 
         // Tie DrawerLayout events to the ActionBarToggle
         mDrawer.addDrawerListener(drawerToggle);
+
+        //display homepage fragment
+        Fragment fragment = null;
+        Class fragmentClass;
+        fragmentClass = Homepage.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
+
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -57,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         Class fragmentClass;
         switch(menuItem.getItemId()) {
+            case R.id.nav_home:
+                fragmentClass = Homepage.class;
+                break;
             case R.id.nav_login:
                 fragmentClass = Login.class;
                 break;
@@ -73,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = RecipeView.class;
                 break;
             default:
-                fragmentClass = Login.class;
+                fragmentClass = Homepage.class;
         }
 
         try {

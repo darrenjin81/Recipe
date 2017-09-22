@@ -4,8 +4,11 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
+    <string name="navigation_home_page">Home</string>
     <string name="navigation_login_page">Login</string>
     <string name="navigation_upload_recipes">Upload Recipe</string>
     <string name="navigation_saved_recipes">Saved Recipes</string>
     <string name="navigation_search_recipes">Search Recipes</string>
+
+    <string name="homepage_featured_recipes">Featured recipes</string>
 </resources>
