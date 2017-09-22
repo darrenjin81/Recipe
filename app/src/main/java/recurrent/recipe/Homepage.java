@@ -27,9 +27,9 @@ public class Homepage extends Fragment {
         //create a list of recipes
         //configure with firebase later
         simpleList = (GridView) view.findViewById(R.id.simpleGridView);
-        featured_recipes.add(new Recipe("pizza","Test"));
-        featured_recipes.add(new Recipe("bread","Test"));
-        featured_recipes.add(new Recipe("pudding","Test"));
+        featured_recipes.add(new Recipe("pizza","Testing"));
+        featured_recipes.add(new Recipe("bread","Testing"));
+        featured_recipes.add(new Recipe("pudding","Testing"));
 
         //display list of recipes in Gridview with adapter
         HomeAdapter homeAdapter = new HomeAdapter(this.getContext(),R.layout.grid_view_items, featured_recipes);
