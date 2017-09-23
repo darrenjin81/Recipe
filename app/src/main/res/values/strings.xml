@@ -8,4 +8,9 @@
     <string name="navigation_upload_recipes">Upload Recipe</string>
     <string name="navigation_saved_recipes">Saved Recipes</string>
     <string name="navigation_search_recipes">Search Recipes</string>
+
+    <string name="fragment_login_text">Please login with your details below:</string>
+    <string name="fragment_login_username">Username</string>
+    <string name="fragment_login_password">Password</string>
+    <string name="fragment_login_btnLogin">Login</string>
 </resources>
