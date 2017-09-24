@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <TextView
         android:id="@+id/tvLoginText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/fragment_login_text"
+        android:text="@string/fragment_register_text"
         android:layout_marginTop="32dp"
         android:layout_marginLeft="16dp"
-        android:textSize="16sp"/>
+        android:textSize="14sp"/>
 
     <EditText
-        android:id="@+id/etLoginEmailField"
+        android:id="@+id/etRegisterEmailField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvLoginText"
@@ -22,10 +23,10 @@
         android:hint="@string/fragment_login_email"/>
 
     <EditText
-        android:id="@+id/etLoginPasswordField"
+        android:id="@+id/etRegisterPasswordField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etLoginEmailField"
+        android:layout_below="@+id/etRegisterEmailField"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
@@ -33,23 +34,13 @@
         android:hint="@string/fragment_login_password"/>
 
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/btnCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/etLoginPasswordField"
-        android:layout_below="@id/etLoginPasswordField"
+        android:layout_alignRight="@id/etRegisterPasswordField"
+        android:layout_below="@id/etRegisterPasswordField"
         android:layout_marginTop="8dp"
         android:padding="8dp"
-        android:text="@string/fragment_login_btnRegister" />
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@id/etLoginPasswordField"
-        android:layout_below="@id/etLoginPasswordField"
-        android:layout_marginTop="8dp"
-        android:padding="8dp"
-        android:text="@string/fragment_login_btnLogin" />
+        android:text="@string/fragment_login_btnCreate" />
 
 </RelativeLayout>

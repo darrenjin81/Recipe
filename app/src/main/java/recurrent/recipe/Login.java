@@ -1,7 +1,6 @@
 package recurrent.recipe;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,65 +25,71 @@ public class Login extends Fragment {
     private DatabaseReference mRef;
     private ProgressDialog mProgress;
 
-    // The onCreateView method is called when Fragment should create its View object hierarchy,
-    // either dynamically or via XML layout inflation.
+    private EditText etEmail;
+    private EditText etPassword;
+    private Button btnLogin;
+    private Button btnRegister;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_login, parent, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        // Setup any handles to view objects here
         mAuth = FirebaseAuth.getInstance();
         mProgress = new ProgressDialog(getActivity());
         mRef = FirebaseDatabase.getInstance().getReference().child("users");
-        //check is user has logged in or not
-        mAuthListener = new FirebaseAuth.AuthStateListener(){
+
+        //Check is user has logged in or not
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
-                if(firebaseAuth.getCurrentUser() != null){
-                    startActivity(new Intent(getActivity(), user_mainpage.class));
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() != null) {
+                    //TODO ....IDK HOW TO FIREBASE
+//                    startActivity(new Intent(getActivity(), UserProfile.class));
                 }
             }
         };
 
-        // Defines the xml file for the fragment
-        final View view =  inflater.inflate(R.layout.fragment_login, parent, false);
+        etEmail = (EditText) view.findViewById(R.id.etLoginEmailField);
+        etPassword = (EditText) view.findViewById(R.id.etLoginPasswordField);
+        btnRegister = (Button) view.findViewById(R.id.btnRegister);
+        btnLogin = (Button) view.findViewById(R.id.btnLogin);
 
-        final EditText etUsername = (EditText) view.findViewById(R.id.etUsernameField);
-        final EditText etPassword = (EditText) view.findViewById(R.id.etPasswordField);
-
-        Button btnRegister = (Button) view.findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //createAccount(etUsername.getText().toString().trim(), etPassword.getText().toString().trim());
-                TextView etRegister = (TextView) view.findViewById(R.id.tvTestRegister);
-                etRegister.setText("enter in register");
-                Intent userpage = new Intent(getActivity(), user_mainpage.class);
-                userpage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(userpage);
+                Fragment fragment = new Register();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
             }
         });
-        final Button btnLogin = (Button) view.findViewById(R.id.btnLogin);
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                signIn(etUsername.getText().toString(), etPassword.getText().toString());
-
+                signIn(etEmail.getText().toString(), etPassword.getText().toString());
+                //TODO HOW TO FIREBASE????
             }
         });
-        return view;
+
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
 
     private void signIn(String email, String password) {
         //TODO: check if email and password are valid or not.
-        if(email.isEmpty() || password.isEmpty()){
+        if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(getActivity(), "empty email or empty password", Toast.LENGTH_LONG).show();
-        }else {
+        } else {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         //Toast.makeText(getActivity(), "sign in problem", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -94,9 +98,9 @@ public class Login extends Fragment {
     }
 
     private void createAccount(final String email, String password) {
-        if(email.isEmpty() || password.isEmpty()){
+        if (email.isEmpty() || password.isEmpty()) {
             //Toast.makeText(getActivity(), "empty email or empty password", Toast.LENGTH_LONG).show();
-        }else {
+        } else {
 
             mProgress.setMessage("signing up");
             mProgress.show();
@@ -104,7 +108,7 @@ public class Login extends Fragment {
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         String user_id = mAuth.getCurrentUser().getUid();
                         DatabaseReference current_user = mRef.child(user_id);
                         current_user.child("name").setValue(email);
@@ -116,14 +120,4 @@ public class Login extends Fragment {
             });
         }
     }
-
-    // This event is triggered soon after onCreateView().
-    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        // Setup any handles to view objects here
-        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
-    }
-
-
 }
