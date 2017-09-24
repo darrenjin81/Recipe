@@ -18,5 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".UserPage" />
+        <activity android:name=".user_mainpage"></activity>
     </application>
+
 </manifest>

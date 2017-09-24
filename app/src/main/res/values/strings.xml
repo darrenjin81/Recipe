@@ -12,5 +12,7 @@
     <string name="fragment_login_text">Please login with your details below:</string>
     <string name="fragment_login_username">Username</string>
     <string name="fragment_login_password">Password</string>
+    <string name="fragment_login_btnRegister">Register</string>
     <string name="fragment_login_btnLogin">Login</string>
+    <string name="fragment_login_btnSignOut">Sign out</string>
 </resources>
