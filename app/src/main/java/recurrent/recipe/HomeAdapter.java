@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class HomeAdapter extends ArrayAdapter {
 
-    ArrayList featured_recipes = new ArrayList<>();
+    private ArrayList<Recipe> featured_recipes = new ArrayList<>();
 
     public HomeAdapter(Context context, int textViewResourceId, ArrayList objects) {
         super(context, textViewResourceId, objects);

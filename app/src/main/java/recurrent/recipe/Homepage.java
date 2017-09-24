@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class Homepage extends Fragment {
     private GridView simpleList;
-    private ArrayList featured_recipes = new ArrayList<>();
+    private ArrayList<Recipe> featured_recipes = new ArrayList<>();
     private String test;
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
