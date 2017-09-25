@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,36 +22,61 @@ public class Factory {
     final static FirebaseDatabase database = FirebaseDatabase.getInstance();
     static DatabaseReference ref = database.getReference();
 
-    public List<Recipe> loadTopN(int i){
-        Query queryRef = ref.orderByChild("recipes").limitToFirst(i);
-        DBResultListener result = new DBResultListener();
-        queryRef.addListenerForSingleValueEvent(result);
+    public List<Recipe> loadTopN(int n){
 
-        while (result.result == null){
 
+
+
+
+
+
+        Query queryRef = ref.orderByChild("recipes").limitToFirst(n);
+        DBResult result = new DBResult(queryRef);
+        int retry = 3;
+
+        for(int i = 0; i < retry; i++){
+            if(result.result != null){
+                return result.result;
+            }else{
+                //failed, try again after timeout
+                try {
+                    Thread.sleep(1000);
+                }catch(Exception e){
+                    Log.w("Hell", "no sleep wake up", e);
+                }
+            }
         }
 
         return result.result;
     }
 }
 
-class DBResultListener<T> implements ValueEventListener{
+class DBResult{
     public List<Recipe> result;
 
-    @Override
-    public void onDataChange(DataSnapshot snapshot) {
-        // This method is called once with the initial value and again
-        // whenever data at this location is updated.
-        Recipe r;
-        Iterable<DataSnapshot> children = snapshot.getChildren();
-        for(DataSnapshot child: children){
-            result.add(child.getValue(Recipe.class));
-        }
-    }
+    public DBResult(Query mRef){
 
-    @Override
-    public void onCancelled(DatabaseError databaseError) {
-        //error
-        Log.w("FireBase Error", "Failed to read value.", databaseError.toException());
+        result = new ArrayList<Recipe>();
+
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                Log.w("FireBase", "Onchange is called yay.");
+
+                Recipe r;
+                Iterable<DataSnapshot> children = snapshot.getChildren();
+                for(DataSnapshot child: children){
+                    result.add(child.getValue(Recipe.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //error
+                Log.w("FireBase Error", "Failed to read value.", databaseError.toException());
+            }
+        });
     }
 }

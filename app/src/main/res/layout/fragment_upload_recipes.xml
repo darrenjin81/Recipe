@@ -10,4 +10,21 @@
         android:layout_height="wrap_content"
         android:text="Hi I am Upload Recipes page." />
 
+    <EditText android:id="@+id/edit_recipe_name"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="title" />
+
+    <EditText android:id="@+id/edit_recipe_instructions"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="instructions" />
+
+    <Button android:id="@+id/button_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="save" />
+
 </LinearLayout>
