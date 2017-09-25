@@ -10,13 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class Homepage extends Fragment {
     private GridView simpleList;
-    private ArrayList<Recipe> featured_recipes = new ArrayList<>();
-    private String test;
+    private ArrayList <Recipe> featured_recipes = new ArrayList<>();
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -25,15 +34,31 @@ public class Homepage extends Fragment {
         View view = inflater.inflate(R.layout.fragment_homepage, parent, false);
 
         //create a list of recipes
-        //configure with firebase later
+        //get recipes from database
         simpleList = (GridView) view.findViewById(R.id.simpleGridView);
-        featured_recipes.add(new Recipe("pizza","Testing"));
-        featured_recipes.add(new Recipe("bread","Testing"));
-        featured_recipes.add(new Recipe("pudding","Testing"));
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+        myRef.child("recipes").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                for(DataSnapshot child: children){
+                    featured_recipes.add(child.getValue(Recipe.class));
+                }
 
-        //display list of recipes in Gridview with adapter
-        HomeAdapter homeAdapter = new HomeAdapter(this.getContext(),R.layout.grid_view_items, featured_recipes);
-        simpleList.setAdapter(homeAdapter);
+                //display list of recipes in Gridview with adapter
+                HomeAdapter homeAdapter = new HomeAdapter(getContext(),R.layout.grid_view_items, featured_recipes);
+                simpleList.setAdapter(homeAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+            }
+        });
 
         return view;
     }

@@ -38,9 +38,10 @@ public class HomeAdapter extends ArrayAdapter {
         Recipe curr_recipe = (Recipe)featured_recipes.get(position);
 
         //create text view for each recipe name
-        TextView tvName;
+        TextView tvName, tvInstruction;
         tvName  = (TextView) v.findViewById(R.id.tvHomeRecipeName);
         tvName.setText(curr_recipe.getName());
+
 
         //create image view for each recipe
         ImageView ivImage;
