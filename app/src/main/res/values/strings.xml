@@ -24,4 +24,10 @@
     <!--Fragment Register-->
     <string name="fragment_register_text">Please enter your desired email you wish to register with:</string>
     <string name="fragment_login_btnCreate">Create</string>
+
+    <!--Fragment Upload-->
+    <string name="upload_recipe_text">Fill in the details for your recipe below:</string>
+    <string name="upload_btn_save">Save</string>
+    <string name="upload_recipe_title">Put the title of your recipe here</string>
+    <string name="upload_recipe_instructions">Instructions</string>
 </resources>
