@@ -8,4 +8,8 @@
     <string name="navigation_upload_recipes">Upload Recipe</string>
     <string name="navigation_saved_recipes">Saved Recipes</string>
     <string name="navigation_search_recipes">Search Recipes</string>
+    <string name="upload_recipe_text">Fill in the details for your recipe below:</string>
+    <string name="upload_btn_save">Save</string>
+    <string name="upload_recipe_title">Put the title of your recipe here</string>
+    <string name="upload_recipe_instructions">Instructions</string>
 </resources>

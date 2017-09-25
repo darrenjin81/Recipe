@@ -25,9 +25,10 @@ public class UploadRecipes extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
-        final EditText nameEditor = (EditText) view.findViewById(R.id.edit_recipe_name);
-        final EditText instructionsEditor = (EditText) view.findViewById(R.id.edit_recipe_instructions);
+        // Setup any handles to view objects here
+        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
+        final EditText nameEditor = (EditText) view.findViewById(R.id.upload_recipe_name);
+        final EditText instructionsEditor = (EditText) view.findViewById(R.id.upload_recipe_instructions);
 
         view.findViewById(R.id.button_upload).setOnClickListener(new View.OnClickListener() {
             @Override
