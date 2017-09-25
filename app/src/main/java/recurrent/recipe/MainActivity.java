@@ -45,20 +45,10 @@ public class MainActivity extends AppCompatActivity {
         // Tie DrawerLayout events to the ActionBarToggle
         mDrawer.addDrawerListener(drawerToggle);
 
-        //display homepage fragment
-        Fragment fragment = null;
-        Class fragmentClass;
-        fragmentClass = Homepage.class;
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // Insert the fragment by replacing any existing fragment
+        //Change to Homepage Fragment
+        Fragment fragment = new Homepage();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
-
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -95,11 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.nav_view_recipe:
                 fragmentClass = RecipeView.class;
-                // lets just open the pizza page here :)
-                Factory f = new Factory();
-//                Recipe r = f.loadTopN(1).get(0);
-                Recipe r = new Recipe("hi", "jin");
-                args.putParcelable(RecipeView.RecipeArgKey, r);
                 break;
             case R.id.browse_recipes:
                 fragmentClass = BrowseRecipes.class;

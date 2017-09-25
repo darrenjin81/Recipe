@@ -11,15 +11,15 @@
         android:scaleType="fitXY"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
     <TextView
         android:id="@+id/tvHomeRecipeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ivHomeRecipeImage"
         android:layout_centerHorizontal="true"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        />
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>

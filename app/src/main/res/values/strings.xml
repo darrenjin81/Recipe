@@ -11,7 +11,7 @@
     <string name="navigation_upload_recipes">Upload Recipe</string>
     <string name="navigation_saved_recipes">Saved Recipes</string>
     <string name="navigation_search_recipes">Search Recipes</string>
-    <string name="homepage_featured_recipes">Featured recipes</string>
+    <string name="navigation_featured_recipes">Featured recipes</string>
 
     <!--Fragment Login-->
     <string name="fragment_login_text">Please login with your details below:</string>
