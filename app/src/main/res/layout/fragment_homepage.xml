@@ -9,7 +9,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:text="@string/homepage_featured_recipes"/>
+        android:text="@string/navigation_featured_recipes"/>
 
     <GridView
         android:id="@+id/simpleGridView"
