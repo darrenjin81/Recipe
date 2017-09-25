@@ -28,7 +28,7 @@ public class RecipeCollectionPagerAdapter extends FragmentStatePagerAdapter {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
-        myRef.child("recipes").addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child(Constants.RecipeTable).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
