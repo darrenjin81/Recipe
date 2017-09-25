@@ -64,3 +64,4 @@ class Recipe implements Parcelable {
         }
     };
 }
+

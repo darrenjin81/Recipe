@@ -5,10 +5,23 @@
     <string name="drawer_close">Close navigation drawer</string>
 
     <string name="navigation_home_page">Home</string>
+
+    <!--Navigation Bar-->
     <string name="navigation_login_page">Login</string>
     <string name="navigation_upload_recipes">Upload Recipe</string>
     <string name="navigation_saved_recipes">Saved Recipes</string>
     <string name="navigation_search_recipes">Search Recipes</string>
-
     <string name="homepage_featured_recipes">Featured recipes</string>
+
+    <!--Fragment Login-->
+    <string name="fragment_login_text">Please login with your details below:</string>
+    <string name="fragment_login_email">E-mail</string>
+    <string name="fragment_login_password">Password</string>
+    <string name="fragment_login_btnRegister">Register</string>
+    <string name="fragment_login_btnLogin">Login</string>
+    <string name="fragment_login_btnSignOut">Sign out</string>
+
+    <!--Fragment Register-->
+    <string name="fragment_register_text">Please enter your desired email you wish to register with:</string>
+    <string name="fragment_login_btnCreate">Create</string>
 </resources>

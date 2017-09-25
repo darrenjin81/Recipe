@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
+        Bundle args = new Bundle();
         switch(menuItem.getItemId()) {
             case R.id.nav_home:
                 fragmentClass = Homepage.class;
@@ -94,7 +95,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.nav_view_recipe:
                 fragmentClass = RecipeView.class;
+                // lets just open the pizza page here :)
+                Factory f = new Factory();
+//                args.putParcelable(RecipeView.RecipeArgKey, );
                 break;
+//            case R.id.browse_recipes:
+//                fragmentClass = BrowseRecipes.class;
+//                break;
             default:
                 fragmentClass = Homepage.class;
         }
