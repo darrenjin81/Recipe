@@ -4,14 +4,14 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-    <string name="navigation_home_page">Home</string>
+    <string name="home_page">Featured recipes</string>
 
     <!--Navigation Bar-->
+    <string name="navigation_home_page">Home</string>
     <string name="navigation_login_page">Login</string>
     <string name="navigation_upload_recipes">Upload Recipe</string>
     <string name="navigation_saved_recipes">Saved Recipes</string>
     <string name="navigation_search_recipes">Search Recipes</string>
-    <string name="navigation_featured_recipes">Featured recipes</string>
 
     <!--Fragment Login-->
     <string name="fragment_login_text">Please login with your details below:</string>
@@ -23,7 +23,7 @@
 
     <!--Fragment Register-->
     <string name="fragment_register_text">Please enter your desired email you wish to register with:</string>
-    <string name="fragment_login_btnCreate">Create</string>
+    <string name="fragment_register_btnCreate">Create</string>
 
     <!--Fragment Upload-->
     <string name="upload_recipe_text">Fill in the details for your recipe below:</string>

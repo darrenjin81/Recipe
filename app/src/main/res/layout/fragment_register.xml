@@ -41,6 +41,6 @@
         android:layout_below="@id/etRegisterPasswordField"
         android:layout_marginTop="8dp"
         android:padding="8dp"
-        android:text="@string/fragment_login_btnCreate" />
+        android:text="@string/fragment_register_btnCreate" />
 
 </RelativeLayout>
