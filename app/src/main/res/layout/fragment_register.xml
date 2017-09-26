@@ -24,12 +24,23 @@
 
     <EditText
         android:id="@+id/etRegisterEmailField"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etRegisterUsernameField"
         android:layout_margin="16dp"
         android:inputType="textEmailAddress"
         android:hint="@string/fragment_login_email"/>
+
+    <Button
+        android:id="@+id/btnCheckValid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:hint="@string/fragment_register_check_valid"
+        android:layout_alignBaseline="@+id/etRegisterEmailField"
+        android:layout_alignBottom="@+id/etRegisterEmailField"
+        android:layout_alignRight="@+id/etRegisterPasswordField"
+        android:layout_alignEnd="@+id/etRegisterPasswordField" />
 
     <EditText
         android:id="@+id/etRegisterPasswordField"
