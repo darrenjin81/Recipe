@@ -33,23 +33,22 @@
         android:hint="@string/fragment_login_password"/>
 
     <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/etLoginPasswordField"
-        android:layout_below="@id/etLoginPasswordField"
-        android:layout_marginTop="8dp"
-        android:padding="8dp"
-        android:text="@string/fragment_login_btnRegister" />
-
-    <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@id/etLoginPasswordField"
-        android:layout_below="@id/etLoginPasswordField"
-        android:layout_marginTop="8dp"
         android:padding="8dp"
-        android:text="@string/fragment_login_btnLogin" />
+        android:layout_marginTop="16dp"
+        android:text="@string/fragment_login_btnLogin"
+        android:layout_below="@+id/etLoginPasswordField"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="@string/fragment_login_btnRegister"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -14,10 +14,19 @@
         android:textSize="14sp"/>
 
     <EditText
-        android:id="@+id/etRegisterEmailField"
+        android:id="@+id/etRegisterUsernameField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvLoginText"
+        android:layout_margin="16dp"
+        android:inputType="textEmailAddress"
+        android:hint="@string/fragment_register_username"/>
+
+    <EditText
+        android:id="@+id/etRegisterEmailField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etRegisterUsernameField"
         android:layout_margin="16dp"
         android:inputType="textEmailAddress"
         android:hint="@string/fragment_login_email"/>

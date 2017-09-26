@@ -56,7 +56,9 @@ public class Login extends Fragment {
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                createAccount(etEmail.getText().toString(), etPassword.getText().toString());
+                Fragment fragment = new Register();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
             }
         });
 
@@ -108,34 +110,5 @@ public class Login extends Fragment {
                     }
                 });
             }
-    }
-
-    private void createAccount(final String email, String password) {
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(getActivity(), "empty email or empty password", Toast.LENGTH_LONG).show();
-        } else {
-
-            mProgress.setMessage("signing up");
-            mProgress.show();
-
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        String user_id = mAuth.getCurrentUser().getUid();
-                        DatabaseReference current_user = mRef.child(user_id);
-                        current_user.child("name").setValue(email);
-                        current_user.child("image").setValue("default");
-
-                        mProgress.dismiss();
-
-                        Fragment fragment = new UserProfile(mAuth.getCurrentUser().getUid());
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
-                    }
-                }
-            });
-        }
     }
 }
