@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,9 +20,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 public class Register extends Fragment {
     private FirebaseAuth mAuth;
-    //FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mRef;
     private ProgressDialog mProgress;
 
@@ -39,18 +41,29 @@ public class Register extends Fragment {
         final EditText etUsername = (EditText) view.findViewById(R.id.etRegisterUsernameField);
         final EditText etEmail = (EditText) view.findViewById(R.id.etRegisterEmailField);
         final EditText etPassword = (EditText) view.findViewById(R.id.etRegisterPasswordField);
+        final EditText etPasswordCheck = (EditText) view.findViewById(R.id.etRegisterPasswordCheckField);
+        final TextView tvPasswordFormatTip = (TextView) view.findViewById(R.id.etPasswordFormatTip);
         Button btnCreate = (Button) view.findViewById(R.id.btnCreate);
+
+        etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                tvPasswordFormatTip.setVisibility(View.VISIBLE);
+            }
+        });
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAccount(etUsername.getText().toString(), etEmail.getText().toString(), etPassword.toString());
+                createAccount(etUsername.getText().toString(), etEmail.getText().toString(), etPassword.toString(), etPasswordCheck.toString());
             }
         });
     }
 
-    private void createAccount(final String username, final String email, String password) {
-        if(username.isEmpty()){
+    private void createAccount(final String username, final String email, String password, String password1) {
+        if(password.equals(password1)){
+            Toast.makeText(getActivity(), "your passwords should be the same", Toast.LENGTH_LONG).show();
+        } else if(username.isEmpty()){
             Toast.makeText(getActivity(), "Your username cannot be empty", Toast.LENGTH_LONG).show();
         } else if (email.isEmpty()) {
             Toast.makeText(getActivity(), "Your email address is empty", Toast.LENGTH_LONG).show();
@@ -61,8 +74,9 @@ public class Register extends Fragment {
                 Toast.makeText(getActivity(), "Your email address is not valid", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (!password.matches("((?=.*\\\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})")){
-                Toast.makeText(getActivity(), "Your password is not valid", Toast.LENGTH_LONG).show();
+            if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@!%*?&])[A-Za-z\\d$@!%*?&]{6,20}")){
+                Toast.makeText(getActivity(), "Make sure your password meets requirement", Toast.LENGTH_LONG).show();
+                return;
             }
             mProgress.setMessage("signing up");
             mProgress.show();
@@ -81,7 +95,6 @@ public class Register extends Fragment {
                         Fragment fragment = new UserProfile(mAuth.getCurrentUser().getUid());
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
                     }
                 }
             });
