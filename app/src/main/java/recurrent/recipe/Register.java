@@ -17,10 +17,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class Register extends Fragment {
     private FirebaseAuth mAuth;
@@ -40,10 +45,40 @@ public class Register extends Fragment {
 
         final EditText etUsername = (EditText) view.findViewById(R.id.etRegisterUsernameField);
         final EditText etEmail = (EditText) view.findViewById(R.id.etRegisterEmailField);
+        Button btnCheckValid = (Button) view.findViewById(R.id.btnCheckValid);
         final EditText etPassword = (EditText) view.findViewById(R.id.etRegisterPasswordField);
         final EditText etPasswordCheck = (EditText) view.findViewById(R.id.etRegisterPasswordCheckField);
         final TextView tvPasswordFormatTip = (TextView) view.findViewById(R.id.etPasswordFormatTip);
         Button btnCreate = (Button) view.findViewById(R.id.btnCreate);
+
+        btnCheckValid.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //TODO: check if email is valid or not by going through database.
+//                ArrayList<>recipes = new ArrayList<Recipe>();
+//
+//                FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                DatabaseReference myRef = database.getReference();
+//                myRef.child(Constants.RecipeTable).addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        // This method is called once with the initial value and again
+//                        // whenever data at this location is updated.
+//                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+//                        for(DataSnapshot child: children){
+//                            recipes.add(child.getValue(Recipe.class));
+//                        }
+//
+//                        RecipeCollectionPagerAdapter.super.notifyDataSetChanged();
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError error) {
+//                        // Failed to read value
+//                    }
+//                });
+            }
+        });
 
         etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -51,17 +86,16 @@ public class Register extends Fragment {
                 tvPasswordFormatTip.setVisibility(View.VISIBLE);
             }
         });
-
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAccount(etUsername.getText().toString(), etEmail.getText().toString(), etPassword.toString(), etPasswordCheck.toString());
+                createAccount(etUsername.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString(), etPasswordCheck.getText().toString());
             }
         });
     }
 
     private void createAccount(final String username, final String email, String password, String password1) {
-        if(password.equals(password1)){
+        if(!password.equals(password1)){
             Toast.makeText(getActivity(), "your passwords should be the same", Toast.LENGTH_LONG).show();
         } else if(username.isEmpty()){
             Toast.makeText(getActivity(), "Your username cannot be empty", Toast.LENGTH_LONG).show();
@@ -74,7 +108,7 @@ public class Register extends Fragment {
                 Toast.makeText(getActivity(), "Your email address is not valid", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@!%*?&])[A-Za-z\\d$@!%*?&]{6,20}")){
+            if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&'*+-/=?^_`{|}~])[A-Za-z\\d!#$%&'*+-/=?^_`{|}~]{6,20}$")){
                 Toast.makeText(getActivity(), "Make sure your password meets requirement", Toast.LENGTH_LONG).show();
                 return;
             }
