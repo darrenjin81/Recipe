@@ -17,13 +17,14 @@
     <string name="fragment_login_text">Please login with your details below:</string>
     <string name="fragment_login_email">E-mail</string>
     <string name="fragment_login_password">Password</string>
-    <string name="fragment_login_btnRegister">Register</string>
+    <string name="fragment_login_btnRegister">Don\'t have an account? Register!</string>
     <string name="fragment_login_btnLogin">Login</string>
     <string name="fragment_login_btnSignOut">Sign out</string>
 
     <!--Fragment Register-->
     <string name="fragment_register_text">Please enter your desired email you wish to register with:</string>
     <string name="fragment_register_btnCreate">Create</string>
+    <string name="fragment_register_username">Put your desired username here</string>
 
     <!--Fragment Upload-->
     <string name="upload_recipe_text">Fill in the details for your recipe below:</string>
