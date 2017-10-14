@@ -34,6 +34,7 @@ public class Register extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        getActivity().setTitle("Register");
         return inflater.inflate(R.layout.fragment_register, parent, false);
     }
 
@@ -119,6 +120,7 @@ public class Register extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+
                         String user_id = mAuth.getCurrentUser().getUid();
                         DatabaseReference current_user = mRef.child(user_id);
                         current_user.child("username").setValue(username);
@@ -126,7 +128,7 @@ public class Register extends Fragment {
 
                         mProgress.dismiss();
 
-                        Fragment fragment = new UserProfile(mAuth.getCurrentUser().getUid());
+                        Fragment fragment = new UserProfile();
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
                     }

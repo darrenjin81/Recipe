@@ -2,35 +2,60 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--Change Icons later...-->
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/group_login_page"
+        android:checkableBehavior="single"
+        android:visible="true">
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/navigation_login_page" />
+    </group>
+
+    <group
+        android:id="@+id/group_profile_page"
+        android:checkableBehavior="single"
+        android:visible="false">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/navigation_my_profile_page" />
+    </group>
+
+    <group
+        android:id="@+id/group_default_items"
+        android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_home"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/navigation_home_page" />
 
         <item
-            android:id="@+id/nav_login"
-            android:icon="@mipmap/ic_launcher"
-            android:title="@string/navigation_login_page" />
-
-        <item
             android:id="@+id/browse_recipes"
             android:icon="@mipmap/ic_launcher"
             android:title="Browse" />
 
-        <item
-            android:id="@+id/nav_upload_recipes"
-            android:icon="@mipmap/ic_launcher"
-            android:title="@string/navigation_upload_recipes" />
-        <item
-            android:id="@+id/nav_saved_recipes"
-            android:icon="@mipmap/ic_launcher"
-            android:title="@string/navigation_saved_recipes" />
 
         <item
             android:id="@+id/nav_search_recipes"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/navigation_search_recipes" />
+    </group>
+
+    <group
+        android:id="@+id/group_loggedInItems"
+        android:checkableBehavior="single"
+        android:visible="false">
+        <item
+            android:id="@+id/nav_upload_recipes"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/navigation_upload_recipes" />
+
+        <item
+            android:id="@+id/nav_saved_recipes"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/navigation_saved_recipes" />
         
         <item
             android:id="@+id/nav_view_recipe"

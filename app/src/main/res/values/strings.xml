@@ -12,6 +12,7 @@
     <string name="navigation_upload_recipes">Upload Recipe</string>
     <string name="navigation_saved_recipes">Saved Recipes</string>
     <string name="navigation_search_recipes">Search Recipes</string>
+    <string name="navigation_my_profile_page">My Profile</string>
 
     <!--Fragment Login-->
     <string name="fragment_login_text">Please login with your details below:</string>
@@ -30,11 +31,26 @@
     <string name="fragment_register_check_password">Re-enter your password</string>
     <string name="fragment_register_password_format_tip">Your password should be no shorter than 6 characters\nYour password should contain one lowercase letter, one uppercase letter, one number and one special character</string>
 
-
-
     <!--Fragment Upload-->
     <string name="upload_recipe_text">Fill in the details for your recipe below:</string>
     <string name="upload_btn_save">Save</string>
     <string name="upload_recipe_title">Put the title of your recipe here</string>
     <string name="upload_recipe_instructions">Instructions</string>
+
+    <!--Fragment UserProfile-->
+    <string name="fragment_user_profile_text">My Profile</string>
+    <string name="fragment_user_profile_saved_recipes">Saved Recipes</string>
+    <string name="fragment_user_profile_my_recipes">My Recipes</string>
+    <string name="fragment_user_profile_btnSignOut">Sign out</string>
+    <string name="fragment_user_profile_btnEditDetails">Edit Profile</string>
+
+    <!--Fragment EditProfile-->
+    <string name="fragment_edit_profile_btnChangePwdPage">Change Password</string>
+    <string name="fragment_edit_profile_btnSaveDetails">Save</string>
+    <string name="fragment_edit_profile_tvUsername">Username</string>
+    <string name="fragment_edit_profile_tvEmail">E-mail</string>
+    <string name="fragment_edit_profile_btnChangePhoto">Change Photo</string>
+
+    <!--Fragment changePassword-->
+    <string name="fragment_change_password_btnChangePwd">Change</string>
 </resources>

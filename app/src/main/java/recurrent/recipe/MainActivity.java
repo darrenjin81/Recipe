@@ -15,6 +15,10 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.*;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,7 +55,19 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
     }
 
-    private void setupDrawerContent(NavigationView navigationView) {
+    public void setupDrawerContent(NavigationView navigationView) {
+        //set up different drawer contents based on login status
+        FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+        if (u != null) {
+            navigationView.getMenu().setGroupVisible(R.id.group_loggedInItems,true);
+            navigationView.getMenu().setGroupVisible(R.id.group_profile_page,true);
+            navigationView.getMenu().setGroupVisible(R.id.group_login_page,false);
+        } else {
+            navigationView.getMenu().setGroupVisible(R.id.group_loggedInItems,false);
+            navigationView.getMenu().setGroupVisible(R.id.group_profile_page,false);
+            navigationView.getMenu().setGroupVisible(R.id.group_login_page,true);
+        }
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -73,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.nav_login:
                 fragmentClass = Login.class;
+                break;
+            case R.id.nav_profile:
+                fragmentClass = UserProfile.class;
                 break;
             case R.id.nav_upload_recipes:
                 fragmentClass = UploadRecipes.class;
@@ -141,4 +160,5 @@ public class MainActivity extends AppCompatActivity {
         // Pass any configuration change to the drawer toggles
         drawerToggle.onConfigurationChanged(newConfig);
     }
+
 }

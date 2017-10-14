@@ -37,6 +37,7 @@ public class RecipeView extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup parent, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.recipe_view, parent, false);
+        getActivity().setTitle("Recipe details");
         return view;
     }
 
