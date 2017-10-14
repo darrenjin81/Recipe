@@ -63,7 +63,6 @@ public class UserProfile extends Fragment {
         btnSavedRecipes = (Button) view.findViewById(R.id.btnSavedRecipes);
         tvUsername = (TextView) view.findViewById(R.id.tvUsername);
         //etUsernameField = (EditText) view.findViewById(R.id.etUsernameField);
-
         mdatabase = FirebaseDatabase.getInstance();
         mRef = mdatabase.getReference();
 

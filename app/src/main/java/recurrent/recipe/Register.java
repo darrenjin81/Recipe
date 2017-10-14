@@ -113,7 +113,7 @@ public class Register extends Fragment {
                 Toast.makeText(getActivity(), "Make sure your password meets requirement", Toast.LENGTH_LONG).show();
                 return;
             }
-            mProgress.setMessage("signing up");
+            mProgress.setMessage("signing up!!!");
             mProgress.show();
 
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

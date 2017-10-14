@@ -40,17 +40,6 @@ public class Login extends Fragment {
         mProgress = new ProgressDialog(getActivity());
         mRef = FirebaseDatabase.getInstance().getReference().child("users");
 
-//        //Check is user has logged in or not
-//        mAuthListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                if (firebaseAuth.getCurrentUser() != null) {
-//                    //TODO ....IDK HOW TO FIREBASE
-//                    startActivity(new Intent(getActivity(), UserProfile.class));
-//                }
-//            }
-//        };
-
         etEmail = (EditText) view.findViewById(R.id.etLoginEmailField);
         etPassword = (EditText) view.findViewById(R.id.etLoginPasswordField);
         btnRegister = (Button) view.findViewById(R.id.btnRegister);
