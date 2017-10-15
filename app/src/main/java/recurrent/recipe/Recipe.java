@@ -16,20 +16,23 @@ import java.util.ArrayList;
 class Recipe implements Parcelable {
     //every recipe will have its own id.
     private String unique_id;
+    private String owner_id;
 
     //name of user's recipe
     private String name;
     private ArrayList<String> instructionsSteps;
     private ArrayList<String> ingredients;
 
-    public String image = "marcoons";
+    //public String image = "marcoons";
 
     public Recipe(){
         instructionsSteps = new ArrayList<String>();
         ingredients = new ArrayList<String>();
     }
 
-    public Recipe(String name, ArrayList<String> instructionSteps, ArrayList<String> ingredients) {
+    public Recipe(String name, String owner, ArrayList<String> instructionSteps, ArrayList<String> ingredients) {
+        this.unique_id = "";
+        this.owner_id = owner;
         this.name = name;
         this.instructionsSteps = instructionSteps;
         this.ingredients = ingredients;
@@ -38,13 +41,9 @@ class Recipe implements Parcelable {
     private Recipe(Parcel in) {
         unique_id = in.readString();
         name = in.readString();
+        owner_id = in.readString();
         instructionsSteps = in.readArrayList(null);
         ingredients = in.readArrayList(null);
-    }
-    StorageReference getStorageReference(){
-        StorageReference mRef = FirebaseStorage.getInstance().getReference().child("UploadedRecipes")
-                .child(unique_id).child(name + ".jpg");
-        return mRef;
     }
 
     //getters
@@ -61,7 +60,7 @@ class Recipe implements Parcelable {
         return unique_id;
     }
 
-    public void addKey(String id){
+    public void setKey(String id){
         unique_id = id;
     }
 
@@ -77,6 +76,7 @@ class Recipe implements Parcelable {
 
         out.writeString(this.unique_id);
         out.writeString(this.name);
+        out.writeString(this.owner_id);
         out.writeList(this.instructionsSteps);
         out.writeList(this.ingredients);
     }
