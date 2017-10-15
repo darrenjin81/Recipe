@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 /**
@@ -56,10 +57,13 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
 
 
         ImageView image = (ImageView) v.findViewById(R.id.ivSummary_pic) ;
-        StorageReference myImagePath = recipe.getStorageReference();
+        StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+        StorageReference mRef = mStorage.child("UploadedRecipes")
+                .child(recipe.getKey()).child(recipe.getName() + ".jpg");
+//        StorageReference myImagePath = recipe.getStorageReference();
         Glide.with(this)
                 .using(new FirebaseImageLoader())
-                .load(myImagePath)
+                .load(mRef)
                 .into(image);
         //image.setImageResource(getResources().getIdentifier(recipe.image,"drawable",getContext().getPackageName()));
 

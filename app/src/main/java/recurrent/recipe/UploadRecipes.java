@@ -66,6 +66,7 @@ public class UploadRecipes extends Fragment {
     private byte[] cameraData;
     private String myCurrentPhotoPath;
 
+    Recipe recipe;
     String addedIngredients = "";
     String addedInstuctions = "";
     ArrayList<String> ingredients = new ArrayList<>();
@@ -174,9 +175,9 @@ public class UploadRecipes extends Fragment {
                     //write into database
                     mProgressDialog.setMessage("being added...");
                     mProgressDialog.show();
-                    final Recipe recipe = new Recipe(name, instructionSteps, ingredients);//, ingredients);
+                    recipe = new Recipe(name, user_id, instructionSteps, ingredients);
                     String key = myRef.child("recipes").push().getKey();
-
+                    recipe.setKey(key);
                     myRef.child("recipes").child(key).setValue(recipe);
 
                     StorageReference filepath = mStorage.child("UploadedRecipes").
