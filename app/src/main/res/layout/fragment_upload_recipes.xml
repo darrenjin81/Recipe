@@ -29,17 +29,35 @@
             android:hint="@string/upload_recipe_title" />
 
         <EditText android:id="@+id/upload_recipe_instructions"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/upload_recipe_name"
             android:layout_margin="8dp"
             android:inputType="textCapSentences|textMultiLine"
             android:hint="@string/upload_recipe_instructions" />
+        <Button android:id="@+id/btnAddInstructionsStep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_recipe_btn_add_ingredient"
+            android:layout_alignTop="@+id/upload_recipe_instructions"
+            android:layout_alignRight="@+id/upload_recipe_name"
+            android:layout_alignEnd="@+id/upload_recipe_name" />
+        <TextView
+            android:id="@+id/tv_tip_added_instruction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@id/upload_recipe_instructions"
+            android:textSize="12sp"
+            android:textColor="@color/colorPrimary"
+            android:text="test instructions" />
 
         <EditText android:id="@+id/upload_recipe_ingredients"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/upload_recipe_instructions"
+            android:layout_below="@id/tv_tip_added_instruction"
             android:layout_margin="8dp"
             android:hint="@string/upload_recipe_ingredients" />
 
@@ -47,10 +65,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/upload_recipe_btn_add_ingredient"
-            android:layout_alignTop="@+id/upload_recipe_ingredients"
-            android:layout_alignRight="@+id/upload_recipe_instructions"
-            android:layout_alignEnd="@+id/upload_recipe_instructions" />
-bee
+            android:layout_above="@+id/tv_tip_added_ingredient"
+            android:layout_alignLeft="@+id/btnAddInstructionsStep"
+            android:layout_alignStart="@+id/btnAddInstructionsStep" />
         <TextView
             android:id="@+id/tv_tip_added_ingredient"
             android:layout_width="wrap_content"
@@ -61,7 +78,7 @@ bee
             android:layout_below="@id/upload_recipe_ingredients"
             android:textSize="12sp"
             android:textColor="@color/colorPrimary"
-            android:text="" />
+            android:text="test ingredients" />
 
         <ImageView
             android:id="@+id/upload_recipe_image"
@@ -84,10 +101,9 @@ bee
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/upload_recipe_image"
-            android:layout_alignBottom="@+id/upload_recipe_image"
-            android:layout_alignRight="@+id/upload_recipe_instructions"
-            android:layout_alignEnd="@+id/upload_recipe_instructions"
-            android:layout_marginBottom="24dp" />
+            android:layout_alignBottom="@+id/btnActivateCamera"
+            android:layout_alignRight="@+id/btnAddIngredient"
+            android:layout_alignEnd="@+id/btnAddIngredient" />
 
 
         <Button android:id="@+id/button_upload"

@@ -26,6 +26,8 @@ public class RecipeCollectionPagerAdapter extends FragmentStatePagerAdapter {
         super(fm);
         recipes = new ArrayList<Recipe>();
 
+        //TODO fixx
+        String q = "pizza";
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
         myRef.child(Constants.RecipeTable).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -55,7 +57,7 @@ public class RecipeCollectionPagerAdapter extends FragmentStatePagerAdapter {
         Recipe r = recipes.get(i);
         args.putParcelable(RecipeSummary.RecipeSummaryArgKey, r);
 
-        Fragment fragment = null; //we should put a general purpose error page here
+        Fragment fragment = null; //TODO we should put a general purpose error page here
         fragment = new RecipeSummary();
         fragment.setArguments(args);
 

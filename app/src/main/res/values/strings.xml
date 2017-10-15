@@ -45,6 +45,10 @@
 
 
 
+    <!--Search bar-->
+    <string name="search_title">Searchy</string>
+    <string name="search_hint">Searchyy!!!</string>
+
     <!--Fragment UserProfile-->
     <string name="fragment_user_profile_text">My Profile</string>
     <string name="fragment_user_profile_saved_recipes">Saved Recipes</string>

@@ -52,6 +52,8 @@ public class UploadRecipes extends Fragment {
     private EditText instructionsEditor;
     private ImageView ivUploadImage;
     private EditText etIngredient;
+    private Button btnAddInstructionsStep;
+    private TextView tvInstructionsTip;
     private Button btnAddIngredient;
     private TextView tvIngredientTip;
     private Button btnAcitivateCamera;
@@ -65,6 +67,9 @@ public class UploadRecipes extends Fragment {
     private String myCurrentPhotoPath;
 
     String addedIngredients = "";
+    String addedInstuctions = "";
+    ArrayList<String> ingredients = new ArrayList<>();
+    ArrayList<String> instructionSteps = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -88,6 +93,8 @@ public class UploadRecipes extends Fragment {
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
         nameEditor = (EditText) getView().findViewById(R.id.upload_recipe_name);
         instructionsEditor = (EditText) getView().findViewById(R.id.upload_recipe_instructions);
+        btnAddInstructionsStep = (Button) getView().findViewById(R.id.btnAddInstructionsStep);
+        tvInstructionsTip = (TextView) getView().findViewById(R.id.tv_tip_added_instruction);
         ivUploadImage = (ImageView) getView().findViewById((R.id.upload_recipe_image));
         etIngredient = (EditText) getView().findViewById(R.id.upload_recipe_ingredients);
         btnAddIngredient = (Button) getView().findViewById(R.id.btnAddIngredient);
@@ -95,8 +102,6 @@ public class UploadRecipes extends Fragment {
         btnAcitivateCamera = (Button) getView().findViewById(R.id.btnActivateCamera);
         btnUploadImage = (Button) getView().findViewById(R.id.btnUploadImage);
         btnUpload = (Button) getView().findViewById(R.id.button_upload);
-
-        final ArrayList<String> ingredients = new ArrayList<>();
 
         mRef.child("users/" + user_id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -112,6 +117,17 @@ public class UploadRecipes extends Fragment {
                 // Failed to read value
             }
         });
+        btnAddInstructionsStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String instruction = instructionsEditor.getText().toString();
+                instructionSteps.add(instruction);
+                instructionsEditor.setText("");
+                addedInstuctions = addedInstuctions.concat(instruction + " has been successfully added...\n");
+                tvInstructionsTip.setText(addedInstuctions);
+            }
+        });
+
         btnAddIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,12 +174,13 @@ public class UploadRecipes extends Fragment {
                     //write into database
                     mProgressDialog.setMessage("being added...");
                     mProgressDialog.show();
-                    final Recipe recipe = new Recipe(name, instructions, ingredients);
-                    myRef.child("recipes").child(name).setValue(recipe);
+                    final Recipe recipe = new Recipe(name, instructionSteps, ingredients);//, ingredients);
+                    String key = myRef.child("recipes").push().getKey();
 
+                    myRef.child("recipes").child(key).setValue(recipe);
 
                     StorageReference filepath = mStorage.child("UploadedRecipes").
-                            child(user_id).child(name + ".jpg");
+                            child(key).child(name + ".jpg");
                     if (imageUri != null) {
                         filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
@@ -196,8 +213,17 @@ public class UploadRecipes extends Fragment {
                                         .commit();
                             }
                         });
+                    }else {
+                        mProgressDialog.dismiss();
+                        Bundle args = new Bundle();
+                        args.putParcelable(RecipeView.RecipeArgKey, recipe);
+                        Fragment nextFrag = new RecipeView();
+                        nextFrag.setArguments(args);
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(((ViewGroup) getView().getParent()).getId(), nextFrag, "r")
+                                .addToBackStack(null)
+                                .commit();
                     }
-
                 }
             }
         });
