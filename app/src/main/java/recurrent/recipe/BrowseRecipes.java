@@ -17,8 +17,6 @@ import recurrent.recipe.RecipeSummary;
 
 public class BrowseRecipes extends Fragment {
 
-    // When requested, this adapter returns a DemoObjectFragment,
-    // representing an object in the collection.
     RecipeCollectionPagerAdapter mRecipeCollectionPagerAdapter;
     ViewPager mViewPager;
 

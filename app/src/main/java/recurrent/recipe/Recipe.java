@@ -8,6 +8,8 @@ package recurrent.recipe;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 class Recipe implements Parcelable {
     //every recipe will have its own id.
     static int id = 0;
@@ -15,14 +17,37 @@ class Recipe implements Parcelable {
     //name of user's recipe
     private String name;
     private String instructions;
+    private ArrayList<String> instructionsSteps;
+    private ArrayList<String> ingredients;
+
+    public String image = "macaroons"; //TODO fix
+
+
 
     public Recipe(){
+        instructionsSteps = new ArrayList<String>();
+        ingredients = new ArrayList<String>();
 
+        instructionsSteps.add("cut blah blah");
+        instructionsSteps.add("cook blah blah etc");
+        instructionsSteps.add("something somtinhgssad");
+
+        ingredients.add("tomato");
+        ingredients.add("watermelon");
     }
 
     public Recipe(String name, String instructions) {
         this.name = name;
         this.instructions = instructions;
+        instructionsSteps = new ArrayList<String>();
+        ingredients = new ArrayList<String>();
+
+        instructionsSteps.add("cut blah blah");
+        instructionsSteps.add("cook blah blah etc");
+        instructionsSteps.add("something somtinhgssad");
+
+        ingredients.add("tomato");
+        ingredients.add("watermelon");
     }
 
     private Recipe(Parcel in) {
@@ -38,6 +63,13 @@ class Recipe implements Parcelable {
     public String getInstructions(){
         return instructions;
     }
+    public ArrayList<String> getInstructionsSteps() {
+        return instructionsSteps;
+    }
+    public ArrayList<String> getIngredients() {
+        return ingredients;
+    }
+
 
     @Override
     public int describeContents() {
@@ -63,5 +95,27 @@ class Recipe implements Parcelable {
             return new Recipe[size];
         }
     };
+
+    public ArrayList<HeaderInfo> toDisplayformat() {
+        ArrayList<HeaderInfo> results = new ArrayList<HeaderInfo>();
+
+        HeaderInfo ingredients = new HeaderInfo("Ingredients");
+        Integer i = 1;
+        for(String s : this.ingredients){
+            ingredients.addChild(new DetailInfo(i.toString(), s));
+            i++;
+        }
+
+        HeaderInfo method = new HeaderInfo("Method");
+        i = 1;
+        for(String s : this.instructionsSteps){
+            method.addChild(new DetailInfo(i.toString(), s));
+            i++;
+        }
+
+        results.add(ingredients);
+        results.add(method);
+        return results;
+    }
 }
 

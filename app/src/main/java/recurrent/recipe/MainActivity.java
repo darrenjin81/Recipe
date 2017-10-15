@@ -1,7 +1,8 @@
 package recurrent.recipe;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,8 +53,16 @@ public class MainActivity extends AppCompatActivity {
         // Tie DrawerLayout events to the ActionBarToggle
         mDrawer.addDrawerListener(drawerToggle);
 
-        //Change to Homepage Fragment
-        Fragment fragment = new Homepage();
+        //display homepage fragment
+        Fragment fragment = null;
+        Class fragmentClass;
+        fragmentClass = Homepage.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
     }
@@ -121,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment, "FRAG_FEED").commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -143,6 +155,20 @@ public class MainActivity extends AppCompatActivity {
         return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_action, menu);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        final SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setQuery("", false);
+        searchView.setIconified(true);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        return true;
+    }
+
     // `onPostCreate` called when activity start-up is complete after `onStart()`
     // NOTE 1: Make sure to override the method with only a single `Bundle` argument
     // Note 2: Make sure you implement the correct `onPostCreate(Bundle savedInstanceState)` method.
@@ -160,5 +186,4 @@ public class MainActivity extends AppCompatActivity {
         // Pass any configuration change to the drawer toggles
         drawerToggle.onConfigurationChanged(newConfig);
     }
-
 }

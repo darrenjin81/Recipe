@@ -47,7 +47,11 @@ public class Homepage extends Fragment {
                 // whenever data at this location is updated.
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for(DataSnapshot child: children){
-                    featured_recipes.add(child.getValue(Recipe.class));
+                    Recipe r = child.getValue(Recipe.class);
+                    //TODO fix
+                    if(r.getName().equals("pizza") || r.getName().equals("chicken") || r.getName().equals("bread")){
+                        featured_recipes.add(r);
+                    }
                 }
 
                 //display list of recipes in Gridview with adapter
@@ -64,9 +68,12 @@ public class Homepage extends Fragment {
                         }
                         FragmentTransaction fragmentTransaction = getActivity()
                                 .getSupportFragmentManager().beginTransaction();
+
+
                         Bundle args = new Bundle();
-                        args.putParcelable(RecipeView.RecipeArgKey, curr_recipe);
-                        Fragment nextFrag= new RecipeView();
+                        args.putParcelable(RecipeSummary.RecipeSummaryArgKey, curr_recipe);
+
+                        Fragment nextFrag= new RecipeSummary();
                         nextFrag.setArguments(args);
                         fragmentTransaction.replace(((ViewGroup)getView().getParent()).getId(),
                                 nextFrag);

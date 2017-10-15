@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
 
@@ -45,16 +50,15 @@ public class RecipeView extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        TextView tvName, tvInstructions;
-        tvName  = (TextView) view.findViewById(R.id.tvRecipeName);
-        tvName.setText(recipe.getName());
-
-        tvInstructions = (TextView) view.findViewById(R.id.tvInstructions);
-        tvInstructions.setText(recipe.getInstructions());
-
-        ImageView ivRecipeImage;
-        ivRecipeImage = (ImageView) view.findViewById(R.id.ivRecipeImage);
-        int id = getResources().getIdentifier(recipe.getName(),"drawable",getContext().getPackageName());
-        ivRecipeImage.setImageResource(id);
+        ExpandableListView e = (ExpandableListView) view.findViewById(R.id.elvRecipe_view);
+        MyListAdapter adaptor = new MyListAdapter(recipe.toDisplayformat(), this.getContext());
+        e.setAdapter(adaptor);
+        e.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                return false;
+            }
+        });
     }
 }
+

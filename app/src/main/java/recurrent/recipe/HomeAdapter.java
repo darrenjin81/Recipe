@@ -46,6 +46,7 @@ public class HomeAdapter extends ArrayAdapter {
         //create image view for each recipe
         ImageView ivImage;
         ivImage = (ImageView) v.findViewById(R.id.ivHomeRecipeImage);
+
         int id = getContext().getResources().getIdentifier(curr_recipe.getName(),"drawable",
                 getContext().getPackageName());
         ivImage.setImageResource(id);
