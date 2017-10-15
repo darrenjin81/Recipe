@@ -7,7 +7,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * Created by admin on 18/09/2017.
@@ -37,8 +42,28 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
         View v = inflater.inflate(R.layout.fragment_recipe_summary, parent, false);
-        TextView t = (TextView) v.findViewById(R.id.tvSummary_num);
-        t.setText("hi this is recipe " + recipe.getName());
+        TextView t = (TextView) v.findViewById(R.id.tvSummary_title);
+        t.setText(recipe.getName());
+
+        t = (TextView) v.findViewById(R.id.tvSummary_ingredients_num);
+        t.setText("4"); //TODO fix
+
+        t = (TextView) v.findViewById(R.id.tvSummary_preptime_num);
+        t.setText("34H 92M"); //TODO fix
+
+        t = (TextView) v.findViewById(R.id.tvSummary_cals_num);
+        t.setText("499");//TODO fix
+
+
+        ImageView image = (ImageView) v.findViewById(R.id.ivSummary_pic) ;
+        StorageReference myImagePath = recipe.getStorageReference();
+        Glide.with(this)
+                .using(new FirebaseImageLoader())
+                .load(myImagePath)
+                .into(image);
+        //image.setImageResource(getResources().getIdentifier(recipe.image,"drawable",getContext().getPackageName()));
+
+
         v.setOnTouchListener(this);
         return v;
     }
@@ -113,8 +138,10 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         args.putParcelable(RecipeView.RecipeArgKey, recipe);
         Fragment nextFrag= new RecipeView();
         nextFrag.setArguments(args);
+
+        //TODO if we need browse, then its getParent().get()Parent()
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(((ViewGroup)getView().getParent().getParent()).getId(), nextFrag, "r")
+                .replace(((ViewGroup)getView().getParent()).getId(), nextFrag, "FRAG_FEED")
                 .addToBackStack(null)
                 .commit();
     }

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnChangePwdPage"
+        android:layout_width="350sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/fragment_edit_profile_btnChangePwdPage"
+        android:textAllCaps="false"
+        android:layout_below="@+id/btnSaveDetails"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btnSaveDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="@string/fragment_edit_profile_btnSaveDetails"
+        android:textAllCaps="false"
+        android:layout_below="@+id/etEmailField"
+        android:layout_alignRight="@+id/btnChangePwdPage"
+        android:layout_alignEnd="@+id/btnChangePwdPage"/>
+
+    <TextView
+        android:id="@+id/tvUsernameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/etUsernameField"
+        android:layout_alignBottom="@+id/etUsernameField"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_toLeftOf="@+id/etUsernameField"
+        android:layout_toStartOf="@+id/etUsernameField"
+        android:text="@string/fragment_edit_profile_tvUsername"
+        android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tvEmailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvUsernameText"
+        android:layout_alignStart="@+id/tvUsernameText"
+        android:layout_centerVertical="true"
+        android:text="@string/fragment_edit_profile_tvEmail"
+        android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+        android:textSize="14sp"/>
+
+    <ImageView
+        android:id="@+id/ivProfilePic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="59dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btnChangePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_edit_profile_btnChangePhoto"
+        android:textAllCaps="false"
+        android:layout_below="@+id/ivProfilePic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"/>
+
+    <EditText
+        android:id="@+id/etUsernameField"
+        android:layout_width="250sp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="false"
+        android:layout_above="@+id/etEmailField"
+        android:layout_alignLeft="@+id/etEmailField"
+        android:layout_alignStart="@+id/etEmailField"/>
+
+    <EditText
+        android:id="@+id/etEmailField"
+        android:layout_width="250sp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>

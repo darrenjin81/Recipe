@@ -3,6 +3,7 @@ package recurrent.recipe;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -34,20 +35,10 @@ public class Login extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, parent, false);
+        getActivity().setTitle("Login");
         mAuth = FirebaseAuth.getInstance();
         mProgress = new ProgressDialog(getActivity());
         mRef = FirebaseDatabase.getInstance().getReference().child("users");
-
-//        //Check is user has logged in or not
-//        mAuthListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                if (firebaseAuth.getCurrentUser() != null) {
-//                    //TODO ....IDK HOW TO FIREBASE
-//                    startActivity(new Intent(getActivity(), UserProfile.class));
-//                }
-//            }
-//        };
 
         etEmail = (EditText) view.findViewById(R.id.etLoginEmailField);
         etPassword = (EditText) view.findViewById(R.id.etLoginPasswordField);
@@ -79,8 +70,11 @@ public class Login extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        //update drawer content
+        NavigationView nvDrawer = (NavigationView) getActivity().findViewById(R.id.nvView);
+        ((MainActivity) getActivity()).setupDrawerContent(nvDrawer);
         if (mAuth.getCurrentUser() != null){
-            Fragment fragment = new UserProfile(mAuth.getCurrentUser().getUid());
+            Fragment fragment = new UserProfile();
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
         }
@@ -94,14 +88,14 @@ public class Login extends Fragment {
                 @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            //System.out.println(mAuth.getCurrentUser().getDisplayName());
                             //Toast.makeText(getActivity(), "sign in problem", Toast.LENGTH_LONG).show();
-                            String user_id = mAuth.getCurrentUser().getUid();
-                            FirebaseUser usr = mAuth.getCurrentUser();
-                            DatabaseReference current_user = mRef.child(user_id);
-                            current_user.child("name").setValue(usr.getEmail());
-                            current_user.child("image").setValue("default");
-
-                            Fragment fragment = new UserProfile(mAuth.getCurrentUser().getUid());
+                            //String user_id = mAuth.getCurrentUser().getUid();
+                            //FirebaseUser usr = mAuth.getCurrentUser();
+                            //DatabaseReference current_user = mRef.child(user_id);
+                            //current_user.child("name").setValue(usr.getEmail());
+                            //current_user.child("image").setValue("default");
+                            Fragment fragment = new UserProfile();
                             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
                         }else{

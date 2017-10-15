@@ -1,13 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <!--Temporary text-->
-    <TextView
-        android:id="@+id/tvSummary_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="bleh." />
 
-</LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivSummary_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:scaleType="centerCrop"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient"/>
+    </FrameLayout>
+
+
+    <TextView
+    android:id="@+id/tvSummary_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Title"
+    android:layout_alignParentBottom="true"
+    android:textColor="#ffffff"
+    android:textSize="40sp"
+    android:layout_marginBottom="120dp"
+    android:layout_marginLeft="25dp"
+    />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="75dp"
+        >
+
+        <TextView
+            android:id="@+id/tvSummary_ingredients_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="num"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:layout_weight="33.33"
+            android:gravity="center_horizontal"
+
+            />
+
+        <TextView
+            android:id="@+id/tvSummary_preptime_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="numH numM"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:layout_weight="33.33"
+            android:gravity="center_horizontal"
+            />
+
+        <TextView
+            android:id="@+id/tvSummary_cals_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="num"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:layout_weight="33.33"
+            android:gravity="center_horizontal"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        >
+
+        <TextView
+            android:id="@+id/tvIngredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingredients"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:layout_weight="33"
+            android:gravity="center_horizontal"
+
+            />
+
+        <TextView
+            android:id="@+id/tvPrepTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preparation Time"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:layout_weight="33"
+            android:gravity="center_horizontal"
+            />
+
+        <TextView
+            android:id="@+id/tvCal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calories"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:layout_weight="33"
+            android:gravity="center_horizontal"
+
+            />
+    </LinearLayout>
+
+
+
+</RelativeLayout>

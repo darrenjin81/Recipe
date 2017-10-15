@@ -1,7 +1,8 @@
 package recurrent.recipe;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -10,11 +11,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.*;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,13 +53,33 @@ public class MainActivity extends AppCompatActivity {
         // Tie DrawerLayout events to the ActionBarToggle
         mDrawer.addDrawerListener(drawerToggle);
 
-        //Change to Homepage Fragment
-        Fragment fragment = new Homepage();
+        //display homepage fragment
+        Fragment fragment = null;
+        Class fragmentClass;
+        fragmentClass = Homepage.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
     }
 
-    private void setupDrawerContent(NavigationView navigationView) {
+    public void setupDrawerContent(NavigationView navigationView) {
+        //set up different drawer contents based on login status
+        FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+        if (u != null) {
+            navigationView.getMenu().setGroupVisible(R.id.group_loggedInItems,true);
+            navigationView.getMenu().setGroupVisible(R.id.group_profile_page,true);
+            navigationView.getMenu().setGroupVisible(R.id.group_login_page,false);
+        } else {
+            navigationView.getMenu().setGroupVisible(R.id.group_loggedInItems,false);
+            navigationView.getMenu().setGroupVisible(R.id.group_profile_page,false);
+            navigationView.getMenu().setGroupVisible(R.id.group_login_page,true);
+        }
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -73,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.nav_login:
                 fragmentClass = Login.class;
+                break;
+            case R.id.nav_profile:
+                fragmentClass = UserProfile.class;
                 break;
             case R.id.nav_upload_recipes:
                 fragmentClass = UploadRecipes.class;
@@ -102,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment, "FRAG_FEED").commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -122,6 +153,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // The action bar home/up action should open or close the drawer.
         return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_action, menu);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        final SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setQuery("", false);
+        searchView.setIconified(true);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        return true;
     }
 
     // `onPostCreate` called when activity start-up is complete after `onStart()`
