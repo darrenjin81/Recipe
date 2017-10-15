@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -49,6 +51,9 @@ public class UploadRecipes extends Fragment {
     private EditText nameEditor;
     private EditText instructionsEditor;
     private ImageView ivUploadImage;
+    private EditText etIngredient;
+    private Button btnAddIngredient;
+    private TextView tvIngredientTip;
     private Button btnAcitivateCamera;
     private Button btnUploadImage;
     private Button btnUpload;
@@ -58,6 +63,8 @@ public class UploadRecipes extends Fragment {
     private Uri imageUri;
     private byte[] cameraData;
     private String myCurrentPhotoPath;
+
+    String addedIngredients = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -82,9 +89,14 @@ public class UploadRecipes extends Fragment {
         nameEditor = (EditText) getView().findViewById(R.id.upload_recipe_name);
         instructionsEditor = (EditText) getView().findViewById(R.id.upload_recipe_instructions);
         ivUploadImage = (ImageView) getView().findViewById((R.id.upload_recipe_image));
+        etIngredient = (EditText) getView().findViewById(R.id.upload_recipe_ingredients);
+        btnAddIngredient = (Button) getView().findViewById(R.id.btnAddIngredient);
+        tvIngredientTip = (TextView) getView().findViewById(R.id.tv_tip_added_ingredient);
         btnAcitivateCamera = (Button) getView().findViewById(R.id.btnActivateCamera);
         btnUploadImage = (Button) getView().findViewById(R.id.btnUploadImage);
         btnUpload = (Button) getView().findViewById(R.id.button_upload);
+
+        final ArrayList<String> ingredients = new ArrayList<>();
 
         mRef.child("users/" + user_id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -98,6 +110,16 @@ public class UploadRecipes extends Fragment {
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
+            }
+        });
+        btnAddIngredient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ingredient = etIngredient.getText().toString();
+                ingredients.add(ingredient);
+                etIngredient.setText("");
+                addedIngredients = addedIngredients.concat(ingredient + " has been successfully added...\n");
+                tvIngredientTip.setText(addedIngredients);
             }
         });
 
@@ -136,7 +158,7 @@ public class UploadRecipes extends Fragment {
                     //write into database
                     mProgressDialog.setMessage("being added...");
                     mProgressDialog.show();
-                    final Recipe recipe = new Recipe(name, instructions);
+                    final Recipe recipe = new Recipe(name, instructions, ingredients);
                     myRef.child("recipes").child(name).setValue(recipe);
 
 

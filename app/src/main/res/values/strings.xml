@@ -36,8 +36,13 @@
     <string name="upload_btn_save">Save</string>
     <string name="upload_recipe_title">Put the title of your recipe here</string>
     <string name="upload_recipe_instructions">Instructions</string>
+    <string name="upload_recipe_ingredients">Ingredients</string>
     <string name="upload_recipe_image">upload image</string>
     <string name="upload_recipe_take_photo">take photo</string>
+    <string name="upload_recipe_btn_add_ingredient">add</string>
+
+
+
 
 
     <!--Fragment UserProfile-->

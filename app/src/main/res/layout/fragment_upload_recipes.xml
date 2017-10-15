@@ -36,11 +36,38 @@
             android:inputType="textCapSentences|textMultiLine"
             android:hint="@string/upload_recipe_instructions" />
 
+        <EditText android:id="@+id/upload_recipe_ingredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/upload_recipe_instructions"
+            android:layout_margin="8dp"
+            android:hint="@string/upload_recipe_ingredients" />
+
+        <Button android:id="@+id/btnAddIngredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_recipe_btn_add_ingredient"
+            android:layout_alignTop="@+id/upload_recipe_ingredients"
+            android:layout_alignRight="@+id/upload_recipe_instructions"
+            android:layout_alignEnd="@+id/upload_recipe_instructions" />
+bee
+        <TextView
+            android:id="@+id/tv_tip_added_ingredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@id/upload_recipe_ingredients"
+            android:textSize="12sp"
+            android:textColor="@color/colorPrimary"
+            android:text="" />
+
         <ImageView
             android:id="@+id/upload_recipe_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_below="@+id/upload_recipe_instructions"
+            android:layout_below="@+id/tv_tip_added_ingredient"
             android:layout_centerHorizontal="true"
             app:srcCompat="@android:drawable/ic_menu_upload" />
 
@@ -66,10 +93,10 @@
         <Button android:id="@+id/button_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/upload_btn_save"
             android:layout_below="@id/upload_recipe_image"
-            android:layout_marginTop="8dp"
-            android:layout_alignLeft="@id/upload_recipe_instructions"
-            android:text="@string/upload_btn_save" />
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
 
 
 

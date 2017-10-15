@@ -8,6 +8,8 @@ package recurrent.recipe;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 class Recipe implements Parcelable {
     //every recipe will have its own id.
     static int id = 0;
@@ -15,20 +17,23 @@ class Recipe implements Parcelable {
     //name of user's recipe
     private String name;
     private String instructions;
+    private ArrayList<String> ingredients;
 
     public Recipe(){
 
     }
 
-    public Recipe(String name, String instructions) {
+    public Recipe(String name, String instructions, ArrayList<String> ingredients) {
         this.name = name;
         this.instructions = instructions;
+        this.ingredients = ingredients;
     }
 
     private Recipe(Parcel in) {
         id = in.readInt();
         name = in.readString();
         instructions = in.readString();
+        //ingredients = in.readArraylist(null);
     }
 
     //getters
