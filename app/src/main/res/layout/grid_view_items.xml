@@ -10,17 +10,16 @@
 
         <ImageView
             android:id="@+id/ivHomeRecipeImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:adjustViewBounds="false"
-            android:cropToPadding="false"
-            android:scaleType="fitCenter"/>
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
 
         <View
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:background="@drawable/gradient"/>
     </FrameLayout>
 
@@ -44,7 +43,6 @@
         android:paddingBottom="15dp"
         android:layout_marginLeft="20dp"
         android:textColor="#ffffff"
-        android:text="By John Doe"
         />
 
 

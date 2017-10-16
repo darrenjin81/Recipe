@@ -8,8 +8,8 @@
         android:visible="true">
         <item
             android:id="@+id/nav_login"
-            android:icon="@mipmap/ic_launcher"
-            android:title="@string/navigation_login_page" />
+            android:title="@string/navigation_login_page"
+            android:icon="@drawable/login_icon"/>
     </group>
 
     <group
@@ -18,7 +18,7 @@
         android:visible="false">
         <item
             android:id="@+id/nav_profile"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/profile_icon"
             android:title="@string/navigation_my_profile_page" />
     </group>
 
@@ -28,14 +28,13 @@
 
         <item
             android:id="@+id/nav_home"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/home_icon"
             android:title="@string/navigation_home_page" />
 
         <item
             android:id="@+id/browse_recipes"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/browse_icon"
             android:title="Browse" />
-
 
         <item
             android:id="@+id/nav_search_recipes"
@@ -49,12 +48,12 @@
         android:visible="false">
         <item
             android:id="@+id/nav_upload_recipes"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/upload_icon"
             android:title="@string/navigation_upload_recipes" />
 
         <item
             android:id="@+id/nav_saved_recipes"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/bookmark_icon"
             android:title="@string/navigation_saved_recipes" />
         
         <item
@@ -62,19 +61,5 @@
             android:icon="@mipmap/ic_launcher"
             android:title="View a recipe"/>
     </group>
-
-    <!--Leave this here for when we have more navigation options-->
-    <item android:title="Sub items">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:icon="@mipmap/ic_launcher"
-                    android:title="Sub item 1" />
-                <item
-                    android:icon="@mipmap/ic_launcher"
-                    android:title="Sub item 2" />
-            </group>
-        </menu>
-    </item>
 
 </menu>
