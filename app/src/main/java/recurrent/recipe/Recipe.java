@@ -47,6 +47,7 @@ class Recipe implements Parcelable {
     }
 
     //getters
+    public String getOwner_id() { return owner_id; }
     public String getName() {
         return name;
     }

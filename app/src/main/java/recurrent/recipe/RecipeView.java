@@ -68,47 +68,6 @@ public class RecipeView extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-//        mStorage = FirebaseStorage.getInstance().getReference();
-
-//        TextView tvName, tvInstructions;
-//        tvName  = (TextView) view.findViewById(R.id.tvRecipeName);
-//        tvName.setText(recipe.getName());
-//
-//
-//        tvInstructions = (TextView) view.findViewById(R.id.tvInstructions);
-//        tvInstructions.setText(recipe.getInstructions());
-//
-////        StorageReference myImagePath = mStorage.child("jin.jpg");
-////
-//////        final long ONE_MEGABYTE = 1024 * 1024;
-//////        myImagePath.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//////            @Override
-//////            public void onSuccess(byte[] bytes) {
-//////                // Data for "images/island.jpg" is returns, use this as needed
-//////                ImageView ivRecipeImage;
-//////                ivRecipeImage = (ImageView) getView().findViewById(R.id.ivRecipeImage);
-//////                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//////                ivRecipeImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, ivRecipeImage.getWidth(),
-//////                        ivRecipeImage.getHeight(), false));
-//////            }
-//////        });
-////        FirebaseImageLoader
-////        myImagePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-////            @Override
-////            public void onSuccess(Uri uri) {
-////                // Got the download URL for 'users/me/profile.png'
-////                ImageView ivRecipeImage;
-////                ivRecipeImage = (ImageView) getView().findViewById(R.id.ivRecipeImage);
-////                ivRecipeImage.setImageURI(uri);
-////            }
-////        });
-//        StorageReference myImagePath = mStorage.child("UploadedRecipes").child(user_id).child(recipe.getName() + ".jpg");
-//        ImageView ivRecipeImage;
-//        ivRecipeImage = (ImageView) getView().findViewById(R.id.ivRecipeImage);
-//        Glide.with(this)
-//                .using(new FirebaseImageLoader())
-//                .load(myImagePath)
-//                .into(ivRecipeImage);
 
         ExpandableListView e = (ExpandableListView) view.findViewById(R.id.elvRecipe_view);
         MyListAdapter adaptor = new MyListAdapter(recipe.toDisplayformat(), this.getContext());
