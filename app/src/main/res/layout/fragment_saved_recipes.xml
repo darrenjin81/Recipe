@@ -4,20 +4,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/SavedRecipesPage">
-<TextView
-    android:id="@+id/tvSavedRecipesText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@color/colorPrimaryDark"
-    android:textSize="30sp"
-    android:textStyle="bold"
-    android:text="Saved Recipes"/>
 
-<GridView
+    <GridView
     android:id="@+id/simpleGridView1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@id/tvSavedRecipesText"
     android:numColumns="1"/>
 
 </RelativeLayout>
