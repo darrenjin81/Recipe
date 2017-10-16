@@ -54,10 +54,7 @@ public class SavedRecipes extends Fragment {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for (DataSnapshot child : children) {
                     Recipe r = child.getValue(Recipe.class);
-                    if(r.getName().equals("pizza") || r.getName().equals("chicken") || r.getName().equals("bread")){
-                        saved_recipes.add(r);
-                    }
-                    //saved_recipes.add(child.getValue(Recipe.class));
+                    saved_recipes.add(r);
                 }
 
                 //display list of recipes in Gridview with adapter
