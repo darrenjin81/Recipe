@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" >
 
-    <!--Temporary text-->
-    <TextView
-        android:id="@+id/tvSavedRecipesText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hi I am Saved Recipes page." />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/SavedRecipesPage">
+<TextView
+    android:id="@+id/tvSavedRecipesText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/colorPrimaryDark"
+    android:textSize="30sp"
+    android:textStyle="bold"
+    android:text="Saved Recipes"/>
 
-</LinearLayout>
+<GridView
+    android:id="@+id/simpleGridView1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/tvSavedRecipesText"
+    android:numColumns="1"/>
+
+</RelativeLayout>

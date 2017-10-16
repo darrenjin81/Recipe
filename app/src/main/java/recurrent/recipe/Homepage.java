@@ -48,10 +48,11 @@ public class Homepage extends Fragment {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for(DataSnapshot child: children){
                     Recipe r = child.getValue(Recipe.class);
+                    featured_recipes.add(r);
                     //TODO fix
-                    if(r.getName().equals("pizza") || r.getName().equals("chicken") || r.getName().equals("bread")){
-                        featured_recipes.add(r);
-                    }
+//                    if(r.getName().equals("pizza") || r.getName().equals("chicken") || r.getName().equals("bread")){
+//                        featured_recipes.add(r);
+//                    }
                 }
 
                 //display list of recipes in Gridview with adapter

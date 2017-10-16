@@ -12,6 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 
 public class HomeAdapter extends ArrayAdapter {
@@ -47,9 +52,18 @@ public class HomeAdapter extends ArrayAdapter {
         ImageView ivImage;
         ivImage = (ImageView) v.findViewById(R.id.ivHomeRecipeImage);
 
-        int id = getContext().getResources().getIdentifier(curr_recipe.getName(),"drawable",
-                getContext().getPackageName());
-        ivImage.setImageResource(id);
+        StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+        StorageReference mRef = mStorage.child("UploadedRecipes")
+                .child(curr_recipe.getKey()).child(curr_recipe.getName() + ".jpg");
+//        StorageReference myImagePath = recipe.getStorageReference();
+        Glide.with(this.getContext())
+                .using(new FirebaseImageLoader())
+                .load(mRef)
+                .into(ivImage);
+//
+//        int id = getContext().getResources().getIdentifier(curr_recipe.getName(),"drawable",
+//                getContext().getPackageName());
+//        ivImage.setImageResource(id);
 
         return v;
 

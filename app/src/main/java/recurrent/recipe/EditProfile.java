@@ -92,14 +92,28 @@ public class EditProfile extends Fragment {
             public void onClick(View v) {
                 String newUsername = etUsernameField.getText().toString();
                 String newEmail = etEmailField.getText().toString();
+
                 //update details in database
                 if(!username.equals(newUsername)) {
-                    updateDetails(newUsername);
+                    if (newUsername.isEmpty()){
+                        Toast.makeText(getActivity(), "Username cannot be blank!",
+                                Toast
+                                        .LENGTH_LONG).show();
+                    } else {
+                        updateDetails(newUsername);
+                    }
                 }
 
                 if(!email.equals(newEmail)){
                     //TODO: Reauth users when update email
-                    updateEmail(newEmail);
+                    if (newEmail.isEmpty()){
+                        Toast.makeText(getActivity(), "E-mail cannot be blank!",
+                                Toast
+                                        .LENGTH_LONG).show();
+                    }else {
+                        updateEmail(newEmail);
+                    }
+
                 }
             }
         });
