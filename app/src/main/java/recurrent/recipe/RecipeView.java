@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class RecipeView extends Fragment {
     private StorageReference mStorage;
     private FirebaseUser curr_user;
     private String user_id;
+    private DatabaseReference mRef;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -68,6 +70,77 @@ public class RecipeView extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+//        mStorage = FirebaseStorage.getInstance().getReference();
+        mRef = FirebaseDatabase.getInstance().getReference();
+
+        TextView tvName, tvInstructions;
+        tvName  = (TextView) view.findViewById(R.id.tvRecipeName);
+        tvName.setText(recipe.getName());
+
+        final ImageButton imgBtnBookmarkOn;
+        final ImageButton imgBtnBookmarkOff;
+
+        imgBtnBookmarkOn = (ImageButton) view.findViewById(R.id.imgBtnBookmarkOn);
+        imgBtnBookmarkOff = (ImageButton) view.findViewById(R.id.imgBtnBookmarkOff);
+
+        //handle situation when user is not logged in
+        if (curr_user != null) {
+            user_id = curr_user.getUid();
+
+            //default
+            imgBtnBookmarkOff.setVisibility(View.VISIBLE);
+            imgBtnBookmarkOn.setVisibility(View.GONE);
+
+            //check if recipes is bookmarked
+            mRef.child("users/"+user_id+"/saved_recipes")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                                for (DataSnapshot child : children) {
+                                    Recipe r = child.getValue(Recipe.class);
+                                    Log.d(TAG, "KEY1: "+ r.getKey());
+                                    if (r.getKey().equals(recipe.getKey())) {
+                                        //is bookmarked
+                                        imgBtnBookmarkOff.setVisibility(View.GONE);
+                                        imgBtnBookmarkOn.setVisibility(View.VISIBLE);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+        } else {
+            //no bookmark function when user is NOT logged in
+            imgBtnBookmarkOff.setVisibility(View.GONE);
+            imgBtnBookmarkOn.setVisibility(View.GONE);
+        }
+
+        imgBtnBookmarkOff.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //bookmark recipes
+                bookmark(mRef, user_id, recipe);
+                //change to bookmark on
+                imgBtnBookmarkOff.setVisibility(View.GONE);
+                imgBtnBookmarkOn.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        imgBtnBookmarkOn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //unmark recipes
+                unmark(mRef, user_id, recipe.getKey());
+                //change to bookmark off
+                imgBtnBookmarkOff.setVisibility(View.VISIBLE);
+                imgBtnBookmarkOn.setVisibility(View.GONE);
+            }
+        });
 
         ExpandableListView e = (ExpandableListView) view.findViewById(R.id.elvRecipe_view);
         MyListAdapter adaptor = new MyListAdapter(recipe.toDisplayformat(), this.getContext());
@@ -78,5 +151,72 @@ public class RecipeView extends Fragment {
                 return false;
             }
         });
+
     }
+
+    private void bookmark(DatabaseReference mRef, String user_id, Recipe recipe){
+        mRef.child("users/"+user_id+"/saved_recipes").push().setValue(recipe);
+    }
+
+    private void unmark(final DatabaseReference mRef, final String user_id, final String rKey){
+        //TODO: CHANGE WAY OF ACCESSING DATABASE LATER
+        mRef.child("users/"+user_id+"/saved_recipes")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                        for(DataSnapshot child: children){
+                            Recipe r = child.getValue(Recipe.class);
+                            if (r.getKey().equals(rKey)){
+                                String recipe_key = child.getKey();
+                                mRef.child("users/"+user_id+"/saved_recipes/"+recipe_key)
+                                        .removeValue();
+                                //debugging purpose
+                                Log.d(TAG, "KEY: "+ recipe_key);
+                            }
+                        }
+
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
+//
+//
+//        tvInstructions = (TextView) view.findViewById(R.id.tvInstructions);
+//        tvInstructions.setText(recipe.getInstructions());
+//
+////        StorageReference myImagePath = mStorage.child("jin.jpg");
+////
+//////        final long ONE_MEGABYTE = 1024 * 1024;
+//////        myImagePath.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//////            @Override
+//////            public void onSuccess(byte[] bytes) {
+//////                // Data for "images/island.jpg" is returns, use this as needed
+//////                ImageView ivRecipeImage;
+//////                ivRecipeImage = (ImageView) getView().findViewById(R.id.ivRecipeImage);
+//////                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//////                ivRecipeImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, ivRecipeImage.getWidth(),
+//////                        ivRecipeImage.getHeight(), false));
+//////            }
+//////        });
+////        FirebaseImageLoader
+////        myImagePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+////            @Override
+////            public void onSuccess(Uri uri) {
+////                // Got the download URL for 'users/me/profile.png'
+////                ImageView ivRecipeImage;
+////                ivRecipeImage = (ImageView) getView().findViewById(R.id.ivRecipeImage);
+////                ivRecipeImage.setImageURI(uri);
+////            }
+////        });
+//        StorageReference myImagePath = mStorage.child("UploadedRecipes").child(user_id).child(recipe.getName() + ".jpg");
+//        ImageView ivRecipeImage;
+//        ivRecipeImage = (ImageView) getView().findViewById(R.id.ivRecipeImage);
+//        Glide.with(this)
+//                .using(new FirebaseImageLoader())
+//                .load(myImagePath)
+//                .into(ivRecipeImage);
 }
