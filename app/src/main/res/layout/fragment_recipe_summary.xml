@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <!--Temporary text-->
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -23,47 +22,42 @@
             android:layout_height="match_parent"
             android:background="@drawable/gradient"/>
     </FrameLayout>
-
-
     <TextView
     android:id="@+id/tvSummary_title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Title"
-    android:layout_alignParentBottom="true"
+    tools:text="Title"
+    android:layout_alignParentTop="true"
     android:textColor="#ffffff"
     android:textSize="40sp"
-    android:layout_marginBottom="120dp"
+    android:layout_marginTop="420dp"
     android:layout_marginLeft="25dp"
     />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="75dp"
-        >
 
         <TextView
             android:id="@+id/tvSummary_ingredients_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="num"
+            android:layout_below="@id/tvSummary_title"
+            android:layout_alignLeft="@id/tvSummary_title"
+            android:layout_marginTop="4dp"
+            tools:text="num"
             android:textColor="#ffffff"
             android:textSize="20sp"
-            android:layout_weight="33.33"
             android:gravity="center_horizontal"
-
             />
 
         <TextView
             android:id="@+id/tvSummary_preptime_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="numH numM"
+            android:layout_below="@id/tvSummary_ingredients_num"
+            android:layout_toRightOf="@id/tvSummary_ingredients_num"
+            android:layout_alignTop="@id/tvSummary_ingredients_num"
+            android:layout_marginLeft="64dp"
+            tools:text="numH numM"
             android:textColor="#ffffff"
             android:textSize="20sp"
-            android:layout_weight="33.33"
             android:gravity="center_horizontal"
             />
 
@@ -71,30 +65,26 @@
             android:id="@+id/tvSummary_cals_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="num"
+            android:layout_below="@id/tvSummary_ingredients_num"
+            android:layout_toRightOf="@id/tvSummary_preptime_num"
+            android:layout_alignTop="@id/tvSummary_preptime_num"
+            android:layout_marginLeft="64dp"
+            tools:text="num"
             android:textColor="#ffffff"
             android:textSize="20sp"
-            android:layout_weight="33.33"
             android:gravity="center_horizontal"
-
             />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
-        >
 
         <TextView
             android:id="@+id/tvIngredients"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ingredients"
+            tools:text="Ingredients"
             android:textColor="#ffffff"
             android:textSize="14sp"
-            android:layout_weight="33"
+            android:layout_below="@id/tvSummary_ingredients_num"
+            android:layout_alignLeft="@id/tvSummary_title"
+            android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
 
             />
@@ -103,10 +93,13 @@
             android:id="@+id/tvPrepTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Preparation Time"
+            android:layout_below="@id/tvSummary_ingredients_num"
+            android:layout_toRightOf="@id/tvIngredients"
+            android:layout_alignTop="@id/tvIngredients"
+            android:layout_marginLeft="32dp"
+            tools:text="Preparation Time"
             android:textColor="#ffffff"
             android:textSize="14sp"
-            android:layout_weight="33"
             android:gravity="center_horizontal"
             />
 
@@ -114,15 +107,13 @@
             android:id="@+id/tvCal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Calories"
+            android:layout_below="@id/tvSummary_ingredients_num"
+            android:layout_toRightOf="@id/tvPrepTime"
+            android:layout_alignTop="@id/tvPrepTime"
+            android:layout_marginLeft="64dp"
+            tools:text="Calories"
             android:textColor="#ffffff"
             android:textSize="14sp"
-            android:layout_weight="33"
             android:gravity="center_horizontal"
-
             />
-    </LinearLayout>
-
-
-
 </RelativeLayout>
