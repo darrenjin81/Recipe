@@ -104,6 +104,14 @@ public class UserProfile extends Fragment {
                 fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
             }
         });
+
+        btnSavedRecipes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Fragment fragment = new SavedRecipes();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            }
+        });
     }
 
     private void signout() {
