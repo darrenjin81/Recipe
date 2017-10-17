@@ -93,7 +93,7 @@ class Recipe implements Parcelable {
         }
     };
 
-    public ArrayList<HeaderInfo> toDisplayformat() {
+    public ArrayList<HeaderInfo> ingredientsForDisplay() {
         ArrayList<HeaderInfo> results = new ArrayList<HeaderInfo>();
 
         HeaderInfo ingredients = new HeaderInfo("Ingredients");
@@ -103,14 +103,20 @@ class Recipe implements Parcelable {
             i++;
         }
 
+        results.add(ingredients);
+        return results;
+    }
+
+    public ArrayList<HeaderInfo> methodForDisplay() {
+        ArrayList<HeaderInfo> results = new ArrayList<HeaderInfo>();
+
         HeaderInfo method = new HeaderInfo("Method");
-        i = 1;
+        Integer i = 1;
         for(String s : this.instructionsSteps){
             method.addChild(new DetailInfo(i.toString(), s));
             i++;
         }
 
-        results.add(ingredients);
         results.add(method);
         return results;
     }
