@@ -178,6 +178,7 @@ public class UploadRecipes extends Fragment {
                     recipe = new Recipe(name, user_id, instructionSteps, ingredients);
                     String key = myRef.child("recipes").push().getKey();
                     recipe.setKey(key);
+
                     myRef.child("recipes").child(key).setValue(recipe);
 
                     StorageReference filepath = mStorage.child("UploadedRecipes").
