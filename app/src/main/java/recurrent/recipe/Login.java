@@ -64,7 +64,12 @@ public class Login extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Login");
     }
 
     @Override

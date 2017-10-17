@@ -72,6 +72,12 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(recipe.getName());
+    }
+
     // This event is triggered soon after onCreateView().
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override

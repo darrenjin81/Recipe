@@ -58,6 +58,12 @@ public class EditProfile extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Edit Profile");
+    }
+
+    @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
         btnSaveDetails = (Button) view.findViewById(R.id.btnSaveDetails);

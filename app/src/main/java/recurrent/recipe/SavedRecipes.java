@@ -91,4 +91,10 @@ public class SavedRecipes extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Saved Recipes");
+    }
+
 }

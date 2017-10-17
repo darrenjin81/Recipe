@@ -6,6 +6,7 @@ package recurrent.recipe;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,6 +87,7 @@ public class Homepage extends Fragment {
             }
         });
 
+
         return view;
     }
 
@@ -95,5 +97,11 @@ public class Homepage extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Home");
     }
 }

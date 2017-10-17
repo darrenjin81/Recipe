@@ -118,4 +118,10 @@ public class UserProfile extends Fragment {
         mAuth.signOut();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("My Profile");
+    }
+
 }

@@ -22,4 +22,10 @@ public class SearchRecipes extends Fragment {
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Search Recipes");
+    }
 }

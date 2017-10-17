@@ -95,6 +95,12 @@ public class Register extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Register");
+    }
+
     private void createAccount(final String username, final String email, String password, String password1) {
         if(!password.equals(password1)){
             Toast.makeText(getActivity(), "your passwords should be the same", Toast.LENGTH_LONG).show();

@@ -198,7 +198,7 @@ public class UploadRecipes extends Fragment {
                                         .commit();
                             }
                         });
-                    }else if (cameraData != null){
+                    } else if (cameraData != null) {
                         filepath.putBytes(cameraData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -214,7 +214,7 @@ public class UploadRecipes extends Fragment {
                                         .commit();
                             }
                         });
-                    }else {
+                    } else {
                         mProgressDialog.dismiss();
                         Bundle args = new Bundle();
                         args.putParcelable(RecipeView.RecipeArgKey, recipe);
@@ -228,6 +228,12 @@ public class UploadRecipes extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Upload Recipe");
     }
 
     private void turnOnCamera() {

@@ -67,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
     }
 
+    public void setTitle(String name) {
+        toolbar.setTitle(name);
+    }
+
     public void setupDrawerContent(NavigationView navigationView) {
         //set up different drawer contents based on login status
         FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
@@ -88,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
@@ -133,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment, "FRAG_FEED").commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
