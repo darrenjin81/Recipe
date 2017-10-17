@@ -41,14 +41,6 @@
     <string name="upload_recipe_take_photo">take photo</string>
     <string name="upload_recipe_btn_add_ingredient">add</string>
 
-
-
-
-
-    <!--Search bar-->
-    <string name="search_title">Searchy</string>
-    <string name="search_hint">Searchyy!!!</string>
-
     <!--Fragment UserProfile-->
     <string name="fragment_user_profile_text">My Profile</string>
     <string name="fragment_user_profile_saved_recipes">Saved Recipes</string>
@@ -63,6 +55,16 @@
     <string name="fragment_edit_profile_tvEmail">E-mail</string>
     <string name="fragment_edit_profile_btnChangePhoto">Change Photo</string>
 
+    <!--Fragment RecipeSummary-->
+    <string name="fragment_recipe_summary_ingredients">Ingredients</string>
+    <string name="fragment_recipe_summary_preparation_time">Preparation Time</string>
+    <string name="fragment_recipe_summary_calories">Calories</string>
+
     <!--Fragment changePassword-->
     <string name="fragment_change_password_btnChangePwd">Change</string>
+
+    <!--Search bar-->
+    <string name="search_title">Searchy</string>
+    <string name="search_hint">Searchyy!!!</string>
+
 </resources>
