@@ -9,12 +9,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 /**
  * Created by admin on 7/10/2017.
  */
 
-public class SearchableActivity extends FragmentActivity {
+public class SearchableActivity extends ListActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class SearchableActivity extends FragmentActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             PresentSearch(query);
         }
-        finish();
+        //finish();
     }
 
     @Override
@@ -37,17 +38,24 @@ public class SearchableActivity extends FragmentActivity {
 
     void PresentSearch(String query){
 
-        //do some stuff
-        //firebase firebase etc
-        //lets just send it to browse
 
+//        Bundle args = new Bundle();
+//        args.putString(BrowseRecipes.QueryArgKey, query);
+//
 //        Fragment nextFrag= new BrowseRecipes();
+//        nextFrag.setArguments(args);
+//
 //        FragmentManager fm = this.getSupportFragmentManager();
+////        fm.beginTransaction()
+////                .replace(R.id.flContent, nextFrag, "FRAG_FEED")
+////                .addToBackStack(null)
+////                .commit();
+//        fm.beginTransaction().remove(fm.findFragmentById(R.id.flContent)).commit();
 //        fm.beginTransaction()
-//                .replace(fm.findFragmentByTag("FRAG_FEED").getId(), nextFrag, "FRAG_FEED")
+//                .add(nextFrag, "FRAG_FEED")
 //                .addToBackStack(null)
 //                .commit();
-
+//        startActivity(getIntent());
     }
 
 }

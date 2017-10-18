@@ -57,7 +57,7 @@ public class RecipeCollectionPagerAdapter extends FragmentStatePagerAdapter {
         Recipe r = recipes.get(i);
         args.putParcelable(RecipeSummary.RecipeSummaryArgKey, r);
 
-        Fragment fragment = null; //TODO we should put a general purpose error page here
+        Fragment fragment = null;
         fragment = new RecipeSummary();
         fragment.setArguments(args);
 
