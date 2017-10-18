@@ -46,11 +46,11 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         TextView t = (TextView) v.findViewById(R.id.tvSummary_title);
         t.setText(recipe.getName());
 
-        t = (TextView) v.findViewById(R.id.tvSummary_ingredients_num);
-        t.setText("4"); //TODO fix
-
         t = (TextView) v.findViewById(R.id.tvSummary_preptime_num);
-        t.setText("34H 92M"); //TODO fix
+        t.setText(recipe.getCookingTime());
+
+        t = (TextView) v.findViewById(R.id.tvSummary_ingredients_num);
+        t.setText(recipe.getIngredients().size() + "");
 
         t = (TextView) v.findViewById(R.id.tvSummary_cals_num);
         t.setText("499");//TODO fix

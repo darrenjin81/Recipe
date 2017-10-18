@@ -68,8 +68,10 @@ public class EditProfile extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         btnSaveDetails = (Button) view.findViewById(R.id.btnSaveDetails);
         btnChangePwdPage = (Button) view.findViewById(R.id.btnChangePwdPage);
+        btnChangePhoto = (Button) view.findViewById(R.id.btnChangePhoto);
         etUsernameField = (EditText) view.findViewById(R.id.etUsernameField);
         etEmailField = (EditText) view.findViewById(R.id.etEmailField);
+
 
         mdatabase = FirebaseDatabase.getInstance();
         mRef = mdatabase.getReference();
@@ -93,6 +95,13 @@ public class EditProfile extends Fragment {
 
         //display user email
         etEmailField.setText(email);
+
+        btnChangePhoto.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                saveDp();
+            }
+        });
 
         btnSaveDetails.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -132,6 +141,9 @@ public class EditProfile extends Fragment {
                 fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
             }
         });
+    }
+
+    private void saveDp() {
     }
 
     private void updateDetails(String newUsername){

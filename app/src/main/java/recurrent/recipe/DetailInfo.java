@@ -8,10 +8,11 @@ public class DetailInfo {
     private String sequence = "";
     private String name = "";
 
-    public DetailInfo(String s, String n){
+    public DetailInfo(String s, String n) {
         sequence = s;
         name = n;
     }
+
     public String getSequence() {
         return sequence;
     }

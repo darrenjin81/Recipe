@@ -17,11 +17,15 @@ class Recipe implements Parcelable {
     //every recipe will have its own id.
     private String unique_id;
     private String owner_id;
+    private String category;
 
     //name of user's recipe
     private String name;
+    private String cookingTime;
     private ArrayList<String> instructionsSteps;
     private ArrayList<String> ingredients;
+
+
 
     //public String image = "marcoons";
 
@@ -30,10 +34,12 @@ class Recipe implements Parcelable {
         ingredients = new ArrayList<String>();
     }
 
-    public Recipe(String name, String owner, ArrayList<String> instructionSteps, ArrayList<String> ingredients) {
+    public Recipe(String name, String owner,String category, String cookingTime, ArrayList<String> instructionSteps, ArrayList<String> ingredients) {
         this.unique_id = "";
         this.owner_id = owner;
         this.name = name;
+        this.category = category;
+        this.cookingTime = cookingTime;
         this.instructionsSteps = instructionSteps;
         this.ingredients = ingredients;
     }
@@ -42,6 +48,8 @@ class Recipe implements Parcelable {
         unique_id = in.readString();
         name = in.readString();
         owner_id = in.readString();
+        category = in.readString();
+        cookingTime = in.readString();
         instructionsSteps = in.readArrayList(null);
         ingredients = in.readArrayList(null);
     }
@@ -51,6 +59,8 @@ class Recipe implements Parcelable {
     public String getName() {
         return name;
     }
+    public String getCookingTime() { return cookingTime; }
+    public String getCategory() { return category; }
     public ArrayList<String> getInstructionsSteps() {
         return instructionsSteps;
     }
@@ -78,6 +88,8 @@ class Recipe implements Parcelable {
         out.writeString(this.unique_id);
         out.writeString(this.name);
         out.writeString(this.owner_id);
+        out.writeString(this.category);
+        out.writeString(this.cookingTime);
         out.writeList(this.instructionsSteps);
         out.writeList(this.ingredients);
     }

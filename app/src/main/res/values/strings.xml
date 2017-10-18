@@ -40,6 +40,8 @@
     <string name="upload_recipe_image">upload image</string>
     <string name="upload_recipe_take_photo">take photo</string>
     <string name="upload_recipe_btn_add_ingredient">add</string>
+    <string name="cooking_time">cooking time</string>
+
 
     <!--Fragment UserProfile-->
     <string name="fragment_user_profile_text">My Profile</string>

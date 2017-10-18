@@ -3,6 +3,7 @@ package recurrent.recipe;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,7 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +64,11 @@ public class UploadRecipes extends Fragment {
     private Button btnAcitivateCamera;
     private Button btnUploadImage;
     private Button btnUpload;
+    private EditText etCookingTime;
+    private Button btnDessert;
+    private Button btnSushi;
+    private Button btnEntree;
+    private Button btnBreakfast;
 
     private ProgressDialog mProgressDialog;
 
@@ -67,10 +77,12 @@ public class UploadRecipes extends Fragment {
     private String myCurrentPhotoPath;
 
     Recipe recipe;
+    String category = "";
     String addedIngredients = "";
     String addedInstuctions = "";
     ArrayList<String> ingredients = new ArrayList<>();
     ArrayList<String> instructionSteps = new ArrayList<>();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -103,6 +115,74 @@ public class UploadRecipes extends Fragment {
         btnAcitivateCamera = (Button) getView().findViewById(R.id.btnActivateCamera);
         btnUploadImage = (Button) getView().findViewById(R.id.btnUploadImage);
         btnUpload = (Button) getView().findViewById(R.id.button_upload);
+        etCookingTime = (EditText) getView().findViewById(R.id.et_pick_time);
+        btnDessert = (Button) getView().findViewById(R.id.btn_dessert);
+        btnBreakfast = (Button) getView().findViewById(R.id.btn_breakfast);
+        btnSushi = (Button) getView().findViewById(R.id.btn_sushi);
+        btnEntree = (Button) getView().findViewById(R.id.btn_entree);
+
+        final RelativeLayout tag_part = (RelativeLayout) view.findViewById(R.id.tag_part);
+        final ImageButton btnAddTag = (ImageButton) view.findViewById(R.id.ib_addTag);
+        final EditText etAddTag = (EditText) view.findViewById(R.id.et_addTag) ;
+        final GridLayout existingTags = (GridLayout) view.findViewById(R.id.existingTags);
+
+
+        btnDessert.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                btnDessert.setTextColor(Color.YELLOW);
+                btnSushi.setTextColor(Color.BLACK);
+                btnBreakfast.setTextColor(Color.BLACK);
+                btnEntree.setTextColor(Color.BLACK);
+                category = "#dessert";
+            }
+        });
+        btnBreakfast.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                btnDessert.setHighlightColor(Color.BLACK);
+                btnSushi.setTextColor(Color.BLACK);
+                btnBreakfast.setTextColor(Color.YELLOW);
+                btnEntree.setTextColor(Color.BLACK);
+                category = "#breakfafst";
+            }
+        });
+        btnSushi.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                btnDessert.setHighlightColor(Color.BLACK);
+                btnSushi.setTextColor(Color.YELLOW);
+                btnBreakfast.setTextColor(Color.BLACK);
+                btnEntree.setTextColor(Color.BLACK);
+                category = "#sushi";
+            }
+        });
+        btnEntree.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                btnDessert.setHighlightColor(Color.BLACK);
+                btnSushi.setTextColor(Color.BLACK);
+                btnBreakfast.setTextColor(Color.BLACK);
+                btnEntree.setTextColor(Color.YELLOW);
+                category = "#entree";
+            }
+        });
+
+        nameEditor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tag_part.setVisibility(View.VISIBLE);
+                existingTags.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btnAddTag.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                etAddTag.setVisibility(View.VISIBLE);
+                existingTags.setVisibility(View.GONE);
+            }
+        });
 
         mRef.child("users/" + user_id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -163,6 +243,7 @@ public class UploadRecipes extends Fragment {
 
                 String name = nameEditor.getText().toString();
                 String instructions = instructionsEditor.getText().toString();
+                String cookingTime = etCookingTime.getText().toString();
 
                 String emptyTitleError = "Please enter a title.";
                 if (name.isEmpty()) {
@@ -175,7 +256,12 @@ public class UploadRecipes extends Fragment {
                     //write into database
                     mProgressDialog.setMessage("being added...");
                     mProgressDialog.show();
-                    recipe = new Recipe(name, user_id, instructionSteps, ingredients);
+
+                    if(category == ""){
+                        recipe = new Recipe(name, user_id, etAddTag.getText().toString(), cookingTime, instructionSteps, ingredients);
+                    }else {
+                        recipe = new Recipe(name, user_id, category, cookingTime, instructionSteps, ingredients);
+                    }
                     String key = myRef.child("recipes").push().getKey();
                     recipe.setKey(key);
                     myRef.child("recipes").child(key).setValue(recipe);
