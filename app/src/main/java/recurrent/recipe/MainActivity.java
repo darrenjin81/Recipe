@@ -80,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
     void PresentSearch(String query){
 
-        //TODO YEUNG!!!!!!!!!!!!!!! IMPLEMENT THIS 10 MARKS -> MAKE THE PAGE TRANSITION TO THE BROWSE FRAGMENT
-        //TODO -> I FIND THAT FLCONTENT IS NOT FOUND EVEN THO IT WORKS ON OTHER PAGES LIKE SUMMARY AND HOMEPAGE
         Bundle args = new Bundle();
         args.putString(BrowseRecipes.QueryArgKey, query);
 
@@ -94,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.flContent, nextFrag, "FRAG_FEED")
                 .addToBackStack(null)
                 .commit();
-        startActivity(getIntent());
     }
 
     public void setTitle(String name) {

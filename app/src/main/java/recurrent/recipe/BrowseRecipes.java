@@ -34,7 +34,7 @@ public class BrowseRecipes extends Fragment {
         super.onCreate(savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_browse_recipes, parent, false);
 
-        mRecipeCollectionPagerAdapter = new RecipeCollectionPagerAdapter(getActivity().getSupportFragmentManager());
+        mRecipeCollectionPagerAdapter = new RecipeCollectionPagerAdapter(getActivity().getSupportFragmentManager(), query);
         mViewPager = (ViewPager) v.findViewById(R.id.pager);
         mViewPager.setAdapter(mRecipeCollectionPagerAdapter);
 
