@@ -67,4 +67,8 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
+    public void addRatedRecipe(String key) {
+        ratedRecipes.add(key);
+    }
 }

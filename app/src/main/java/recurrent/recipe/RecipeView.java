@@ -10,6 +10,7 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -30,12 +31,12 @@ import static android.content.ContentValues.TAG;
 public class RecipeView extends Fragment {
 
     final static String RecipeArgKey = "recipes";
-    Recipe recipe;
-    private FirebaseUser curr_user;
+    private Recipe recipe;
+    private User user;
     private String user_id;
     private DatabaseReference mRef;
     private StorageReference mStorage;
-
+    private FirebaseUser curr_user;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -55,6 +56,24 @@ public class RecipeView extends Fragment {
         this.curr_user = FirebaseAuth.getInstance().getCurrentUser();
         if (curr_user != null) {
             this.user_id = curr_user.getUid();
+            mRef.child("users/").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                        for (DataSnapshot child : children) {
+                            User user = child.getValue(User.class);
+                            if(user.getUnique_id().equals(user_id)){
+                                break;
+                            }
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
         return view;
     }
@@ -70,6 +89,33 @@ public class RecipeView extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         ImageView imageStrip = (ImageView) view.findViewById(R.id.ivRecipeView);
+        RatingBar rb = (RatingBar) view.findViewById(R.id.rbRatingBar);
+
+        rb.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if(user.getRatedRecipes().size() == 0){
+                    user.addRatedRecipe(recipe.getKey());
+                    recipe.incrementNumOfRating();
+                    mRef.child("recipes/" + recipe.getKey()).child("num_of_rating").setValue(recipe.getNum_of_rating());
+                    recipe.updateRating(rating);
+                    mRef.child("recipes/" + recipe.getKey()).child("rating").setValue(recipe.getRating());
+                    mRef.child("users/" + user_id).child("ratedRecipes").setValue(user.getRatedRecipes());
+                }else if(!user.getRatedRecipes().contains(recipe.getKey())){
+                    user.addRatedRecipe(recipe.getKey());
+                    recipe.incrementNumOfRating();
+                    mRef.child("recipes/" + recipe.getKey()).child("num_of_rating").setValue(recipe.getNum_of_rating());
+                    recipe.updateRating(rating);
+                    mRef.child("recipes/" + recipe.getKey()).child("rating").setValue(recipe.getRating());
+                    mRef.child("users/" + user_id).child("ratedRecipes").setValue(user.getRatedRecipes());
+                }else{
+                    recipe.updateRating(rating);
+                    mRef.child("recipes/" + recipe.getKey()).child("rating").setValue(recipe.getRating());
+                }
+
+            }
+        });
+
         StorageReference storageImageRef = mStorage.child("UploadedRecipes").child(recipe.getKey()).child(recipe.getName() + ".jpg");
         Glide.with(this.getContext())
                 .using(new FirebaseImageLoader())

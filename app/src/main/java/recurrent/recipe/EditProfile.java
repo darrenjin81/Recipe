@@ -1,5 +1,8 @@
 package recurrent.recipe;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,10 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -24,7 +30,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 /**
@@ -32,6 +44,7 @@ import static android.content.ContentValues.TAG;
  */
 
 public class EditProfile extends Fragment {
+    private static final int SELECT_IMAGE = 1;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mdatabase;
     private DatabaseReference mRef;
@@ -39,8 +52,12 @@ public class EditProfile extends Fragment {
     private String user_id;
     private String username;
     private String email;
+    private Uri imageUri;
+    private User user;
+
     Button btnSaveDetails, btnChangePhoto, btnChangePwdPage;
     EditText etUsernameField, etEmailField;
+    ImageView ivProfilePic;
 
     public EditProfile(){
         this.curr_user = FirebaseAuth.getInstance().getCurrentUser();
@@ -71,6 +88,7 @@ public class EditProfile extends Fragment {
         btnChangePhoto = (Button) view.findViewById(R.id.btnChangePhoto);
         etUsernameField = (EditText) view.findViewById(R.id.etUsernameField);
         etEmailField = (EditText) view.findViewById(R.id.etEmailField);
+        ivProfilePic = (ImageView) view.findViewById(R.id.ivProfilePic);
 
 
         mdatabase = FirebaseDatabase.getInstance();
@@ -82,8 +100,8 @@ public class EditProfile extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                User u = dataSnapshot.getValue(User.class);
-                username = u.getUsername();
+                user = dataSnapshot.getValue(User.class);
+                username = user.getUsername();
                 etUsernameField.setText(username);
             }
 
@@ -116,6 +134,9 @@ public class EditProfile extends Fragment {
                                         .LENGTH_LONG).show();
                     } else {
                         updateDetails(newUsername);
+                        Toast.makeText(getActivity(), "Username Updated!",
+                                Toast
+                                        .LENGTH_LONG).show();
                     }
                 }
 
@@ -127,8 +148,33 @@ public class EditProfile extends Fragment {
                                         .LENGTH_LONG).show();
                     }else {
                         updateEmail(newEmail);
+                        Toast.makeText(getActivity(), "Email Updated!",
+                                Toast
+                                        .LENGTH_LONG).show();
                     }
+                }
 
+                StorageReference filepath = FirebaseStorage.getInstance().getReference().child("userDp").
+                        child(user_id).child("dp.jpg");
+                // Delete the file
+                filepath.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // File deleted successfully
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Uh-oh, an error occurred!
+                    }
+                });
+                if(imageUri != null){
+                    filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(getContext(), "upload done...", Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             }
         });
@@ -144,13 +190,28 @@ public class EditProfile extends Fragment {
     }
 
     private void saveDp() {
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), SELECT_IMAGE);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case SELECT_IMAGE:
+                if (resultCode == RESULT_OK) {
+                    imageUri = data.getData();
+                    if (imageUri != null) {
+                        ivProfilePic.setImageURI(imageUri);
+                    }
+                }
+        }
     }
 
-    private void updateDetails(String newUsername){
+    private void updateDetails(String newUsername) {
         mRef.child("users/" + user_id).child("username").setValue(newUsername);
-        Toast.makeText(getActivity(), "Details successfully updated.",
-                Toast
-                        .LENGTH_LONG).show();
     }
 
     private void updateEmail(String newEmail){
@@ -168,7 +229,6 @@ public class EditProfile extends Fragment {
                         }
                     }
                 });
+        mRef.child("users/" + user_id).child("emailAddress").setValue(newEmail);
     }
-
-
 }
