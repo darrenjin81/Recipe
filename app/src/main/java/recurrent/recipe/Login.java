@@ -78,7 +78,7 @@ public class Login extends Fragment {
         //update drawer content
         NavigationView nvDrawer = (NavigationView) getActivity().findViewById(R.id.nvView);
         ((MainActivity) getActivity()).setupDrawerContent(nvDrawer);
-        if (mAuth.getCurrentUser() != null){
+        if (mAuth.getCurrentUser() != null) {
             Fragment fragment = new UserProfile();
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();

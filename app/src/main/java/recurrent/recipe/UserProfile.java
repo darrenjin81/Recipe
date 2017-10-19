@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import static android.content.ContentValues.TAG;
 
@@ -35,6 +39,7 @@ public class UserProfile extends Fragment {
     //private String email;
     Button btnSignOut, btnEditDetails, btnMyRecipes, btnSavedRecipes;
     TextView tvUsername;
+    ImageView ivProfilePic;
 
 
     public UserProfile(){
@@ -62,11 +67,13 @@ public class UserProfile extends Fragment {
         btnMyRecipes = (Button) view.findViewById(R.id.btnMyRecipes);
         btnSavedRecipes = (Button) view.findViewById(R.id.btnSavedRecipes);
         tvUsername = (TextView) view.findViewById(R.id.tvUsername);
+        ivProfilePic = (ImageView) view.findViewById(R.id.ivProfilePic);
         //etUsernameField = (EditText) view.findViewById(R.id.etUsernameField);
         mdatabase = FirebaseDatabase.getInstance();
         mRef = mdatabase.getReference();
 
         tvUsername.setText(username);
+
         //final KeyListener mKeyListener = etUsernameField.getKeyListener();
         //etUsernameField.setKeyListener(null);
         //btnSaveDetails.setVisibility(view.GONE);
@@ -87,6 +94,13 @@ public class UserProfile extends Fragment {
               // Failed to read value
             }
       });
+        StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+        StorageReference mRef = mStorage.child("userDp").child(user_id).child("dp.jpg");
+        Glide.with(this)
+                .using(new FirebaseImageLoader())
+                .load(mRef)
+                .error(R.drawable.profile_icon)
+                .into(ivProfilePic);
 
         btnEditDetails.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

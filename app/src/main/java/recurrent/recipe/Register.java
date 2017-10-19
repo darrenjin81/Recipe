@@ -56,28 +56,31 @@ public class Register extends Fragment {
             @Override
             public void onClick(View v) {
                 //TODO: check if email is valid or not by going through database.
-//                ArrayList<>recipes = new ArrayList<Recipe>();
-//
-//                FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                DatabaseReference myRef = database.getReference();
-//                myRef.child(Constants.RecipeTable).addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        // This method is called once with the initial value and again
-//                        // whenever data at this location is updated.
-//                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-//                        for(DataSnapshot child: children){
-//                            recipes.add(child.getValue(Recipe.class));
-//                        }
-//
-//                        RecipeCollectionPagerAdapter.super.notifyDataSetChanged();
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError error) {
-//                        // Failed to read value
-//                    }
-//                });
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference().child("users");
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // This method is called once with the initial value and again
+                        // whenever data at this location is updated.
+                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                        boolean found = false;
+                        for(DataSnapshot child: children){
+                            User temp = child.getValue(User.class);
+                            if(temp.getEmailAddress().equals(etEmail.getText().toString())){
+                                Toast.makeText(getActivity( ), "This email address has been used", Toast.LENGTH_LONG).show();
+                                found = true;
+                            }
+                        }
+                        if(!found) Toast.makeText(getActivity(), "Congratulation! It is available!", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                    }
+                });
             }
         });
 
@@ -126,11 +129,9 @@ public class Register extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-
                         String user_id = mAuth.getCurrentUser().getUid();
-                        DatabaseReference current_user = mRef.child(user_id);
-                        current_user.child("username").setValue(username);
-                        current_user.child("profile_pic").setValue("default");
+                        User account = new User(username, email, user_id);
+                        mRef.child(user_id).setValue(account);
 
                         mProgress.dismiss();
 

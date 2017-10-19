@@ -46,11 +46,11 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         TextView t = (TextView) v.findViewById(R.id.tvSummary_title);
         t.setText(recipe.getName());
 
-        t = (TextView) v.findViewById(R.id.tvSummary_ingredients_num);
-        t.setText("4"); //TODO fix
-
         t = (TextView) v.findViewById(R.id.tvSummary_preptime_num);
-        t.setText("34H 92M"); //TODO fix
+        t.setText(recipe.getCookingTime());
+
+        t = (TextView) v.findViewById(R.id.tvSummary_ingredients_num);
+        t.setText(recipe.getIngredients().size() + "");
 
         t = (TextView) v.findViewById(R.id.tvSummary_cals_num);
         t.setText("499");//TODO fix
@@ -60,12 +60,10 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         StorageReference mStorage = FirebaseStorage.getInstance().getReference();
         StorageReference mRef = mStorage.child("UploadedRecipes")
                 .child(recipe.getKey()).child(recipe.getName() + ".jpg");
-//        StorageReference myImagePath = recipe.getStorageReference();
         Glide.with(this)
                 .using(new FirebaseImageLoader())
                 .load(mRef)
                 .into(image);
-        //image.setImageResource(getResources().getIdentifier(recipe.image,"drawable",getContext().getPackageName()));
 
 
         v.setOnTouchListener(this);
@@ -149,9 +147,8 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         Fragment nextFrag= new RecipeView();
         nextFrag.setArguments(args);
 
-        //TODO if we need browse, then its getParent().get()Parent()
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(((ViewGroup)getView().getParent()).getId(), nextFrag, "FRAG_FEED")
+                .replace(R.id.flContent, nextFrag, "FRAG_FEED")
                 .addToBackStack(null)
                 .commit();
     }

@@ -28,10 +28,97 @@
             android:layout_margin="8dp"
             android:hint="@string/upload_recipe_title" />
 
+        <RelativeLayout
+            android:id="@+id/tag_part"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/upload_recipe_name"
+            android:visibility="gone"
+            >
+
+
+            <TextView
+                android:id="@+id/tvSelectTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:textSize="12sp"
+                android:text="Select tag:"
+                />
+
+            <ImageButton
+                android:id="@+id/ib_addTag"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/add"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/tvSelectTag"
+                android:layout_toEndOf="@+id/tvSelectTag" />
+
+            <EditText
+                android:id="@+id/et_addTag"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="#"
+
+                android:layout_alignBaseline="@+id/tvSelectTag"
+                android:layout_alignBottom="@+id/tvSelectTag"
+                android:layout_toRightOf="@+id/ib_addTag"
+                android:layout_toEndOf="@+id/ib_addTag"
+                android:visibility="gone"/>
+
+            <GridLayout
+                android:id="@+id/existingTags"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tvSelectTag"
+                android:layout_marginTop="10dp"
+                android:columnCount="4"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true"
+                >
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/btn_dessert"
+                    android:text="#desset"
+                    android:layout_column="0"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/btn_entree"
+                    android:text="#entree"
+                    android:layout_column="1"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/btn_breakfast"
+                    android:text="#breakfast"
+                    android:layout_column="2"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/btn_sushi"
+                    android:text="#sushi"
+                    android:layout_column="3"/>
+
+            </GridLayout>
+
+
+
+         </RelativeLayout>
+
+
         <EditText android:id="@+id/upload_recipe_instructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/upload_recipe_name"
+            android:layout_below="@id/tag_part"
             android:layout_margin="8dp"
             android:inputType="textCapSentences|textMultiLine"
             android:hint="@string/upload_recipe_instructions" />
@@ -52,7 +139,7 @@
             android:layout_below="@id/upload_recipe_instructions"
             android:textSize="12sp"
             android:textColor="@color/colorPrimary"
-            android:text="test instructions" />
+            android:text="" />
 
         <EditText android:id="@+id/upload_recipe_ingredients"
             android:layout_width="wrap_content"
@@ -78,7 +165,7 @@
             android:layout_below="@id/upload_recipe_ingredients"
             android:textSize="12sp"
             android:textColor="@color/colorPrimary"
-            android:text="test ingredients" />
+            android:text="" />
 
         <ImageView
             android:id="@+id/upload_recipe_image"
@@ -106,14 +193,24 @@
             android:layout_alignEnd="@+id/btnAddIngredient" />
 
 
+        <EditText
+            android:id="@+id/et_pick_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnUploadImage"
+            android:inputType="time"
+            android:hint="@string/cooking_time"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            />
+
         <Button android:id="@+id/button_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/upload_btn_save"
-            android:layout_below="@id/upload_recipe_image"
+            android:layout_below="@id/et_pick_time"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
-
 
 
     </RelativeLayout>

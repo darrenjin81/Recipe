@@ -2,6 +2,7 @@ package recurrent.recipe;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.*;
@@ -65,6 +67,31 @@ public class MainActivity extends AppCompatActivity {
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        setIntent(intent);
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            PresentSearch(query);
+        }
+    }
+
+    void PresentSearch(String query){
+
+        Bundle args = new Bundle();
+        args.putString(BrowseRecipes.QueryArgKey, query);
+
+        Fragment nextFrag= new BrowseRecipes();
+        nextFrag.setArguments(args);
+
+        FragmentManager fm = getSupportFragmentManager();
+
+        fm.beginTransaction()
+                .replace(R.id.flContent, nextFrag, "FRAG_FEED")
+                .addToBackStack(null)
+                .commit();
     }
 
     public void setTitle(String name) {

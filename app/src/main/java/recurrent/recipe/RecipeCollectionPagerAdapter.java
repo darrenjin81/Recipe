@@ -22,12 +22,10 @@ public class RecipeCollectionPagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<Recipe> recipes;
 
-    public RecipeCollectionPagerAdapter(FragmentManager fm){
+    public RecipeCollectionPagerAdapter(FragmentManager fm, final String query){
         super(fm);
         recipes = new ArrayList<Recipe>();
 
-        //TODO fixx
-        String q = "pizza";
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
         myRef.child(Constants.RecipeTable).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -37,7 +35,10 @@ public class RecipeCollectionPagerAdapter extends FragmentStatePagerAdapter {
                 // whenever data at this location is updated.
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for(DataSnapshot child: children){
-                    recipes.add(child.getValue(Recipe.class));
+                    Recipe r = child.getValue(Recipe.class);
+                    if(query == null || r.getName().toLowerCase().contains(query.toLowerCase())){
+                        recipes.add(r);
+                    }
                 }
 
                 RecipeCollectionPagerAdapter.super.notifyDataSetChanged();
@@ -57,7 +58,7 @@ public class RecipeCollectionPagerAdapter extends FragmentStatePagerAdapter {
         Recipe r = recipes.get(i);
         args.putParcelable(RecipeSummary.RecipeSummaryArgKey, r);
 
-        Fragment fragment = null; //TODO we should put a general purpose error page here
+        Fragment fragment = null;
         fragment = new RecipeSummary();
         fragment.setArguments(args);
 
