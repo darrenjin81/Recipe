@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--Change Icons later...-->
     <group
         android:id="@+id/group_login_page"
         android:checkableBehavior="single"
@@ -34,7 +33,7 @@
         <item
             android:id="@+id/browse_recipes"
             android:icon="@drawable/browse_icon"
-            android:title="Browse" />
+            android:title="@string/navigation_browse" />
 
         <item
             android:id="@+id/nav_search_recipes"

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Recipe</string>
+    <string name="app_name">Recipedia</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -13,6 +13,7 @@
     <string name="navigation_saved_recipes">Saved Recipes</string>
     <string name="navigation_search_recipes">Search Recipes</string>
     <string name="navigation_my_profile_page">My Profile</string>
+    <string name="navigation_browse">Browse</string>
 
     <!--Fragment Login-->
     <string name="fragment_login_text">Please login with your details below:</string>

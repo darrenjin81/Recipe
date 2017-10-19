@@ -20,7 +20,6 @@
             android:layout_height="wrap_content" />
 
         <!-- The main content view where fragments are loaded -->
-
         <FrameLayout
             android:id="@+id/flContent"
             android:layout_width="match_parent"
@@ -36,6 +35,8 @@
         android:layout_gravity="start"
         android:background="@android:color/white"
         app:menu="@menu/drawer_view"
-        app:headerLayout="@layout/nav_header"/>
+        app:headerLayout="@layout/nav_header"
+        app:itemTextColor="@color/colorTextPrimary"
+        app:itemIconTint="@color/colorSecondary" />
 
 </android.support.v4.widget.DrawerLayout>

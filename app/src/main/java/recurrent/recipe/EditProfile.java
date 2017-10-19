@@ -184,7 +184,7 @@ public class EditProfile extends Fragment {
             public void onClick(View v) {
                 Fragment fragment = new ChangePassword();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
             }
         });
     }

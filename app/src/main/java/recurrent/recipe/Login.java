@@ -49,7 +49,7 @@ public class Login extends Fragment {
             public void onClick(View v) {
                 Fragment fragment = new Register();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
             }
         });
 
@@ -81,7 +81,7 @@ public class Login extends Fragment {
         if (mAuth.getCurrentUser() != null) {
             Fragment fragment = new UserProfile();
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
         }
     }
 
@@ -102,7 +102,7 @@ public class Login extends Fragment {
                             //current_user.child("image").setValue("default");
                             Fragment fragment = new UserProfile();
                             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+                            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
                         }else{
                             Toast.makeText(getActivity(), "sign in problem", Toast.LENGTH_LONG).show();
                         }

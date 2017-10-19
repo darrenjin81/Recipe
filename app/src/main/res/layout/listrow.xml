@@ -20,4 +20,5 @@
         android:layout_toRightOf="@id/sequence"
         android:textSize="15dp"
         android:padding="10dp"/>
+
 </RelativeLayout>

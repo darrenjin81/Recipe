@@ -106,7 +106,7 @@ public class UserProfile extends Fragment {
             public void onClick(View v) {
                 Fragment fragment = new EditProfile();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
             }
         });
 
@@ -115,7 +115,7 @@ public class UserProfile extends Fragment {
                 signout();
                 Fragment fragment = new Login();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
             }
         });
 
@@ -123,7 +123,7 @@ public class UserProfile extends Fragment {
             public void onClick(View v) {
                 Fragment fragment = new SavedRecipes();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
             }
         });
     }

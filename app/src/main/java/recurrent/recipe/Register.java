@@ -137,7 +137,7 @@ public class Register extends Fragment {
 
                         Fragment fragment = new UserProfile();
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+                        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
                     }
                 }
             });
