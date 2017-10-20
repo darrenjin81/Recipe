@@ -106,7 +106,7 @@ public class Register extends Fragment {
 
     private void createAccount(final String username, final String email, String password, String password1) {
         if(!password.equals(password1)){
-            Toast.makeText(getActivity(), "your passwords should be the same", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Your passwords should be the same", Toast.LENGTH_LONG).show();
         } else if(username.isEmpty()){
             Toast.makeText(getActivity(), "Your username cannot be empty", Toast.LENGTH_LONG).show();
         } else if (email.isEmpty()) {

@@ -2,17 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ivRegisterAppLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/recipedia_logo" />
 
     <TextView
         android:id="@+id/tvLoginText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/fragment_register_text"
-        android:layout_marginTop="32dp"
+        android:layout_below="@+id/ivRegisterAppLogo"
         android:layout_marginLeft="16dp"
-        android:textSize="14sp"
-        android:textColor="@color/colorTextPrimary"/>
+        android:layout_marginTop="16dp"
+        android:text="@string/fragment_register_text"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/etRegisterUsernameField"
@@ -20,61 +30,63 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvLoginText"
         android:layout_margin="16dp"
-        android:inputType="textEmailAddress"
-        android:hint="@string/fragment_register_username"/>
+        android:hint="@string/fragment_register_username"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/etRegisterEmailField"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etRegisterUsernameField"
-        android:layout_margin="16dp"
-        android:inputType="textEmailAddress"
-        android:hint="@string/fragment_login_email"/>
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:hint="@string/fragment_login_email"
+        android:inputType="textEmailAddress" />
 
     <Button
         android:id="@+id/btnCheckValid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_alignTop="@id/etRegisterEmailField"
+        android:layout_marginRight="16dp"
+        android:layout_toRightOf="@id/etRegisterEmailField"
+        android:background="@drawable/button_secondary"
         android:hint="@string/fragment_register_check_valid"
-        android:layout_alignBaseline="@+id/etRegisterEmailField"
-        android:layout_alignBottom="@+id/etRegisterEmailField"
-        android:layout_alignRight="@+id/etRegisterPasswordField"
-        android:layout_alignEnd="@+id/etRegisterPasswordField" />
+        android:padding="4dp"
+        android:textColorHint="@color/colorTextPrimary" />
 
     <EditText
         android:id="@+id/etRegisterPasswordField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etRegisterEmailField"
-        android:layout_marginTop="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:inputType="textPassword"
-        android:hint="@string/fragment_register_password"/>
+        android:layout_marginTop="16dp"
+        android:hint="@string/fragment_register_password"
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/etPasswordFormatTip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_below="@id/etRegisterPasswordField"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_below="@id/etRegisterPasswordField"
-        android:visibility="gone"
-        android:text="@string/fragment_register_password_format_tip"/>
+        android:layout_marginTop="8dp"
+        android:text="@string/fragment_register_password_format_tip"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/etRegisterPasswordCheckField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etPasswordFormatTip"
-        android:layout_marginTop="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:inputType="textPassword"
-        android:hint="@string/fragment_register_check_password"/>
+        android:layout_marginTop="8dp"
+        android:hint="@string/fragment_register_check_password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnCreate"
@@ -83,6 +95,7 @@
         android:layout_alignRight="@id/etRegisterPasswordField"
         android:layout_below="@id/etRegisterPasswordCheckField"
         android:layout_marginTop="8dp"
+        android:background="@drawable/button_secondary"
         android:padding="8dp"
         android:text="@string/fragment_register_btnCreate" />
 

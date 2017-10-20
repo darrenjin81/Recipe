@@ -1,17 +1,13 @@
 package recurrent.recipe;
 
-import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,8 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import static android.content.ContentValues.TAG;
 
 public class UserProfile extends Fragment {
     private FirebaseAuth mAuth;
@@ -63,7 +57,7 @@ public class UserProfile extends Fragment {
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
         btnSignOut = (Button) view.findViewById(R.id.btnSignOut);
-        btnEditDetails = (Button) view.findViewById(R.id.btnEditDetails);
+        btnEditDetails = (Button) view.findViewById(R.id.btnEditProfile);
         btnMyRecipes = (Button) view.findViewById(R.id.btnMyRecipes);
         btnSavedRecipes = (Button) view.findViewById(R.id.btnSavedRecipes);
         tvUsername = (TextView) view.findViewById(R.id.tvUsername);
