@@ -71,6 +71,7 @@
     <!--Search bar-->
     <string name="search_title">Searchy</string>
     <string name="search_hint">Searchyy!!!</string>
+    <string name="fragment_edit_profile_instructions">Please enter the details you want to change below, and hit save when you are done.</string>
 
 
 </resources>

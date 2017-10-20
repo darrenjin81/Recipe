@@ -59,9 +59,9 @@ public class EditProfile extends Fragment {
     EditText etUsernameField, etEmailField;
     ImageView ivProfilePic;
 
-    public EditProfile(){
+    public EditProfile() {
         this.curr_user = FirebaseAuth.getInstance().getCurrentUser();
-        if(curr_user != null) {
+        if (curr_user != null) {
             this.email = curr_user.getEmail();
             this.user_id = curr_user.getUid();
         }
@@ -90,7 +90,6 @@ public class EditProfile extends Fragment {
         etEmailField = (EditText) view.findViewById(R.id.etEmailField);
         ivProfilePic = (ImageView) view.findViewById(R.id.ivProfilePic);
 
-
         mdatabase = FirebaseDatabase.getInstance();
         mRef = mdatabase.getReference();
 
@@ -114,9 +113,9 @@ public class EditProfile extends Fragment {
         //display user email
         etEmailField.setText(email);
 
-        btnChangePhoto.setOnClickListener(new View.OnClickListener(){
+        btnChangePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 saveDp();
             }
         });
@@ -127,8 +126,8 @@ public class EditProfile extends Fragment {
                 String newEmail = etEmailField.getText().toString();
 
                 //update details in database
-                if(!username.equals(newUsername)) {
-                    if (newUsername.isEmpty()){
+                if (!username.equals(newUsername)) {
+                    if (newUsername.isEmpty()) {
                         Toast.makeText(getActivity(), "Username cannot be blank!",
                                 Toast
                                         .LENGTH_LONG).show();
@@ -140,13 +139,13 @@ public class EditProfile extends Fragment {
                     }
                 }
 
-                if(!email.equals(newEmail)){
+                if (!email.equals(newEmail)) {
                     //TODO: Reauth users when update email
-                    if (newEmail.isEmpty()){
+                    if (newEmail.isEmpty()) {
                         Toast.makeText(getActivity(), "E-mail cannot be blank!",
                                 Toast
                                         .LENGTH_LONG).show();
-                    }else {
+                    } else {
                         updateEmail(newEmail);
                         Toast.makeText(getActivity(), "Email Updated!",
                                 Toast
@@ -168,7 +167,7 @@ public class EditProfile extends Fragment {
                         // Uh-oh, an error occurred!
                     }
                 });
-                if(imageUri != null){
+                if (imageUri != null) {
                     filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -190,12 +189,12 @@ public class EditProfile extends Fragment {
     }
 
     private void saveDp() {
-
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Image"), SELECT_IMAGE);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -214,7 +213,7 @@ public class EditProfile extends Fragment {
         mRef.child("users/" + user_id).child("username").setValue(newUsername);
     }
 
-    private void updateEmail(String newEmail){
+    private void updateEmail(String newEmail) {
         curr_user.updateEmail(newEmail)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -222,7 +221,7 @@ public class EditProfile extends Fragment {
                         if (task.isSuccessful()) {
                             Toast.makeText(getActivity(), "E-mail address successfully updated.",
                                     Toast
-                                    .LENGTH_LONG).show();
+                                            .LENGTH_LONG).show();
                             Log.d(TAG, "User email address updated.");
                         } else {
                             Log.d(TAG, "ERROR");

@@ -36,9 +36,9 @@ public class UserProfile extends Fragment {
     ImageView ivProfilePic;
 
 
-    public UserProfile(){
+    public UserProfile() {
         this.curr_user = FirebaseAuth.getInstance().getCurrentUser();
-        if(curr_user != null) {
+        if (curr_user != null) {
             this.user_id = curr_user.getUid();
         }
     }
@@ -73,21 +73,21 @@ public class UserProfile extends Fragment {
         //btnSaveDetails.setVisibility(view.GONE);
 
         // retrieve to logged in user's details
-        mRef.child("users/"+user_id).addListenerForSingleValueEvent(new ValueEventListener() {
-           @Override
-          public void onDataChange(DataSnapshot dataSnapshot) {
+        mRef.child("users/" + user_id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 User u = dataSnapshot.getValue(User.class);
                 username = u.getUsername();
                 tvUsername.setText(username);
-           }
-
-           @Override
-            public void onCancelled(DatabaseError error) {
-              // Failed to read value
             }
-      });
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+            }
+        });
         StorageReference mStorage = FirebaseStorage.getInstance().getReference();
         StorageReference mRef = mStorage.child("userDp").child(user_id).child("dp.jpg");
         Glide.with(this)
