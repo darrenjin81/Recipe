@@ -1,5 +1,6 @@
 package recurrent.recipe;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -17,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,6 +50,7 @@ import static android.content.ContentValues.TAG;
 public class EditProfile extends Fragment {
     private static final int SELECT_IMAGE = 1;
     private FirebaseAuth mAuth;
+    private ProgressDialog mProgressDialog;
     private FirebaseDatabase mdatabase;
     private DatabaseReference mRef;
     private FirebaseUser curr_user;
@@ -92,6 +97,8 @@ public class EditProfile extends Fragment {
 
         mdatabase = FirebaseDatabase.getInstance();
         mRef = mdatabase.getReference();
+        mProgressDialog = new ProgressDialog(getActivity());
+
 
         //retrieve logged in user's details
         mRef.child("users/" + user_id).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -109,6 +116,16 @@ public class EditProfile extends Fragment {
                 // Failed to read value
             }
         });
+
+        StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+        StorageReference mRef = mStorage.child("userDp").child(user_id).child("dp.jpg");
+        Glide.with(this)
+                .using(new FirebaseImageLoader())
+                .load(mRef)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .error(R.mipmap.ic_launcher)
+                .into(ivProfilePic);
 
         //display user email
         etEmailField.setText(email);
@@ -168,10 +185,13 @@ public class EditProfile extends Fragment {
                     }
                 });
                 if (imageUri != null) {
+                    mProgressDialog.setMessage("being added...");
+                    mProgressDialog.show();
                     filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(getContext(), "upload done...", Toast.LENGTH_LONG).show();
+                            mProgressDialog.dismiss();
                         }
                     });
                 }
