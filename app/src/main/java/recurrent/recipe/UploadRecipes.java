@@ -140,17 +140,17 @@ public class UploadRecipes extends Fragment {
         btnBreakfast.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                btnDessert.setHighlightColor(Color.BLACK);
+                btnDessert.setTextColor(Color.BLACK);
                 btnSushi.setTextColor(Color.BLACK);
                 btnBreakfast.setTextColor(Color.YELLOW);
                 btnEntree.setTextColor(Color.BLACK);
-                category = "#breakfafst";
+                category = "#breakfast";
             }
         });
         btnSushi.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                btnDessert.setHighlightColor(Color.BLACK);
+                btnDessert.setTextColor(Color.BLACK);
                 btnSushi.setTextColor(Color.YELLOW);
                 btnBreakfast.setTextColor(Color.BLACK);
                 btnEntree.setTextColor(Color.BLACK);
@@ -160,7 +160,7 @@ public class UploadRecipes extends Fragment {
         btnEntree.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                btnDessert.setHighlightColor(Color.BLACK);
+                btnDessert.setTextColor(Color.BLACK);
                 btnSushi.setTextColor(Color.BLACK);
                 btnBreakfast.setTextColor(Color.BLACK);
                 btnEntree.setTextColor(Color.YELLOW);
@@ -257,7 +257,7 @@ public class UploadRecipes extends Fragment {
                     mProgressDialog.setMessage("being added...");
                     mProgressDialog.show();
 
-                    if(category == ""){
+                    if(!etAddTag.getText().toString().isEmpty()){
                         recipe = new Recipe(name, user_id, etAddTag.getText().toString(), cookingTime, instructionSteps, ingredients);
                     }else {
                         recipe = new Recipe(name, user_id, category, cookingTime, instructionSteps, ingredients);

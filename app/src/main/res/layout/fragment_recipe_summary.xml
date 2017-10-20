@@ -83,7 +83,7 @@
             android:layout_gravity="center"
             android:layout_margin="16dp"
             android:layout_row="1"
-            android:text="@string/fragment_recipe_summary_calories"
+            android:text="Rating"
             android:textColor="#ffffff" />
 
     </GridLayout>
