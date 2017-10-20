@@ -9,7 +9,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnMyRecipes"
+        android:layout_above="@+id/btnSavedRecipes"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="32dp"
         android:background="@drawable/rectangle_primary" />
@@ -37,21 +37,10 @@
         tools:text="Username" />
 
     <Button
-        android:id="@+id/btnMyRecipes"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnSavedRecipes"
-        android:layout_alignStart="@+id/btnSavedRecipes"
-        android:layout_centerVertical="true"
-        android:text="@string/fragment_user_profile_my_recipes"
-        android:textAllCaps="false"
-        android:background="@drawable/button_secondary"/>
-
-    <Button
         android:id="@+id/btnSavedRecipes"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnMyRecipes"
+        android:layout_below="@+id/tvUsername"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
         android:text="@string/fragment_user_profile_saved_recipes"

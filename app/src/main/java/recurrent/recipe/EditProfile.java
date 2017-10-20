@@ -198,6 +198,14 @@ public class EditProfile extends Fragment {
             }
         });
 
+        mStorage = FirebaseStorage.getInstance().getReference();
+        mRef = mStorage.child("userDp").child(user_id).child("dp.jpg");
+        Glide.with(this)
+                .using(new FirebaseImageLoader())
+                .load(mRef)
+                .error(R.drawable.profile_icon)
+                .into(ivProfilePic);
+
         //transit to change password page
         btnChangePwdPage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

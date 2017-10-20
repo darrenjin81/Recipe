@@ -19,7 +19,7 @@
     <string name="fragment_login_text">Please login with your details below:</string>
     <string name="fragment_login_email">E-mail</string>
     <string name="fragment_login_password">Password</string>
-    <string name="fragment_login_btnRegister">Don\'t have an account? Register!</string>
+    <string name="fragment_login_btnRegister">Don\'t have an account? ~ Register</string>
     <string name="fragment_login_btnLogin">Login</string>
     <string name="fragment_login_btnSignOut">Sign out</string>
 
@@ -28,7 +28,7 @@
     <string name="fragment_register_btnCreate">Create</string>
     <string name="fragment_register_username">Put your desired username here</string>
     <string name="fragment_register_password">Put your password here</string>
-    <string name="fragment_register_check_valid">Check Availability</string>
+    <string name="fragment_register_check_valid">Check</string>
     <string name="fragment_register_check_password">Re-enter your password</string>
     <string name="fragment_register_password_format_tip">Your password should be no shorter than 6 characters\nYour password should contain one lowercase letter, one uppercase letter, one number and one special character</string>
 
@@ -70,7 +70,7 @@
 
     <!--Search bar-->
     <string name="search_title">Searchy</string>
-    <string name="search_hint">Searchyy!!!</string>
+    <string name="search_hint">Search</string>
     <string name="fragment_edit_profile_instructions">Please enter the details you want to change below, and hit save when you are done.</string>
 
 
