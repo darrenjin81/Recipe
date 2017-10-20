@@ -47,7 +47,7 @@
         android:visible="false">
         <item
             android:id="@+id/nav_upload_recipes"
-            android:icon="@drawable/upload_icon"
+            android:icon="@drawable/upload"
             android:title="@string/navigation_upload_recipes" />
 
         <item

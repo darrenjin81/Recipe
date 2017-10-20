@@ -1,16 +1,20 @@
 package recurrent.recipe;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -18,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,11 +46,7 @@ import static android.app.Activity.RESULT_OK;
 public class UploadRecipes extends Fragment {
     private static final int SELECT_IMAGE = 100;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    // The onCreateView method is called when Fragment should create its View object hierarchy,
-    // either dynamically or via XML layout inflation.
-//    FirebaseStorage storage = FirebaseStorage.getInstance();
-//    StorageReference storageRef = storage.getReference();
-//    StorageReference imageRef = storageRef.child("images");
+
     private FirebaseDatabase mdatabase;
     private DatabaseReference mRef;
     private FirebaseUser curr_user;
@@ -55,14 +56,10 @@ public class UploadRecipes extends Fragment {
 
     private EditText nameEditor;
     private EditText instructionsEditor;
-    private ImageView ivUploadImage;
     private EditText etIngredient;
-    private Button btnAddInstructionsStep;
-    private TextView tvInstructionsTip;
-    private Button btnAddIngredient;
-    private TextView tvIngredientTip;
-    private Button btnAcitivateCamera;
-    private Button btnUploadImage;
+    private android.support.v7.widget.AppCompatImageButton btnAddInstructionsStep;
+    private android.support.v7.widget.AppCompatImageButton btnAddIngredient;
+    private android.support.v7.widget.AppCompatImageButton btnUploadImage;
     private Button btnUpload;
     private EditText etCookingTime;
     private Button btnDessert;
@@ -78,11 +75,18 @@ public class UploadRecipes extends Fragment {
 
     Recipe recipe;
     String category = "";
-    String addedIngredients = "";
-    String addedInstuctions = "";
     ArrayList<String> ingredients = new ArrayList<>();
     ArrayList<String> instructionSteps = new ArrayList<>();
 
+    ArrayAdapter<String> ingredientsAdapter;
+    ArrayAdapter<String> instructionAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ingredientsAdapter = new MyArrayListAdapter(this.getContext(), R.layout.tv_list_view, ingredients);
+        instructionAdapter = new MyArrayListAdapter(this.getContext(), R.layout.tv_list_view, instructionSteps);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -94,6 +98,26 @@ public class UploadRecipes extends Fragment {
         return inflater.inflate(R.layout.fragment_upload_recipes, parent, false);
     }
 
+    public void addIngredient(View v){
+        if(etIngredient.getText().toString().trim().isEmpty()) return;
+        ingredients.add(etIngredient.getText().toString());
+        ingredientsAdapter.notifyDataSetChanged();
+        InputMethodManager imm = (InputMethodManager)this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        etIngredient.setText("");
+        etIngredient.clearFocus();
+    }
+
+    public void addInstruction(View v){
+        if(instructionsEditor.getText().toString().trim().isEmpty()) return;
+        instructionSteps.add(instructionsEditor.getText().toString());
+        instructionAdapter.notifyDataSetChanged();
+        InputMethodManager imm = (InputMethodManager)this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        instructionsEditor.setText("");
+        instructionsEditor.clearFocus();
+    }
+
     // This event is triggered soon after onCreateView().
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
@@ -102,19 +126,21 @@ public class UploadRecipes extends Fragment {
         mRef = mdatabase.getReference();
         mStorage = FirebaseStorage.getInstance().getReference();
         mProgressDialog = new ProgressDialog(getActivity());
-        // Setup any handles to view objects here
-        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
-        nameEditor = (EditText) getView().findViewById(R.id.upload_recipe_name);
-        instructionsEditor = (EditText) getView().findViewById(R.id.upload_recipe_instructions);
-        btnAddInstructionsStep = (Button) getView().findViewById(R.id.btnAddInstructionsStep);
-        tvInstructionsTip = (TextView) getView().findViewById(R.id.tv_tip_added_instruction);
-        ivUploadImage = (ImageView) getView().findViewById((R.id.upload_recipe_image));
-        etIngredient = (EditText) getView().findViewById(R.id.upload_recipe_ingredients);
-        btnAddIngredient = (Button) getView().findViewById(R.id.btnAddIngredient);
-        tvIngredientTip = (TextView) getView().findViewById(R.id.tv_tip_added_ingredient);
-        btnAcitivateCamera = (Button) getView().findViewById(R.id.btnActivateCamera);
-        btnUploadImage = (Button) getView().findViewById(R.id.btnUploadImage);
-        btnUpload = (Button) getView().findViewById(R.id.button_upload);
+
+        nameEditor = (EditText) view.findViewById(R.id.upload_recipe_name);
+        instructionsEditor = (EditText) view.findViewById(R.id.upload_recipe_instructions);
+        btnAddInstructionsStep = (android.support.v7.widget.AppCompatImageButton) view.findViewById(R.id.btnAddInstructionsStep);
+        etIngredient = (EditText) view.findViewById(R.id.upload_recipe_ingredients);
+        btnAddIngredient = (android.support.v7.widget.AppCompatImageButton) view.findViewById(R.id.btnAddIngredient);
+        btnUploadImage = (android.support.v7.widget.AppCompatImageButton) view.findViewById(R.id.btnUploadImage);
+        btnUpload = (Button) view.findViewById(R.id.button_upload);
+
+        ListView lvIngredients = (ListView) getView().findViewById(R.id.ingredients_list);
+        ListView lvInstructions = (ListView) getView().findViewById(R.id.instructions_list);
+
+        lvIngredients.setAdapter(ingredientsAdapter);
+        lvInstructions.setAdapter(instructionAdapter);
+
         etCookingTime = (EditText) getView().findViewById(R.id.et_pick_time);
         btnDessert = (Button) getView().findViewById(R.id.btn_dessert);
         btnBreakfast = (Button) getView().findViewById(R.id.btn_breakfast);
@@ -198,32 +224,18 @@ public class UploadRecipes extends Fragment {
                 // Failed to read value
             }
         });
-        btnAddInstructionsStep.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String instruction = instructionsEditor.getText().toString();
-                instructionSteps.add(instruction);
-                instructionsEditor.setText("");
-                addedInstuctions = addedInstuctions.concat(instruction + " has been successfully added...\n");
-                tvInstructionsTip.setText(addedInstuctions);
-            }
-        });
 
         btnAddIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ingredient = etIngredient.getText().toString();
-                ingredients.add(ingredient);
-                etIngredient.setText("");
-                addedIngredients = addedIngredients.concat(ingredient + " has been successfully added...\n");
-                tvIngredientTip.setText(addedIngredients);
+                addIngredient(v);
             }
         });
 
-        btnAcitivateCamera.setOnClickListener(new View.OnClickListener() {
+        btnAddInstructionsStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                turnOnCamera();
+                addInstruction(v);
             }
         });
 
@@ -233,7 +245,6 @@ public class UploadRecipes extends Fragment {
                 openGallery();
             }
         });
-
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -333,21 +344,11 @@ public class UploadRecipes extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case REQUEST_IMAGE_CAPTURE:
-                if (resultCode == RESULT_OK) {
-                    Bundle extras = data.getExtras();
-                    Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    ivUploadImage.setImageBitmap(imageBitmap);
-
-                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-                    cameraData = bytes.toByteArray();
-                }
             case SELECT_IMAGE:
                 if (resultCode == RESULT_OK) {
                     imageUri = data.getData();
                     if (imageUri != null) {
-                        ivUploadImage.setImageURI(imageUri);
+                        btnUploadImage.setImageURI(imageUri);
                     }
                 }
         }

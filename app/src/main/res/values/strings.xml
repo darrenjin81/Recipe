@@ -35,7 +35,7 @@
     <!--Fragment Upload-->
     <string name="upload_recipe_text">Fill in the details for your recipe below:</string>
     <string name="upload_btn_save">Save</string>
-    <string name="upload_recipe_title">Put the title of your recipe here</string>
+    <string name="upload_recipe_title">Title</string>
     <string name="upload_recipe_instructions">Instructions</string>
     <string name="upload_recipe_ingredients">Ingredients</string>
     <string name="upload_recipe_image">Upload Image</string>
