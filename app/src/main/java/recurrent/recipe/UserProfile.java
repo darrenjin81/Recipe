@@ -58,7 +58,6 @@ public class UserProfile extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         btnSignOut = (Button) view.findViewById(R.id.btnSignOut);
         btnEditDetails = (Button) view.findViewById(R.id.btnEditProfile);
-        btnMyRecipes = (Button) view.findViewById(R.id.btnMyRecipes);
         btnSavedRecipes = (Button) view.findViewById(R.id.btnSavedRecipes);
         tvUsername = (TextView) view.findViewById(R.id.tvUsername);
         ivProfilePic = (ImageView) view.findViewById(R.id.ivProfilePic);

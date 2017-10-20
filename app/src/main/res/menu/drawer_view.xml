@@ -35,10 +35,6 @@
             android:icon="@drawable/browse_icon"
             android:title="@string/navigation_browse" />
 
-        <item
-            android:id="@+id/nav_search_recipes"
-            android:icon="@mipmap/ic_launcher"
-            android:title="@string/navigation_search_recipes" />
     </group>
 
     <group
@@ -54,11 +50,7 @@
             android:id="@+id/nav_saved_recipes"
             android:icon="@drawable/bookmark_icon"
             android:title="@string/navigation_saved_recipes" />
-        
-        <item
-            android:id="@+id/nav_view_recipe"
-            android:icon="@mipmap/ic_launcher"
-            android:title="View a recipe"/>
+
     </group>
 
 </menu>

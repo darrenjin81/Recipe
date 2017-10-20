@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -143,12 +144,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_saved_recipes:
                 fragmentClass = SavedRecipes.class;
                 break;
-            case R.id.nav_search_recipes:
-                fragmentClass = SearchRecipes.class;
-                break;
-            case R.id.nav_view_recipe:
-                fragmentClass = RecipeView.class;
-                break;
             case R.id.browse_recipes:
                 fragmentClass = BrowseRecipes.class;
                 break;
@@ -179,6 +174,16 @@ public class MainActivity extends AppCompatActivity {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
         return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout layout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        if (layout.isDrawerOpen(GravityCompat.START)) {
+            layout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override

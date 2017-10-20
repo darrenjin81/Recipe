@@ -73,7 +73,7 @@ public class Register extends Fragment {
                                 found = true;
                             }
                         }
-                        if(!found) Toast.makeText(getActivity(), "Congratulation! It is available!", Toast.LENGTH_LONG).show();
+                        if(!found) Toast.makeText(getActivity(), "Congratulations! It is available!", Toast.LENGTH_LONG).show();
                     }
 
                     @Override

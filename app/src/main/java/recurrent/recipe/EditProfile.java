@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -177,6 +179,14 @@ public class EditProfile extends Fragment {
                 }
             }
         });
+
+        StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+        StorageReference mRef = mStorage.child("userDp").child(user_id).child("dp.jpg");
+        Glide.with(this)
+                .using(new FirebaseImageLoader())
+                .load(mRef)
+                .error(R.drawable.profile_icon)
+                .into(ivProfilePic);
 
         //transit to change password page
         btnChangePwdPage.setOnClickListener(new View.OnClickListener() {

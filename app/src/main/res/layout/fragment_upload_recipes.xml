@@ -53,7 +53,7 @@
             android:layout_marginStart="12dp"
             android:layout_toEndOf="@+id/tvSelectTag"
             android:layout_toRightOf="@+id/tvSelectTag"
-            android:background="@drawable/add" />
+            android:background="@drawable/addrainbow" />
 
         <EditText
             android:id="@+id/et_addTag"
@@ -70,7 +70,7 @@
         <GridLayout
             android:id="@+id/existingTags"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/tvSelectTag"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
@@ -114,7 +114,7 @@
             android:id="@+id/ingredients_list"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/upload_recipe_name"
+            android:layout_below="@id/tag_part"
             />
 
         <EditText android:id="@+id/upload_recipe_ingredients"
@@ -130,7 +130,7 @@
         app:srcCompat="@drawable/add"
         android:layout_below="@id/ingredients_list"
         android:clickable="true"
-        android:layout_toRightOf="@id/ingredients_list"
+        android:layout_toRightOf="@id/upload_recipe_ingredients"
         android:background="#FFFFFF" />
 
 
@@ -141,7 +141,6 @@
         android:layout_below="@id/upload_recipe_ingredients"
         />
 
-
         <EditText android:id="@+id/upload_recipe_instructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -150,15 +149,13 @@
             android:inputType="textCapSentences|textMultiLine"
             android:hint="@string/upload_recipe_instructions" />
 
-
-
         <android.support.v7.widget.AppCompatImageButton android:id="@+id/btnAddInstructionsStep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/upload_recipe_btn_add_ingredient"
             app:srcCompat="@drawable/add"
-            android:layout_below="@id/upload_recipe_instructions"
-            android:layout_toRightOf="@id/instructions_list"
+            android:layout_below="@id/instructions_list"
+            android:layout_toRightOf="@id/upload_recipe_instructions"
             android:clickable="true"
             android:background="#FFFFFF"/>
 
@@ -173,11 +170,12 @@
         android:id="@+id/et_pick_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnUploadImage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         android:hint="@string/cooking_time"
-        android:inputType="time" />
+        android:inputType="time"
+        android:layout_alignBaseline="@+id/upload_recipe_name"
+        android:layout_alignBottom="@+id/upload_recipe_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="15dp" />
 
     </RelativeLayout>
 <!--</ScrollView>-->

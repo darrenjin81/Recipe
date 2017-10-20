@@ -6,23 +6,25 @@
 
     <Button
         android:id="@+id/btnChangePwdPage"
-        android:layout_width="350sp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnSaveDetails"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
+        android:layout_margin="10dp"
         android:background="@drawable/button_secondary"
         android:text="@string/fragment_edit_profile_btnChangePwdPage"
         android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btnSaveDetails"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/btnChangePwdPage"
         android:layout_alignRight="@+id/btnChangePwdPage"
         android:layout_below="@+id/etEmailField"
         android:layout_marginTop="16dp"
+        android:layout_margin="10dp"
         android:background="@drawable/button_secondary"
         android:text="@string/fragment_edit_profile_btnSaveDetails"
         android:textAllCaps="false" />
@@ -90,7 +92,7 @@
 
     <EditText
         android:id="@+id/etUsernameField"
-        android:layout_width="250sp"
+        android:layout_width="230sp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/etEmailField"
         android:layout_alignStart="@+id/etEmailField"
@@ -102,7 +104,7 @@
 
     <EditText
         android:id="@+id/etEmailField"
-        android:layout_width="250sp"
+        android:layout_width="230sp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
