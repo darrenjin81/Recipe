@@ -83,7 +83,7 @@ class Recipe implements Parcelable {
     }
     public void incrementNumOfRating() { num_of_rating++; }
     public void updateRating(double newRate) {
-        rating = (rating + newRate) / num_of_rating;
+        rating = rating + newRate;
     }
 
 

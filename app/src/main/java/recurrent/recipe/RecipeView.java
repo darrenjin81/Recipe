@@ -1,6 +1,7 @@
 package recurrent.recipe;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class RecipeView extends Fragment {
     private DatabaseReference mRef;
     private StorageReference mStorage;
     private FirebaseUser curr_user;
+    private RatingBar rb;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -44,15 +46,6 @@ public class RecipeView extends Fragment {
         recipe = getArguments().getParcelable(RecipeArgKey);
         mRef = FirebaseDatabase.getInstance().getReference();
         mStorage = FirebaseStorage.getInstance().getReference();
-    }
-
-    // The onCreateView method is called when Fragment should create its View object hierarchy,
-    // either dynamically or via XML layout inflation.
-    @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup parent, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.recipe_view, parent, false);
-        getActivity().setTitle("Recipe details");
         this.curr_user = FirebaseAuth.getInstance().getCurrentUser();
         if (curr_user != null) {
             this.user_id = curr_user.getUid();
@@ -62,7 +55,7 @@ public class RecipeView extends Fragment {
                     if (dataSnapshot.exists()) {
                         Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                         for (DataSnapshot child : children) {
-                            User user = child.getValue(User.class);
+                            user = child.getValue(User.class);
                             if(user.getUnique_id().equals(user_id)){
                                 break;
                             }
@@ -75,6 +68,15 @@ public class RecipeView extends Fragment {
                 }
             });
         }
+    }
+
+    // The onCreateView method is called when Fragment should create its View object hierarchy,
+    // either dynamically or via XML layout inflation.
+    @Override
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup parent, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.recipe_view, parent, false);
+        getActivity().setTitle("Recipe details");
         return view;
     }
 
@@ -89,30 +91,62 @@ public class RecipeView extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         ImageView imageStrip = (ImageView) view.findViewById(R.id.ivRecipeView);
-        RatingBar rb = (RatingBar) view.findViewById(R.id.rbRatingBar);
+        rb = (RatingBar) view.findViewById(R.id.rbRatingBar);
+
+//        mRef.child("users").child(user_id).child("ratedRecipes").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                if (dataSnapshot.exists()) {
+//                    Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+//                    for (DataSnapshot child : children) {
+//                        RatedRecipe temp = child.getValue(RatedRecipe.class);
+//                        if(temp.getRatedRecipe_id().equals(recipe.getKey())){
+//                            rb.setRating(temp.getRating());
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//            }
+//        });
 
         rb.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                if(user.getRatedRecipes().size() == 0){
-                    user.addRatedRecipe(recipe.getKey());
+                DatabaseReference mRated = mRef.child("users/" + user_id + "ratedRecipes/");
+                if(user.getRatedRecipes().isEmpty()){
+                    RatedRecipe newRatedRecipe = new RatedRecipe(recipe.getKey(), rating);
+                    user.addRatedRecipe(newRatedRecipe);
                     recipe.incrementNumOfRating();
                     mRef.child("recipes/" + recipe.getKey()).child("num_of_rating").setValue(recipe.getNum_of_rating());
                     recipe.updateRating(rating);
                     mRef.child("recipes/" + recipe.getKey()).child("rating").setValue(recipe.getRating());
                     mRef.child("users/" + user_id).child("ratedRecipes").setValue(user.getRatedRecipes());
-                }else if(!user.getRatedRecipes().contains(recipe.getKey())){
-                    user.addRatedRecipe(recipe.getKey());
+                }else {
+                    for(int index = 0; index < user.getRatedRecipes().size(); index++){
+                        // means you have already rated
+                        if(user.getRatedRecipes().get(index).getRatedRecipe_id().equals(recipe.getKey())){
+                            recipe.updateRating(user.getRatedRecipes().get(index).getRating() * -1);
+                            user.getRatedRecipes().get(index) .updateRating(rating);
+                            recipe.updateRating(user.getRatedRecipes().get(index).getRating());
+                            mRef.child("recipes/" + recipe.getKey()).child("rating").setValue(recipe.getRating());
+                            mRef.child("users/" + user_id).child("ratedRecipes").child(Integer.toString(index)).setValue(user.getRatedRecipes().get(index));
+                            return ;
+                        }
+                    }
+                    RatedRecipe newRatedRecipe = new RatedRecipe(recipe.getKey(), rating);
+                    user.addRatedRecipe(newRatedRecipe);
                     recipe.incrementNumOfRating();
                     mRef.child("recipes/" + recipe.getKey()).child("num_of_rating").setValue(recipe.getNum_of_rating());
                     recipe.updateRating(rating);
                     mRef.child("recipes/" + recipe.getKey()).child("rating").setValue(recipe.getRating());
-                    mRef.child("users/" + user_id).child("ratedRecipes").setValue(user.getRatedRecipes());
-                }else{
-                    recipe.updateRating(rating);
-                    mRef.child("recipes/" + recipe.getKey()).child("rating").setValue(recipe.getRating());
+                    mRef.child("users/" + user_id).child("ratedRecipes").child(Integer.toString(user.getRatedRecipes().size()-1)).setValue(newRatedRecipe);
                 }
-
             }
         });
 

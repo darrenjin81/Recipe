@@ -15,6 +15,8 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by admin on 18/09/2017.
  *
@@ -53,7 +55,8 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         t.setText(recipe.getIngredients().size() + "");
 
         t = (TextView) v.findViewById(R.id.tvSummary_cals_num);
-        t.setText("499");//TODO fix
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        t.setText(twoDForm.format(recipe.getRating()/recipe.getNum_of_rating()) + " / 5.0");
 
 
         ImageView image = (ImageView) v.findViewById(R.id.ivSummary_pic) ;
