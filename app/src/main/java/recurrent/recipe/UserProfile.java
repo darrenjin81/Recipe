@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -93,7 +94,9 @@ public class UserProfile extends Fragment {
         Glide.with(this)
                 .using(new FirebaseImageLoader())
                 .load(mRef)
-                .error(R.drawable.profile_icon)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .error(R.mipmap.ic_launcher)
                 .into(ivProfilePic);
 
         btnEditDetails.setOnClickListener(new View.OnClickListener() {
