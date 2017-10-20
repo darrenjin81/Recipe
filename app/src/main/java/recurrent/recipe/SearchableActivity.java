@@ -52,7 +52,7 @@ public class SearchableActivity extends ListActivity {
 ////                .commit();
 //        fm.beginTransaction().remove(fm.findFragmentById(R.id.flContent)).commit();
 //        fm.beginTransaction()
-//                .add(nextFrag, "FRAG_FEED")
+//                .addrainbow(nextFrag, "FRAG_FEED")
 //                .addToBackStack(null)
 //                .commit();
 //        startActivity(getIntent());
