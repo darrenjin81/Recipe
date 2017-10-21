@@ -92,31 +92,37 @@ public class RecipeView extends Fragment {
         ImageView imageStrip = (ImageView) view.findViewById(R.id.ivRecipeView);
         rb = (RatingBar) view.findViewById(R.id.rbRatingBar);
 
-//        mRef.child("users").child(user_id).child("ratedRecipes").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                if (dataSnapshot.exists()) {
-//                    Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-//                    for (DataSnapshot child : children) {
-//                        RatedRecipe temp = child.getValue(RatedRecipe.class);
-//                        if(temp.getRatedRecipe_id().equals(recipe.getKey())){
-//                            rb.setRating(temp.getRating());
-//                        }
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//            }
-//        });
+        mRef.child("users").child(user_id).child("ratedRecipes").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                if (dataSnapshot.exists()) {
+                    Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                    for (DataSnapshot child : children) {
+                        RatedRecipe temp = child.getValue(RatedRecipe.class);
+                        if(temp.getRatedRecipe_id().equals(recipe.getKey())){
+                            float i = temp.getRating();
+                            rb.setRating(i);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+            }
+        });
 
         rb.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if(user == null){
+                    return;
+                }
+
                 DatabaseReference mRated = mRef.child("users/" + user_id + "ratedRecipes/");
                 if (user.getRatedRecipes().isEmpty()) {
                     RatedRecipe newRatedRecipe = new RatedRecipe(recipe.getKey(), rating);

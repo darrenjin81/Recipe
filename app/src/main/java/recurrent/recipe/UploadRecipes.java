@@ -365,6 +365,7 @@ public class UploadRecipes extends Fragment {
                     imageUri = data.getData();
                     if (imageUri != null) {
                         btnUploadImage.setImageURI(imageUri);
+                        btnUploadImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     }
                 }
         }
