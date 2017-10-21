@@ -36,7 +36,7 @@ public class SearchableActivity extends ListActivity {
         return super.onSearchRequested();
     }
 
-    void PresentSearch(String query){
+    void PresentSearch(String query) {
 
 
 //        Bundle args = new Bundle();

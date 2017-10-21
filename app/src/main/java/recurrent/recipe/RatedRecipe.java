@@ -6,8 +6,6 @@ package recurrent.recipe;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-
 public class RatedRecipe implements Parcelable {
 
     private String ratedRecipe_id;

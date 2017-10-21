@@ -1,7 +1,6 @@
 package recurrent.recipe;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,8 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
 
@@ -41,7 +39,7 @@ public class RecipeView extends Fragment {
     private RatingBar rb;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         recipe = getArguments().getParcelable(RecipeArgKey);
         mRef = FirebaseDatabase.getInstance().getReference();
@@ -56,12 +54,13 @@ public class RecipeView extends Fragment {
                         Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                         for (DataSnapshot child : children) {
                             user = child.getValue(User.class);
-                            if(user.getUnique_id().equals(user_id)){
+                            if (user.getUnique_id().equals(user_id)) {
                                 break;
                             }
                         }
                     }
                 }
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
@@ -119,7 +118,7 @@ public class RecipeView extends Fragment {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 DatabaseReference mRated = mRef.child("users/" + user_id + "ratedRecipes/");
-                if(user.getRatedRecipes().isEmpty()){
+                if (user.getRatedRecipes().isEmpty()) {
                     RatedRecipe newRatedRecipe = new RatedRecipe(recipe.getKey(), rating);
                     user.addRatedRecipe(newRatedRecipe);
                     recipe.incrementNumOfRating();
@@ -127,16 +126,16 @@ public class RecipeView extends Fragment {
                     recipe.updateRating(rating);
                     mRef.child("recipes/" + recipe.getKey()).child("rating").setValue(recipe.getRating());
                     mRef.child("users/" + user_id).child("ratedRecipes").setValue(user.getRatedRecipes());
-                }else {
-                    for(int index = 0; index < user.getRatedRecipes().size(); index++){
+                } else {
+                    for (int index = 0; index < user.getRatedRecipes().size(); index++) {
                         // means you have already rated
-                        if(user.getRatedRecipes().get(index).getRatedRecipe_id().equals(recipe.getKey())){
+                        if (user.getRatedRecipes().get(index).getRatedRecipe_id().equals(recipe.getKey())) {
                             recipe.updateRating(user.getRatedRecipes().get(index).getRating() * -1);
-                            user.getRatedRecipes().get(index) .updateRating(rating);
+                            user.getRatedRecipes().get(index).updateRating(rating);
                             recipe.updateRating(user.getRatedRecipes().get(index).getRating());
                             mRef.child("recipes/" + recipe.getKey()).child("rating").setValue(recipe.getRating());
                             mRef.child("users/" + user_id).child("ratedRecipes").child(Integer.toString(index)).setValue(user.getRatedRecipes().get(index));
-                            return ;
+                            return;
                         }
                     }
                     RatedRecipe newRatedRecipe = new RatedRecipe(recipe.getKey(), rating);
@@ -145,7 +144,7 @@ public class RecipeView extends Fragment {
                     mRef.child("recipes/" + recipe.getKey()).child("num_of_rating").setValue(recipe.getNum_of_rating());
                     recipe.updateRating(rating);
                     mRef.child("recipes/" + recipe.getKey()).child("rating").setValue(recipe.getRating());
-                    mRef.child("users/" + user_id).child("ratedRecipes").child(Integer.toString(user.getRatedRecipes().size()-1)).setValue(newRatedRecipe);
+                    mRef.child("users/" + user_id).child("ratedRecipes").child(Integer.toString(user.getRatedRecipes().size() - 1)).setValue(newRatedRecipe);
                 }
             }
         });
@@ -157,7 +156,7 @@ public class RecipeView extends Fragment {
                 .into(imageStrip);
 
         TextView tvName, tvInstructions;
-        tvName  = (TextView) view.findViewById(R.id.tvRecipeName);
+        tvName = (TextView) view.findViewById(R.id.tvRecipeName);
         tvName.setText(recipe.getName());
 
         final ImageButton imgBtnBookmarkOn;
@@ -175,7 +174,7 @@ public class RecipeView extends Fragment {
             imgBtnBookmarkOn.setVisibility(View.GONE);
 
             //check if recipes is bookmarked
-            mRef.child("users/"+user_id+"/saved_recipes")
+            mRef.child("users/" + user_id + "/saved_recipes")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -183,7 +182,7 @@ public class RecipeView extends Fragment {
                                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                                 for (DataSnapshot child : children) {
                                     Recipe r = child.getValue(Recipe.class);
-                                    Log.d(TAG, "KEY1: "+ r.getKey());
+                                    Log.d(TAG, "KEY1: " + r.getKey());
                                     if (r.getKey().equals(recipe.getKey())) {
                                         //is bookmarked
                                         imgBtnBookmarkOff.setVisibility(View.GONE);
@@ -193,6 +192,7 @@ public class RecipeView extends Fragment {
                                 }
                             }
                         }
+
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
 
@@ -283,29 +283,30 @@ public class RecipeView extends Fragment {
         listView.requestLayout();
     }
 
-    private void bookmark(DatabaseReference mRef, String user_id, Recipe recipe){
-        mRef.child("users/"+user_id+"/saved_recipes").push().setValue(recipe);
+    private void bookmark(DatabaseReference mRef, String user_id, Recipe recipe) {
+        mRef.child("users/" + user_id + "/saved_recipes").push().setValue(recipe);
     }
 
-    private void unmark(final DatabaseReference mRef, final String user_id, final String rKey){
+    private void unmark(final DatabaseReference mRef, final String user_id, final String rKey) {
         //TODO: CHANGE WAY OF ACCESSING DATABASE LATER
-        mRef.child("users/"+user_id+"/saved_recipes")
+        mRef.child("users/" + user_id + "/saved_recipes")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                        for(DataSnapshot child: children){
+                        for (DataSnapshot child : children) {
                             Recipe r = child.getValue(Recipe.class);
-                            if (r.getKey().equals(rKey)){
+                            if (r.getKey().equals(rKey)) {
                                 String recipe_key = child.getKey();
-                                mRef.child("users/"+user_id+"/saved_recipes/"+recipe_key)
+                                mRef.child("users/" + user_id + "/saved_recipes/" + recipe_key)
                                         .removeValue();
                                 //debugging purpose
-                                Log.d(TAG, "KEY: "+ recipe_key);
+                                Log.d(TAG, "KEY: " + recipe_key);
                             }
                         }
 
                     }
+
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 

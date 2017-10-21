@@ -47,7 +47,7 @@ public class HomeAdapter extends ArrayAdapter {
         v = inflater.inflate(R.layout.grid_view_items, null);
         DatabaseReference dRef = FirebaseDatabase.getInstance().getReference();
         //loop through featured_recipes list
-        Recipe curr_recipe = (Recipe)featured_recipes.get(position);
+        Recipe curr_recipe = (Recipe) featured_recipes.get(position);
 
 
         //create image view for each recipe
@@ -65,7 +65,7 @@ public class HomeAdapter extends ArrayAdapter {
 
         //create text view for each recipe name
         final TextView tvName, tvUploadingUser;
-        tvName  = (TextView) v.findViewById(R.id.tvHomeRecipeName);
+        tvName = (TextView) v.findViewById(R.id.tvHomeRecipeName);
         tvName.setText(curr_recipe.getName());
         tvUploadingUser = (TextView) v.findViewById(R.id.tvUploadingUser);
 
@@ -94,7 +94,7 @@ public class HomeAdapter extends ArrayAdapter {
 //        ivImage.setImageResource(id);
 
         return v;
- 
+
     }
 
 }
