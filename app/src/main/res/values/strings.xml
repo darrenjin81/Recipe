@@ -37,7 +37,7 @@
     <string name="upload_btn_save">Save</string>
     <string name="upload_recipe_title">Title</string>
     <string name="upload_recipe_instructions">Instructions</string>
-    <string name="upload_recipe_ingredients">Ingredients</string>
+    <string name="upload_recipe_ingredients">Add an Ingredient</string>
     <string name="upload_recipe_image">Upload Image</string>
     <string name="upload_recipe_take_photo">Take Photo</string>
     <string name="upload_recipe_btn_add_ingredient">Add</string>
