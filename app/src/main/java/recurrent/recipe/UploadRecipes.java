@@ -154,15 +154,13 @@ public class UploadRecipes extends Fragment {
         btnEntree = (Button) getView().findViewById(R.id.btn_entree);
 
         final RelativeLayout tag_part = (RelativeLayout) view.findViewById(R.id.tag_part);
-        final ImageButton btnAddTag = (ImageButton) view.findViewById(R.id.ib_addTag);
-        final EditText etAddTag = (EditText) view.findViewById(R.id.et_addTag) ;
         final GridLayout existingTags = (GridLayout) view.findViewById(R.id.existingTags);
 
 
         btnDessert.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                btnDessert.setTextColor(Color.YELLOW);
+                btnDessert.setTextColor(Color.WHITE);
                 btnSushi.setTextColor(Color.BLACK);
                 btnBreakfast.setTextColor(Color.BLACK);
                 btnEntree.setTextColor(Color.BLACK);
@@ -174,7 +172,7 @@ public class UploadRecipes extends Fragment {
             public void onClick(View v){
                 btnDessert.setTextColor(Color.BLACK);
                 btnSushi.setTextColor(Color.BLACK);
-                btnBreakfast.setTextColor(Color.YELLOW);
+                btnBreakfast.setTextColor(Color.WHITE);
                 btnEntree.setTextColor(Color.BLACK);
                 category = "#breakfast";
             }
@@ -183,7 +181,7 @@ public class UploadRecipes extends Fragment {
             @Override
             public void onClick(View v){
                 btnDessert.setTextColor(Color.BLACK);
-                btnSushi.setTextColor(Color.YELLOW);
+                btnSushi.setTextColor(Color.WHITE);
                 btnBreakfast.setTextColor(Color.BLACK);
                 btnEntree.setTextColor(Color.BLACK);
                 category = "#sushi";
@@ -195,7 +193,7 @@ public class UploadRecipes extends Fragment {
                 btnDessert.setTextColor(Color.BLACK);
                 btnSushi.setTextColor(Color.BLACK);
                 btnBreakfast.setTextColor(Color.BLACK);
-                btnEntree.setTextColor(Color.YELLOW);
+                btnEntree.setTextColor(Color.WHITE);
                 category = "#entree";
             }
         });
@@ -208,13 +206,6 @@ public class UploadRecipes extends Fragment {
             }
         });
 
-        btnAddTag.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                etAddTag.setVisibility(View.VISIBLE);
-                existingTags.setVisibility(View.GONE);
-            }
-        });
 
         mRef.child("users/" + user_id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -274,11 +265,7 @@ public class UploadRecipes extends Fragment {
                     mProgressDialog.setMessage("being added...");
                     mProgressDialog.show();
 
-                    if(!etAddTag.getText().toString().isEmpty()){
-                        recipe = new Recipe(name, user_id, etAddTag.getText().toString(), cookingTime, instructionSteps, ingredients);
-                    }else {
-                        recipe = new Recipe(name, user_id, category, cookingTime, instructionSteps, ingredients);
-                    }
+                    recipe = new Recipe(name, user_id, category, cookingTime, instructionSteps, ingredients);
                     String key = myRef.child("recipes").push().getKey();
                     recipe.setKey(key);
                     myRef.child("recipes").child(key).setValue(recipe);

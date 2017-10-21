@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#f4f4f4">
 
 
@@ -29,14 +30,7 @@
                 android:layout_height="200dp"
                 android:background="@drawable/gradient"/>
 
-            <RatingBar
-                android:id="@+id/rbRatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
         </FrameLayout>
-
-
 
         <TextView
             android:id="@+id/tvRecipeName"
@@ -47,6 +41,7 @@
             android:layout_alignParentStart="true"
             android:textColor="#ffffff"
             android:textSize="36sp"
+            tools:text="Title"
             android:padding="10dp"/>
 
         <ImageButton
@@ -56,7 +51,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_star_border_black_48dp"
+            app:srcCompat="@drawable/heart"
             android:layout_above="@+id/elvIngredients"
             android:layout_margin="8dp"
             android:padding="8dp"/>
@@ -70,7 +65,7 @@
             android:layout_alignParentRight="true"
             android:background="@android:color/transparent"
             android:visibility="gone"
-            app:srcCompat="@drawable/ic_star_black_48dp"
+            app:srcCompat="@drawable/hearted"
             android:layout_margin="8dp"
             android:padding="8dp"/>
 
@@ -94,8 +89,24 @@
             android:layout_margin="15dp" />
 
 
+        <RatingBar
+            android:id="@+id/rbRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/elvMethod"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tried it? Rate here"
+            android:layout_below="@id/rbRatingBar"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:layout_marginBottom="6dp"
+            />
+
     </RelativeLayout>
-
-
 
 </ScrollView>

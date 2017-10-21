@@ -49,14 +49,18 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         t.setText(recipe.getName());
 
         t = (TextView) v.findViewById(R.id.tvSummary_preptime_num);
-        t.setText(recipe.getCookingTime());
+        t.setText(recipe.getCookingTime()+ " mins");
 
         t = (TextView) v.findViewById(R.id.tvSummary_ingredients_num);
         t.setText(recipe.getIngredients().size() + "");
 
         t = (TextView) v.findViewById(R.id.tvSummary_cals_num);
         DecimalFormat twoDForm = new DecimalFormat("#.##");
-        t.setText(twoDForm.format(recipe.getRating()/recipe.getNum_of_rating()) + " / 5.0");
+        if(recipe.getNum_of_rating() == 0){
+            t.setText("review me");
+        }else{
+            t.setText(twoDForm.format(recipe.getRating()/recipe.getNum_of_rating()) + " / 5.0");
+        }
 
 
         ImageView image = (ImageView) v.findViewById(R.id.ivSummary_pic) ;
