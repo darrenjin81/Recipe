@@ -12,14 +12,15 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/rectangle_primary" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivProfilePic"
         android:layout_width="160dp"
         android:layout_height="160dp"
+        android:src="@mipmap/ic_launcher"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:scaleType="fitCenter"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/colorPrimary"/>
 
     <TextView
         android:id="@+id/tvUsername"
