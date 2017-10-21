@@ -48,7 +48,7 @@ public class Register extends Fragment {
         final TextView tvPasswordFormatTip = (TextView) view.findViewById(R.id.etPasswordFormatTip);
         Button btnCreate = (Button) view.findViewById(R.id.btnCreate);
 
-        btnCheckValid.setOnClickListener(new View.OnClickListener(){
+        btnCheckValid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO: check if email is valid or not by going through database.
@@ -62,14 +62,15 @@ public class Register extends Fragment {
                         // whenever data at this location is updated.
                         Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                         boolean found = false;
-                        for(DataSnapshot child: children){
+                        for (DataSnapshot child : children) {
                             User temp = child.getValue(User.class);
-                            if(temp.getEmailAddress().equals(etEmail.getText().toString())){
-                                Toast.makeText(getActivity( ), "This email address has been used", Toast.LENGTH_LONG).show();
+                            if (temp.getEmailAddress().equals(etEmail.getText().toString())) {
+                                Toast.makeText(getActivity(), "This email address has been used", Toast.LENGTH_LONG).show();
                                 found = true;
                             }
                         }
-                        if(!found) Toast.makeText(getActivity(), "Congratulations! It is available!", Toast.LENGTH_LONG).show();
+                        if (!found)
+                            Toast.makeText(getActivity(), "Congratulations! It is available!", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -101,9 +102,9 @@ public class Register extends Fragment {
     }
 
     private void createAccount(final String username, final String email, String password, String password1) {
-        if(!password.equals(password1)){
+        if (!password.equals(password1)) {
             Toast.makeText(getActivity(), "Your passwords should be the same", Toast.LENGTH_LONG).show();
-        } else if(username.isEmpty()){
+        } else if (username.isEmpty()) {
             Toast.makeText(getActivity(), "Your username cannot be empty", Toast.LENGTH_LONG).show();
         } else if (email.isEmpty()) {
             Toast.makeText(getActivity(), "Your email address is empty", Toast.LENGTH_LONG).show();
@@ -114,7 +115,7 @@ public class Register extends Fragment {
                 Toast.makeText(getActivity(), "Your email address is not valid", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&'*+-/=?^_`{|}~])[A-Za-z\\d!#$%&'*+-/=?^_`{|}~]{6,20}$")){
+            if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&'*+-/=?^_`{|}~])[A-Za-z\\d!#$%&'*+-/=?^_`{|}~]{6,20}$")) {
                 Toast.makeText(getActivity(), "Make sure your password meets requirement", Toast.LENGTH_LONG).show();
                 return;
             }

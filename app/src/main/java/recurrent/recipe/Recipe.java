@@ -8,9 +8,6 @@ package recurrent.recipe;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
 import java.util.ArrayList;
 
 class Recipe implements Parcelable {
@@ -30,12 +27,12 @@ class Recipe implements Parcelable {
 
     //public String image = "marcoons";
 
-    public Recipe(){
+    public Recipe() {
         instructionsSteps = new ArrayList<String>();
         ingredients = new ArrayList<String>();
     }
 
-    public Recipe(String name, String owner,String category, String cookingTime, ArrayList<String> instructionSteps, ArrayList<String> ingredients) {
+    public Recipe(String name, String owner, String category, String cookingTime, ArrayList<String> instructionSteps, ArrayList<String> ingredients) {
         this.unique_id = "";
         this.owner_id = owner;
         this.name = name;
@@ -60,28 +57,50 @@ class Recipe implements Parcelable {
     }
 
     //getters
-    public String getOwner_id() { return owner_id; }
+    public String getOwner_id() {
+        return owner_id;
+    }
+
     public String getName() {
         return name;
     }
-    public String getCookingTime() { return cookingTime; }
-    public String getCategory() { return category; }
+
+    public String getCookingTime() {
+        return cookingTime;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
     public ArrayList<String> getInstructionsSteps() {
         return instructionsSteps;
     }
+
     public ArrayList<String> getIngredients() {
         return ingredients;
     }
-    public String getKey(){
+
+    public String getKey() {
         return unique_id;
     }
-    public double getRating() { return rating; }
-    public int getNum_of_rating() { return num_of_rating;}
 
-    public void setKey(String id){
+    public double getRating() {
+        return rating;
+    }
+
+    public int getNum_of_rating() {
+        return num_of_rating;
+    }
+
+    public void setKey(String id) {
         unique_id = id;
     }
-    public void incrementNumOfRating() { num_of_rating++; }
+
+    public void incrementNumOfRating() {
+        num_of_rating++;
+    }
+
     public void updateRating(double newRate) {
         rating = rating + newRate;
     }
@@ -122,7 +141,7 @@ class Recipe implements Parcelable {
 
         HeaderInfo ingredients = new HeaderInfo("Ingredients");
         Integer i = 1;
-        for(String s : this.ingredients){
+        for (String s : this.ingredients) {
             ingredients.addChild(new DetailInfo(i.toString(), s));
             i++;
         }
@@ -136,7 +155,7 @@ class Recipe implements Parcelable {
 
         HeaderInfo method = new HeaderInfo("Method");
         Integer i = 1;
-        for(String s : this.instructionsSteps){
+        for (String s : this.instructionsSteps) {
             method.addChild(new DetailInfo(i.toString(), s));
             i++;
         }

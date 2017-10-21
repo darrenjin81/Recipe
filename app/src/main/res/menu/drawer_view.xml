@@ -8,7 +8,7 @@
         <item
             android:id="@+id/nav_login"
             android:title="@string/navigation_login_page"
-            android:icon="@drawable/login_icon"/>
+            android:icon="@drawable/login_icon" />
     </group>
 
     <group

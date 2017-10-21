@@ -3,7 +3,6 @@ package recurrent.recipe;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,11 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.NumberPicker;
-import android.widget.RelativeLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,7 +34,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
@@ -98,21 +93,21 @@ public class UploadRecipes extends Fragment {
         return inflater.inflate(R.layout.fragment_upload_recipes, parent, false);
     }
 
-    public void addIngredient(View v){
-        if(etIngredient.getText().toString().trim().isEmpty()) return;
+    public void addIngredient(View v) {
+        if (etIngredient.getText().toString().trim().isEmpty()) return;
         ingredients.add(etIngredient.getText().toString());
         ingredientsAdapter.notifyDataSetChanged();
-        InputMethodManager imm = (InputMethodManager)this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         etIngredient.setText("");
         etIngredient.clearFocus();
     }
 
-    public void addInstruction(View v){
-        if(instructionsEditor.getText().toString().trim().isEmpty()) return;
+    public void addInstruction(View v) {
+        if (instructionsEditor.getText().toString().trim().isEmpty()) return;
         instructionSteps.add(instructionsEditor.getText().toString());
         instructionAdapter.notifyDataSetChanged();
-        InputMethodManager imm = (InputMethodManager)this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         instructionsEditor.setText("");
         instructionsEditor.clearFocus();
@@ -149,13 +144,13 @@ public class UploadRecipes extends Fragment {
 
         final RelativeLayout tag_part = (RelativeLayout) view.findViewById(R.id.tag_part);
         final ImageButton btnAddTag = (ImageButton) view.findViewById(R.id.ib_addTag);
-        final EditText etAddTag = (EditText) view.findViewById(R.id.et_addTag) ;
+        final EditText etAddTag = (EditText) view.findViewById(R.id.et_addTag);
         final GridLayout existingTags = (GridLayout) view.findViewById(R.id.existingTags);
 
 
-        btnDessert.setOnClickListener(new View.OnClickListener(){
+        btnDessert.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 btnDessert.setTextColor(Color.YELLOW);
                 btnSushi.setTextColor(Color.BLACK);
                 btnBreakfast.setTextColor(Color.BLACK);
@@ -163,9 +158,9 @@ public class UploadRecipes extends Fragment {
                 category = "#dessert";
             }
         });
-        btnBreakfast.setOnClickListener(new View.OnClickListener(){
+        btnBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 btnDessert.setTextColor(Color.BLACK);
                 btnSushi.setTextColor(Color.BLACK);
                 btnBreakfast.setTextColor(Color.YELLOW);
@@ -173,9 +168,9 @@ public class UploadRecipes extends Fragment {
                 category = "#breakfast";
             }
         });
-        btnSushi.setOnClickListener(new View.OnClickListener(){
+        btnSushi.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 btnDessert.setTextColor(Color.BLACK);
                 btnSushi.setTextColor(Color.YELLOW);
                 btnBreakfast.setTextColor(Color.BLACK);
@@ -183,9 +178,9 @@ public class UploadRecipes extends Fragment {
                 category = "#sushi";
             }
         });
-        btnEntree.setOnClickListener(new View.OnClickListener(){
+        btnEntree.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 btnDessert.setTextColor(Color.BLACK);
                 btnSushi.setTextColor(Color.BLACK);
                 btnBreakfast.setTextColor(Color.BLACK);
@@ -202,9 +197,9 @@ public class UploadRecipes extends Fragment {
             }
         });
 
-        btnAddTag.setOnClickListener(new View.OnClickListener(){
+        btnAddTag.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 etAddTag.setVisibility(View.VISIBLE);
                 existingTags.setVisibility(View.GONE);
             }
@@ -268,9 +263,9 @@ public class UploadRecipes extends Fragment {
                     mProgressDialog.setMessage("being added...");
                     mProgressDialog.show();
 
-                    if(!etAddTag.getText().toString().isEmpty()){
+                    if (!etAddTag.getText().toString().isEmpty()) {
                         recipe = new Recipe(name, user_id, etAddTag.getText().toString(), cookingTime, instructionSteps, ingredients);
-                    }else {
+                    } else {
                         recipe = new Recipe(name, user_id, category, cookingTime, instructionSteps, ingredients);
                     }
                     String key = myRef.child("recipes").push().getKey();

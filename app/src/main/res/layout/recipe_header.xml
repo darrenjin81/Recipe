@@ -16,12 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:adjustViewBounds="true"/>
+            android:adjustViewBounds="true" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/gradient"/>
+            android:background="@drawable/gradient" />
 
     </FrameLayout>
 
@@ -56,6 +56,6 @@
         android:visibility="gone"
         app:srcCompat="@drawable/ic_star_black_48dp"
         android:layout_margin="8dp"
-        android:padding="8dp"/>
+        android:padding="8dp" />
 
 </RelativeLayout>

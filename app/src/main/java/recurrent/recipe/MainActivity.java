@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -12,21 +13,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.*;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
@@ -79,12 +73,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void PresentSearch(String query){
+    void PresentSearch(String query) {
 
         Bundle args = new Bundle();
         args.putString(BrowseRecipes.QueryArgKey, query);
 
-        Fragment nextFrag= new BrowseRecipes();
+        Fragment nextFrag = new BrowseRecipes();
         nextFrag.setArguments(args);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -103,13 +97,13 @@ public class MainActivity extends AppCompatActivity {
         //set up different drawer contents based on login status
         FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
         if (u != null) {
-            navigationView.getMenu().setGroupVisible(R.id.group_loggedInItems,true);
-            navigationView.getMenu().setGroupVisible(R.id.group_profile_page,true);
-            navigationView.getMenu().setGroupVisible(R.id.group_login_page,false);
+            navigationView.getMenu().setGroupVisible(R.id.group_loggedInItems, true);
+            navigationView.getMenu().setGroupVisible(R.id.group_profile_page, true);
+            navigationView.getMenu().setGroupVisible(R.id.group_login_page, false);
         } else {
-            navigationView.getMenu().setGroupVisible(R.id.group_loggedInItems,false);
-            navigationView.getMenu().setGroupVisible(R.id.group_profile_page,false);
-            navigationView.getMenu().setGroupVisible(R.id.group_login_page,true);
+            navigationView.getMenu().setGroupVisible(R.id.group_loggedInItems, false);
+            navigationView.getMenu().setGroupVisible(R.id.group_profile_page, false);
+            navigationView.getMenu().setGroupVisible(R.id.group_login_page, true);
         }
 
         navigationView.setNavigationItemSelectedListener(
@@ -128,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         Class fragmentClass;
         Bundle args = new Bundle();
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.nav_home:
                 fragmentClass = Homepage.class;
                 break;
@@ -173,12 +167,12 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout layout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        DrawerLayout layout = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (layout.isDrawerOpen(GravityCompat.START)) {
             layout.closeDrawer(GravityCompat.START);
         } else {

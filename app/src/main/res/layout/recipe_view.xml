@@ -22,20 +22,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
-                android:adjustViewBounds="true"/>
+                android:adjustViewBounds="true" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@drawable/gradient"/>
+                android:background="@drawable/gradient" />
 
             <RatingBar
                 android:id="@+id/rbRatingBar"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
         </FrameLayout>
-
 
 
         <TextView
@@ -47,7 +45,7 @@
             android:layout_alignParentStart="true"
             android:textColor="#ffffff"
             android:textSize="36sp"
-            android:padding="10dp"/>
+            android:padding="10dp" />
 
         <ImageButton
             android:id="@+id/imgBtnBookmarkOff"
@@ -59,7 +57,7 @@
             app:srcCompat="@drawable/ic_star_border_black_48dp"
             android:layout_above="@+id/elvIngredients"
             android:layout_margin="8dp"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
         <ImageButton
             android:id="@+id/imgBtnBookmarkOn"
@@ -72,7 +70,7 @@
             android:visibility="gone"
             app:srcCompat="@drawable/ic_star_black_48dp"
             android:layout_margin="8dp"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
         <ExpandableListView
             android:id="@+id/elvIngredients"
@@ -95,7 +93,6 @@
 
 
     </RelativeLayout>
-
 
 
 </ScrollView>

@@ -8,10 +8,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnSavedRecipes"
+        android:layout_height="260dp"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="32dp"
         android:background="@drawable/rectangle_primary" />
 
     <ImageView
@@ -29,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivProfilePic"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:textAllCaps="false"
         android:textColor="@color/colorTextPrimary"
         android:textSize="22sp"
@@ -42,10 +40,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvUsername"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="64dp"
         android:text="@string/fragment_user_profile_saved_recipes"
         android:textAllCaps="false"
-        android:background="@drawable/button_secondary"/>
+        android:background="@drawable/button_secondary" />
 
     <Button
         android:id="@+id/btnSignOut"
