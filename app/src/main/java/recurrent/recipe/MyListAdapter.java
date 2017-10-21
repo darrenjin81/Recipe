@@ -9,10 +9,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by admin on 15/10/2017.
- */
-
 public class MyListAdapter extends BaseExpandableListAdapter {
 
     private ArrayList<HeaderInfo> list;

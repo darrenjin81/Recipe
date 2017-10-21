@@ -1,9 +1,5 @@
 package recurrent.recipe;
 
-/**
- * Created by kitty on 22/9/2017.
- */
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -25,8 +21,6 @@ public class Homepage extends Fragment {
     private GridView simpleList;
     private ArrayList<Recipe> featured_recipes = new ArrayList<>();
 
-    // The onCreateView method is called when Fragment should create its View object hierarchy,
-    // either dynamically or via XML layout inflation.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage, parent, false);
@@ -86,12 +80,9 @@ public class Homepage extends Fragment {
         return view;
     }
 
-    // This event is triggered soon after onCreateView().
-    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        // Setup any handles to view objects here
-        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
+
     }
 
     @Override

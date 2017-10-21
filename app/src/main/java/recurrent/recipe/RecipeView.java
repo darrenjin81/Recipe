@@ -69,11 +69,8 @@ public class RecipeView extends Fragment {
         }
     }
 
-    // The onCreateView method is called when Fragment should create its View object hierarchy,
-    // either dynamically or via XML layout inflation.
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup parent, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.recipe_view, parent, false);
         getActivity().setTitle("Recipe details");
         return view;
@@ -85,8 +82,6 @@ public class RecipeView extends Fragment {
         getActivity().setTitle("Recipe details");
     }
 
-    // This event is triggered soon after onCreateView().
-    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         ImageView imageStrip = (ImageView) view.findViewById(R.id.ivRecipeView);
@@ -294,7 +289,6 @@ public class RecipeView extends Fragment {
     }
 
     private void unmark(final DatabaseReference mRef, final String user_id, final String rKey) {
-        //TODO: CHANGE WAY OF ACCESSING DATABASE LATER
         mRef.child("users/" + user_id + "/saved_recipes")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -306,11 +300,8 @@ public class RecipeView extends Fragment {
                                 String recipe_key = child.getKey();
                                 mRef.child("users/" + user_id + "/saved_recipes/" + recipe_key)
                                         .removeValue();
-                                //debugging purpose
-                                Log.d(TAG, "KEY: " + recipe_key);
                             }
                         }
-
                     }
 
                     @Override

@@ -17,10 +17,6 @@ import com.google.firebase.storage.StorageReference;
 
 import java.text.DecimalFormat;
 
-/**
- * Created by admin on 18/09/2017.
- */
-
 public class RecipeSummary extends Fragment implements View.OnTouchListener {
 
     private Recipe recipe;
@@ -38,11 +34,8 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         recipe = (Recipe) getArguments().getParcelable(RecipeSummaryArgKey);
     }
 
-    // The onCreateView method is called when Fragment should create its View object hierarchy,
-    // either dynamically or via XML layout inflation.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        // Defines the xml file for the fragment
         View v = inflater.inflate(R.layout.fragment_recipe_summary, parent, false);
         TextView t = (TextView) v.findViewById(R.id.tvSummary_title);
         t.setText(recipe.getName());
@@ -82,12 +75,9 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         getActivity().setTitle(recipe.getName());
     }
 
-    // This event is triggered soon after onCreateView().
-    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        // Setup any handles to view objects here
-        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
+
     }
 
     @Override
@@ -95,7 +85,6 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         return gestureDetector.onTouchEvent(event);
     }
 
-    //TODO I stole this is that ok...
     private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
         private static final int SWIPE_THRESHOLD = 100;

@@ -22,10 +22,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 import static android.content.ContentValues.TAG;
 
-/**
- * Created by kitty on 13/10/2017.
- */
-
 public class ChangePassword extends Fragment {
 
     private FirebaseAuth mAuth;
