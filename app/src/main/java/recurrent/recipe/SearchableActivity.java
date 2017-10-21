@@ -1,15 +1,9 @@
 package recurrent.recipe;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.view.ViewGroup;
-import android.widget.ListView;
 
 /**
  * Created by admin on 7/10/2017.

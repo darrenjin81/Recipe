@@ -17,7 +17,7 @@ public class User implements Parcelable {
 
     private ArrayList<RatedRecipe> ratedRecipes;
 
-    public User(){
+    public User() {
         this.ratedRecipes = new ArrayList<RatedRecipe>();
     }
 
@@ -40,9 +40,19 @@ public class User implements Parcelable {
     public String getUsername() {
         return username;
     }
-    public String getEmailAddress() { return emailAddress; }
-    public String getUnique_id() { return unique_id; }
-    public ArrayList<RatedRecipe> getRatedRecipes() { return ratedRecipes; }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public String getUnique_id() {
+        return unique_id;
+    }
+
+    public ArrayList<RatedRecipe> getRatedRecipes() {
+        return ratedRecipes;
+    }
+
     @Override
     public int describeContents() {
         return 0;

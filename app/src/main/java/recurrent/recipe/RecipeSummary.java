@@ -19,7 +19,6 @@ import java.text.DecimalFormat;
 
 /**
  * Created by admin on 18/09/2017.
- *
  */
 
 public class RecipeSummary extends Fragment implements View.OnTouchListener {
@@ -29,14 +28,14 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
 
     public static String RecipeSummaryArgKey = "RecipeForSummary";
 
-    public RecipeSummary(){
+    public RecipeSummary() {
         gestureDetector = new GestureDetector(getActivity(), new GestureListener());
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recipe = (Recipe)getArguments().getParcelable(RecipeSummaryArgKey);
+        recipe = (Recipe) getArguments().getParcelable(RecipeSummaryArgKey);
     }
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
@@ -63,7 +62,7 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         }
 
 
-        ImageView image = (ImageView) v.findViewById(R.id.ivSummary_pic) ;
+        ImageView image = (ImageView) v.findViewById(R.id.ivSummary_pic);
         StorageReference mStorage = FirebaseStorage.getInstance().getReference();
         StorageReference mRef = mStorage.child("UploadedRecipes")
                 .child(recipe.getKey()).child(recipe.getName() + ".jpg");
@@ -96,6 +95,7 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         return gestureDetector.onTouchEvent(event);
     }
 
+    //TODO I stole this is that ok...
     private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
         private static final int SWIPE_THRESHOLD = 100;
@@ -121,8 +121,7 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
                         }
                         result = true;
                     }
-                }
-                else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                     if (diffY > 0) {
                         onSwipeBottom();
                     } else {
@@ -145,12 +144,12 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
 
     public void onSwipeTop() {
         //transition to recipe view
-        if(recipe == null){
+        if (recipe == null) {
             return;
         }
         Bundle args = new Bundle();
         args.putParcelable(RecipeView.RecipeArgKey, recipe);
-        Fragment nextFrag= new RecipeView();
+        Fragment nextFrag = new RecipeView();
         nextFrag.setArguments(args);
 
         getActivity().getSupportFragmentManager().beginTransaction()

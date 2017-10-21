@@ -52,7 +52,7 @@
         android:layout_marginTop="8dp"
         android:padding="8dp"
         android:text="@string/fragment_login_btnLogin"
-        android:background="@drawable/button_secondary"/>
+        android:background="@drawable/button_secondary" />
 
     <Button
         android:id="@+id/btnRegister"
@@ -63,6 +63,6 @@
         android:layout_marginTop="8dp"
         android:padding="8dp"
         android:text="@string/fragment_login_btnRegister"
-        android:background="@drawable/button_secondary"/>
+        android:background="@drawable/button_secondary" />
 
 </RelativeLayout>

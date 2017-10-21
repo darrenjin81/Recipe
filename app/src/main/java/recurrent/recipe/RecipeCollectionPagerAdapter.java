@@ -2,11 +2,9 @@ package recurrent.recipe;
 
 
 import android.os.Bundle;
-import android.support.v4.app.BundleCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,13 +14,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import recurrent.recipe.RecipeSummary;
-
 public class RecipeCollectionPagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<Recipe> recipes;
 
-    public RecipeCollectionPagerAdapter(FragmentManager fm, final String query){
+    public RecipeCollectionPagerAdapter(FragmentManager fm, final String query) {
         super(fm);
         recipes = new ArrayList<Recipe>();
 
@@ -34,9 +30,9 @@ public class RecipeCollectionPagerAdapter extends FragmentStatePagerAdapter {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                for(DataSnapshot child: children){
+                for (DataSnapshot child : children) {
                     Recipe r = child.getValue(Recipe.class);
-                    if(query == null || r.getName().toLowerCase().contains(query.toLowerCase())){
+                    if (query == null || r.getName().toLowerCase().contains(query.toLowerCase())) {
                         recipes.add(r);
                     }
                 }
@@ -52,7 +48,7 @@ public class RecipeCollectionPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int i){
+    public Fragment getItem(int i) {
 
         Bundle args = new Bundle();
         Recipe r = recipes.get(i);

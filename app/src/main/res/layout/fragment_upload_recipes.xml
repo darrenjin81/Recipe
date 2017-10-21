@@ -1,216 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
-
-    <android.support.v7.widget.AppCompatImageButton android:id="@+id/btnUploadImage"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#e0e0e0"
-        app:srcCompat="@drawable/upload" />
-
-    <RelativeLayout
-        android:id="@+id/tag_part"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/btnUploadImage"
-        >
-        <GridLayout
-            android:id="@+id/existingTags"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btnUploadImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#e0e0e0"
+            app:srcCompat="@drawable/upload" />
+
+        <RelativeLayout
+            android:id="@+id/tag_part"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/btnUploadImage">
+
+            <TextView
+                android:id="@+id/tvSelectTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Select tag:"
+                android:textSize="12sp" />
+
+            <ImageButton
+                android:id="@+id/ib_addTag"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_toEndOf="@+id/tvSelectTag"
+                android:layout_toRightOf="@+id/tvSelectTag"
+                android:background="@drawable/addrainbow" />
+
+            <EditText
+                android:id="@+id/et_addTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tvSelectTag"
+                android:layout_alignBottom="@+id/tvSelectTag"
+                android:layout_toEndOf="@+id/ib_addTag"
+                android:layout_toRightOf="@+id/ib_addTag"
+                android:text="#"
+                android:visibility="gone" />
+
+            <GridLayout
+                android:id="@+id/existingTags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvSelectTag"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:columnCount="4"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_dessert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_column="0"
+                    android:text="#dessert" />
+
+                <Button
+                    android:id="@+id/btn_entree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_column="1"
+                    android:text="#entree" />
+
+                <Button
+                    android:id="@+id/btn_breakfast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_column="2"
+                    android:text="#Main" />
+
+                <Button
+                    android:id="@+id/btn_sushi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_column="3"
+                    android:text="#sushi" />
+
+            </GridLayout>
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/upload_recipe_name"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnUploadImage"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:hint="@string/upload_recipe_title" />
+
+        <EditText
+            android:id="@+id/et_pick_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:columnCount="4"
-            android:orientation="horizontal">
+            android:layout_below="@id/upload_recipe_name"
+            android:layout_margin="16dp"
+            android:hint="@string/cooking_time"
+            android:inputType="time" />
 
-            <Button
-                android:id="@+id/btn_dessert"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_column="0"
-                android:text="#dessert" />
+        <View
+            android:id="@+id/upload_div1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/et_pick_time"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray" />
 
-            <Button
-                android:id="@+id/btn_entree"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_column="1"
-                android:text="#entree" />
+        <TextView
+            android:id="@+id/ingredientsHeading"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/et_pick_time"
+            android:layout_below="@id/upload_div1"
+            android:layout_marginTop="8dp"
+            android:text="Ingredients"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="28sp" />
 
-            <Button
-                android:id="@+id/btn_breakfast"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_column="2"
-                android:text="#Main" />
-
-            <Button
-                android:id="@+id/btn_sushi"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_column="3"
-                android:text="#Side" />
-
-        </GridLayout>
-    </RelativeLayout>
-
-    <EditText android:id="@+id/upload_recipe_name"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnUploadImage"
-        android:layout_margin="10dp"
-        android:textSize="28dp"
-        android:maxLines="1"
-        android:inputType="text"
-        android:hint="@string/upload_recipe_title" />
-
-    <EditText
-        android:id="@+id/et_pick_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/cooking_time"
-        android:inputType="time"
-        android:layout_margin="10dp"
-        android:layout_below="@id/upload_recipe_name"
-        />
-
-    <TextView
-        android:id="@+id/mins"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="mins"
-        android:inputType="time"
-        android:layout_margin="10dp"
-        android:layout_toRightOf="@id/et_pick_time"
-        android:layout_alignBottom="@id/et_pick_time"
-
-        />
-
-    <TextView
-        android:id="@+id/ingredientsHeading"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_pick_time"
-        android:text="Ingredients"
-        android:textSize="28dp"
-        android:padding="10dp"
-        android:background="@drawable/underline"
-
-        />
 
         <ListView
             android:id="@+id/ingredients_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:footerDividersEnabled="true"
+            android:layout_alignLeft="@id/ingredientsHeading"
             android:layout_below="@id/ingredientsHeading"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="0dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            />
+            android:layout_marginTop="8dp"
+            android:footerDividersEnabled="true" />
 
-    <RelativeLayout
-        android:id="@+id/addIngredient"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ingredients_list"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="0dp"
-        >
-
-        <EditText android:id="@+id/upload_recipe_ingredients"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/addIngredient"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/upload_recipe_ingredients"
-            android:padding="10sp"
-            android:textSize="18dp"
-            />
+            android:layout_alignLeft="@id/ingredientsHeading"
+            android:layout_below="@id/ingredients_list">
 
-        <android.support.v7.widget.AppCompatImageButton android:id="@+id/btnAddIngredient"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/upload_recipe_ingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/upload_recipe_ingredients"
+                android:textSize="18dp" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/btnAddIngredient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="8dp"
+                android:background="@null"
+                android:clickable="true"
+                android:padding="8dp"
+                app:srcCompat="@drawable/add" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/upload_div2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/addIngredient"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/instructionsHeading"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/add"
-            android:clickable="true"
-            android:layout_alignParentRight="true"
-            android:background="@null"
-            android:padding="10sp"
-            />
+            android:layout_alignLeft="@id/ingredientsHeading"
+            android:layout_below="@id/upload_div2"
+            android:layout_marginTop="8dp"
+            android:text="Instructions"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="28sp" />
 
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/instructionsHeading"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addIngredient"
-        android:text="Instructions"
-        android:textSize="28dp"
-        android:padding="10dp"
-        android:background="@drawable/underline"
-        />
-
-    <ListView
-        android:id="@+id/instructions_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:footerDividersEnabled="true"
-        android:headerDividersEnabled="true"
-        android:layout_below="@id/instructionsHeading"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        />
-
-    <RelativeLayout
-        android:id="@+id/addInstruction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/instructions_list"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="0dp"
-        >
-        <EditText android:id="@+id/upload_recipe_instructions"
-            android:layout_width="wrap_content"
+        <ListView
+            android:id="@+id/instructions_list"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textCapSentences|textMultiLine"
-            android:hint="@string/upload_recipe_instructions" />
+            android:layout_alignLeft="@id/instructionsHeading"
+            android:layout_below="@id/instructionsHeading"
+            android:layout_marginTop="8dp"
+            android:footerDividersEnabled="true" />
 
-        <android.support.v7.widget.AppCompatImageButton android:id="@+id/btnAddInstructionsStep"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/addInstruction"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/add"
-            android:clickable="true"
-            android:layout_alignParentRight="true"
-            android:background="@null"
-            android:padding="10sp"
-            />
+            android:layout_alignLeft="@id/instructionsHeading"
+            android:layout_below="@id/instructions_list"
+            android:layout_marginTop="8dp">
 
-    </RelativeLayout>
+            <EditText
+                android:id="@+id/upload_recipe_instructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/upload_recipe_instructions"
+                android:inputType="textCapSentences|textMultiLine" />
 
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/btnAddInstructionsStep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="8dp"
+                android:background="@null"
+                android:clickable="true"
+                android:padding="8dp"
+                app:srcCompat="@drawable/add" />
 
-        <Button android:id="@+id/button_upload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/upload_btn_save"
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/upload_div3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_below="@id/addInstruction"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray" />
+
+        <Button
+            android:id="@+id/button_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/upload_div3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_secondary"
+            android:text="@string/upload_btn_save" />
 
     </RelativeLayout>
 </ScrollView>

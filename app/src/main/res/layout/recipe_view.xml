@@ -54,7 +54,7 @@
             app:srcCompat="@drawable/heart"
             android:layout_above="@+id/elvIngredients"
             android:layout_margin="8dp"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
         <ImageButton
             android:id="@+id/imgBtnBookmarkOn"
@@ -67,7 +67,7 @@
             android:visibility="gone"
             app:srcCompat="@drawable/hearted"
             android:layout_margin="8dp"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
         <ExpandableListView
             android:id="@+id/elvIngredients"
@@ -108,5 +108,6 @@
             />
 
     </RelativeLayout>
+
 
 </ScrollView>

@@ -11,7 +11,8 @@ public class RatedRecipe implements Parcelable {
     private String ratedRecipe_id;
     private float rating;
 
-    public RatedRecipe(){ }
+    public RatedRecipe() {
+    }
 
     public RatedRecipe(String ratedRecipe_id, float rating) {
         this.ratedRecipe_id = ratedRecipe_id;
@@ -27,14 +28,19 @@ public class RatedRecipe implements Parcelable {
     public String getRatedRecipe_id() {
         return ratedRecipe_id;
     }
-    public float getRating() { return rating; }
+
+    public float getRating() {
+        return rating;
+    }
 
     public int describeContents() {
         return 0;
     }
+
     public void updateRating(float newRating) {
         rating = newRating;
     }
+
     // write your object's data to the passed-in Parcel
     @Override
     public void writeToParcel(Parcel out, int flags) {

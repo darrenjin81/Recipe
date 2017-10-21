@@ -18,7 +18,7 @@ public class MyArrayListAdapter extends ArrayAdapter<String> {
     final LayoutInflater inflater;
     ArrayList<String> data;
 
-    public MyArrayListAdapter(Context context, int layoutid, ArrayList<String> data){
+    public MyArrayListAdapter(Context context, int layoutid, ArrayList<String> data) {
         //i dont need layout id... very dodgy
         super(context, layoutid, data);
         this.inflater = LayoutInflater.from(context);
@@ -29,10 +29,10 @@ public class MyArrayListAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         View v = inflater.inflate(R.layout.tv_list_view, parent, false);
-        ((TextView)v.findViewById(R.id.tv_sequenceNum)).setText(Integer.toString(position + 1) + ".");
-        ((TextView)v.findViewById(R.id.tv_list_row)).setText(data.get(position));
-        ((TextView)v.findViewById(R.id.tv_list_row)).setText(data.get(position));
-        android.support.v7.widget.AppCompatImageButton removeButton = (android.support.v7.widget.AppCompatImageButton)v.findViewById(R.id.removeFromList);
+        ((TextView) v.findViewById(R.id.tv_sequenceNum)).setText(Integer.toString(position + 1) + ".");
+        ((TextView) v.findViewById(R.id.tv_list_row)).setText(data.get(position));
+        ((TextView) v.findViewById(R.id.tv_list_row)).setText(data.get(position));
+        android.support.v7.widget.AppCompatImageButton removeButton = (android.support.v7.widget.AppCompatImageButton) v.findViewById(R.id.removeFromList);
         removeButton.setTag(position);
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
