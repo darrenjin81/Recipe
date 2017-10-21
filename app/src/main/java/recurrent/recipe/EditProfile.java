@@ -68,7 +68,6 @@ public class EditProfile extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        //TODO:IS IT THE CORRECT WAY??
         getActivity().setTitle("Edit Profile");
         return inflater.inflate(R.layout.fragment_edit_profile, parent, false);
     }
@@ -151,7 +150,6 @@ public class EditProfile extends Fragment {
                 }
 
                 if (!email.equals(newEmail)) {
-                    //TODO: Reauth users when update email
                     if (newEmail.isEmpty()) {
                         Toast.makeText(getActivity(), "E-mail cannot be blank!",
                                 Toast

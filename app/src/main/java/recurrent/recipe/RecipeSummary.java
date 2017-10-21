@@ -96,7 +96,6 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         return gestureDetector.onTouchEvent(event);
     }
 
-    //TODO I stole this is that ok...
     private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
         private static final int SWIPE_THRESHOLD = 100;

@@ -51,8 +51,6 @@ public class Register extends Fragment {
         btnCheckValid.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //TODO: check if email is valid or not by going through database.
-
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference().child("users");
                 myRef.addListenerForSingleValueEvent(new ValueEventListener() {

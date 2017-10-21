@@ -46,7 +46,6 @@ public class UserProfile extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        //TODO:IS IT THE RIGHT WAY TO SET TITLE???
         getActivity().setTitle("My Profile");
         //update drawer content
         NavigationView nvDrawer = (NavigationView) getActivity().findViewById(R.id.nvView);
@@ -62,15 +61,10 @@ public class UserProfile extends Fragment {
         btnSavedRecipes = (Button) view.findViewById(R.id.btnSavedRecipes);
         tvUsername = (TextView) view.findViewById(R.id.tvUsername);
         ivProfilePic = (ImageView) view.findViewById(R.id.ivProfilePic);
-        //etUsernameField = (EditText) view.findViewById(R.id.etUsernameField);
         mdatabase = FirebaseDatabase.getInstance();
         mRef = mdatabase.getReference();
 
         tvUsername.setText(username);
-
-        //final KeyListener mKeyListener = etUsernameField.getKeyListener();
-        //etUsernameField.setKeyListener(null);
-        //btnSaveDetails.setVisibility(view.GONE);
 
         // retrieve to logged in user's details
         mRef.child("users/" + user_id).addListenerForSingleValueEvent(new ValueEventListener() {
