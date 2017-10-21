@@ -25,20 +25,14 @@ public class SavedRecipes extends Fragment {
     private FirebaseUser curr_user;
     private String user_id;
 
-    // The onCreateView method is called when Fragment should create its View object hierarchy,
-    // either dynamically or via XML layout inflation.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        // Defines the xml file for the fragment
         getActivity().setTitle("Saved Recipes");
         return inflater.inflate(R.layout.fragment_saved_recipes, parent, false);
     }
 
-    // This event is triggered soon after onCreateView().
-    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        // Setup any handles to view objects here
         //create a list of recipes
         //get recipes from database
         simpleList = (GridView) view.findViewById(R.id.simpleGridView1);

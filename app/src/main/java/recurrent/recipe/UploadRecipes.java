@@ -92,7 +92,6 @@ public class UploadRecipes extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        // Defines the xml file for the fragment
         this.curr_user = FirebaseAuth.getInstance().getCurrentUser();
         if (curr_user != null) {
             this.user_id = curr_user.getUid();

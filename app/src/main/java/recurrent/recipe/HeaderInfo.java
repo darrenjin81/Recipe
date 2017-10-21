@@ -2,10 +2,6 @@ package recurrent.recipe;
 
 import java.util.ArrayList;
 
-/**
- * Created by admin on 15/10/2017.
- */
-
 public class HeaderInfo {
     String name;
     ArrayList<DetailInfo> list;

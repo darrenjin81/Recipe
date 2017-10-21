@@ -37,10 +37,6 @@ import com.google.firebase.storage.UploadTask;
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
-/**
- * Created by kitty on 13/10/2017.
- */
-
 public class EditProfile extends Fragment {
     private static final int SELECT_IMAGE = 1;
     private FirebaseAuth mAuth;

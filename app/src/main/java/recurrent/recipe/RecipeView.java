@@ -69,11 +69,8 @@ public class RecipeView extends Fragment {
         }
     }
 
-    // The onCreateView method is called when Fragment should create its View object hierarchy,
-    // either dynamically or via XML layout inflation.
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup parent, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.recipe_view, parent, false);
         getActivity().setTitle("Recipe details");
         return view;
@@ -85,34 +82,10 @@ public class RecipeView extends Fragment {
         getActivity().setTitle("Recipe details");
     }
 
-    // This event is triggered soon after onCreateView().
-    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         ImageView imageStrip = (ImageView) view.findViewById(R.id.ivRecipeView);
         rb = (RatingBar) view.findViewById(R.id.rbRatingBar);
-
-//        mRef.child("users").child(user_id).child("ratedRecipes").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                if (dataSnapshot.exists()) {
-//                    Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-//                    for (DataSnapshot child : children) {
-//                        RatedRecipe temp = child.getValue(RatedRecipe.class);
-//                        if(temp.getRatedRecipe_id().equals(recipe.getKey())){
-//                            rb.setRating(temp.getRating());
-//                        }
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//            }
-//        });
 
         rb.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -250,7 +223,6 @@ public class RecipeView extends Fragment {
         });
     }
 
-    //TODO i stole this please fix
     private void setListViewHeight(ExpandableListView listView, int group) {
         ExpandableListAdapter listAdapter = listView.getExpandableListAdapter();
         int totalHeight = 0;
@@ -288,7 +260,6 @@ public class RecipeView extends Fragment {
     }
 
     private void unmark(final DatabaseReference mRef, final String user_id, final String rKey) {
-        //TODO: CHANGE WAY OF ACCESSING DATABASE LATER
         mRef.child("users/" + user_id + "/saved_recipes")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

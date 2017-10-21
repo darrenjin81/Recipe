@@ -1,9 +1,5 @@
 package recurrent.recipe;
 
-/**
- * Created by admin on 15/10/2017.
- */
-
 public class DetailInfo {
     private String sequence = "";
     private String name = "";

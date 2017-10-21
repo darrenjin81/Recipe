@@ -31,7 +31,6 @@ public class UserProfile extends Fragment {
     private FirebaseUser curr_user;
     private String user_id;
     private String username;
-    //private String email;
     Button btnSignOut, btnEditDetails, btnMyRecipes, btnSavedRecipes;
     TextView tvUsername;
     ImageView ivProfilePic;

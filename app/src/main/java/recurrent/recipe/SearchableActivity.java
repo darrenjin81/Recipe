@@ -5,10 +5,6 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 
-/**
- * Created by admin on 7/10/2017.
- */
-
 public class SearchableActivity extends ListActivity {
 
     @Override
@@ -32,24 +28,5 @@ public class SearchableActivity extends ListActivity {
 
     void PresentSearch(String query) {
 
-
-//        Bundle args = new Bundle();
-//        args.putString(BrowseRecipes.QueryArgKey, query);
-//
-//        Fragment nextFrag= new BrowseRecipes();
-//        nextFrag.setArguments(args);
-//
-//        FragmentManager fm = this.getSupportFragmentManager();
-////        fm.beginTransaction()
-////                .replace(R.id.flContent, nextFrag, "FRAG_FEED")
-////                .addToBackStack(null)
-////                .commit();
-//        fm.beginTransaction().remove(fm.findFragmentById(R.id.flContent)).commit();
-//        fm.beginTransaction()
-//                .addrainbow(nextFrag, "FRAG_FEED")
-//                .addToBackStack(null)
-//                .commit();
-//        startActivity(getIntent());
     }
-
 }

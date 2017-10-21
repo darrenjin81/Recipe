@@ -56,22 +56,22 @@
     <string name="fragment_edit_profile_tvUsername">Username</string>
     <string name="fragment_edit_profile_tvEmail">E-mail</string>
     <string name="fragment_edit_profile_btnChangePhoto">Change Photo</string>
+    <string name="fragment_edit_profile_instructions">Please enter the details you want to change below, and hit save when you are done.</string>
 
     <!--Fragment RecipeSummary-->
     <string name="fragment_recipe_summary_ingredients">Ingredients</string>
     <string name="fragment_recipe_summary_preparation_time">Preparation Time</string>
     <string name="fragment_recipe_summary_calories">Calories</string>
 
-    <!--Fragment changePassword-->
+    <!--Fragment ChangePassword-->
     <string name="fragment_change_password_btnChangePwd">Change</string>
     <string name="fragment_change_password_old">Enter your old password</string>
     <string name="fragment_change_password_new">Enter your new password</string>
     <string name="fragment_change_password_reenter">Re-enter your new password</string>
 
     <!--Search bar-->
-    <string name="search_title">Searchy</string>
+    <string name="search_title">Search</string>
     <string name="search_hint">Search</string>
-    <string name="fragment_edit_profile_instructions">Please enter the details you want to change below, and hit save when you are done.</string>
 
 
 </resources>
