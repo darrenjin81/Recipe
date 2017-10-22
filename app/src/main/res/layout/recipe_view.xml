@@ -1,60 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#ffffff">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#f4f4f4">
 
-    <ExpandableListView
-        android:id="@+id/elvRecipe_view"
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#ffffff"
-        android:groupIndicator="@null">
-
-    </ExpandableListView>
-
-    <TextView
-        android:id="@+id/tvRecipeName"
-        android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:layout_above="@+id/elvRecipe_view"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="36sp"/>
+        android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/imgBtnBookmarkOff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/elvRecipe_view"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginStart="13dp"
-        android:layout_toRightOf="@+id/tvRecipeName"
-        android:background="@android:color/transparent"
-        app:srcCompat="@android:drawable/btn_star_big_off"/>
+        <FrameLayout
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <ImageButton
-        android:id="@+id/imgBtnBookmarkOn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/elvRecipe_view"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="13dp"
-        android:layout_marginStart="13dp"
-        android:layout_toRightOf="@+id/tvRecipeName"
-        android:background="@android:color/transparent"
-        android:visibility="gone"
-        app:srcCompat="@android:drawable/btn_star_big_on"/>
+            <ImageView
+                android:id="@+id/ivRecipeView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"/>
 
-</RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/gradient"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvRecipeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/elvIngredients"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="#ffffff"
+            android:textSize="36sp"
+            tools:text="Title"
+            android:padding="10dp"/>
+
+        <ImageButton
+            android:id="@+id/imgBtnBookmarkOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/heart"
+            android:layout_above="@+id/elvIngredients"
+            android:layout_margin="8dp"
+            android:padding="8dp" />
+
+        <ImageButton
+            android:id="@+id/imgBtnBookmarkOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/elvIngredients"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:visibility="gone"
+            app:srcCompat="@drawable/hearted"
+            android:layout_margin="8dp"
+            android:padding="8dp" />
+
+        <ExpandableListView
+            android:id="@+id/elvIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:layout_below="@+id/banner"
+            android:groupIndicator="@null"
+            android:layout_margin="15dp"
+            android:layout_marginBottom="0dp" />
+
+        <ExpandableListView
+            android:id="@+id/elvMethod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:layout_below="@+id/elvIngredients"
+            android:groupIndicator="@null"
+            android:layout_margin="15dp" />
+
+
+        <RatingBar
+            android:id="@+id/rbRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/elvMethod"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tried it? Rate here"
+            android:layout_below="@id/rbRatingBar"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:layout_marginBottom="6dp"
+            />
+
+    </RelativeLayout>
+
+
+</ScrollView>

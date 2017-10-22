@@ -1,9 +1,5 @@
 package recurrent.recipe;
 
-/**
- * Created by kitty on 22/9/2017.
- */
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +24,6 @@ public class HomeAdapter extends ArrayAdapter {
 
     private ArrayList<Recipe> featured_recipes = new ArrayList<>();
 
-
     public HomeAdapter(Context context, int textViewResourceId, ArrayList objects) {
         super(context, textViewResourceId, objects);
         featured_recipes = objects;
@@ -41,14 +36,12 @@ public class HomeAdapter extends ArrayAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         View v = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = inflater.inflate(R.layout.grid_view_items, null);
         DatabaseReference dRef = FirebaseDatabase.getInstance().getReference();
         //loop through featured_recipes list
-        Recipe curr_recipe = (Recipe)featured_recipes.get(position);
-
+        Recipe curr_recipe = (Recipe) featured_recipes.get(position);
 
         //create image view for each recipe
         ImageView ivImage;
@@ -57,7 +50,6 @@ public class HomeAdapter extends ArrayAdapter {
         StorageReference mStorage = FirebaseStorage.getInstance().getReference();
         StorageReference mRef = mStorage.child("UploadedRecipes")
                 .child(curr_recipe.getKey()).child(curr_recipe.getName() + ".jpg");
-//        StorageReference myImagePath = recipe.getStorageReference();
         Glide.with(this.getContext())
                 .using(new FirebaseImageLoader())
                 .load(mRef)
@@ -65,7 +57,7 @@ public class HomeAdapter extends ArrayAdapter {
 
         //create text view for each recipe name
         final TextView tvName, tvUploadingUser;
-        tvName  = (TextView) v.findViewById(R.id.tvHomeRecipeName);
+        tvName = (TextView) v.findViewById(R.id.tvHomeRecipeName);
         tvName.setText(curr_recipe.getName());
         tvUploadingUser = (TextView) v.findViewById(R.id.tvUploadingUser);
 
@@ -88,13 +80,9 @@ public class HomeAdapter extends ArrayAdapter {
                 }
             });
         }
-//
-//        int id = getContext().getResources().getIdentifier(curr_recipe.getName(),"drawable",
-//                getContext().getPackageName());
-//        ivImage.setImageResource(id);
 
         return v;
- 
+
     }
 
 }

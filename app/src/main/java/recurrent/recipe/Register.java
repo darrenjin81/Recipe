@@ -1,9 +1,9 @@
 package recurrent.recipe;
 
 import android.app.ProgressDialog;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +22,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 
 public class Register extends Fragment {
     private FirebaseAuth mAuth;
@@ -52,32 +48,34 @@ public class Register extends Fragment {
         final TextView tvPasswordFormatTip = (TextView) view.findViewById(R.id.etPasswordFormatTip);
         Button btnCreate = (Button) view.findViewById(R.id.btnCreate);
 
-        btnCheckValid.setOnClickListener(new View.OnClickListener(){
+        btnCheckValid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: check if email is valid or not by going through database.
-//                ArrayList<>recipes = new ArrayList<Recipe>();
-//
-//                FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                DatabaseReference myRef = database.getReference();
-//                myRef.child(Constants.RecipeTable).addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        // This method is called once with the initial value and again
-//                        // whenever data at this location is updated.
-//                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-//                        for(DataSnapshot child: children){
-//                            recipes.add(child.getValue(Recipe.class));
-//                        }
-//
-//                        RecipeCollectionPagerAdapter.super.notifyDataSetChanged();
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError error) {
-//                        // Failed to read value
-//                    }
-//                });
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference().child("users");
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // This method is called once with the initial value and again
+                        // whenever data at this location is updated.
+                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                        boolean found = false;
+                        for (DataSnapshot child : children) {
+                            User temp = child.getValue(User.class);
+                            if (temp.getEmailAddress().equals(etEmail.getText().toString())) {
+                                Toast.makeText(getActivity(), "This email address has been used", Toast.LENGTH_LONG).show();
+                                found = true;
+                            }
+                        }
+                        if (!found)
+                            Toast.makeText(getActivity(), "Congratulations! It is available!", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                    }
+                });
             }
         });
 
@@ -95,10 +93,16 @@ public class Register extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Register");
+    }
+
     private void createAccount(final String username, final String email, String password, String password1) {
-        if(!password.equals(password1)){
-            Toast.makeText(getActivity(), "your passwords should be the same", Toast.LENGTH_LONG).show();
-        } else if(username.isEmpty()){
+        if (!password.equals(password1)) {
+            Toast.makeText(getActivity(), "Your passwords should be the same", Toast.LENGTH_LONG).show();
+        } else if (username.isEmpty()) {
             Toast.makeText(getActivity(), "Your username cannot be empty", Toast.LENGTH_LONG).show();
         } else if (email.isEmpty()) {
             Toast.makeText(getActivity(), "Your email address is empty", Toast.LENGTH_LONG).show();
@@ -109,7 +113,7 @@ public class Register extends Fragment {
                 Toast.makeText(getActivity(), "Your email address is not valid", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&'*+-/=?^_`{|}~])[A-Za-z\\d!#$%&'*+-/=?^_`{|}~]{6,20}$")){
+            if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&'*+-/=?^_`{|}~])[A-Za-z\\d!#$%&'*+-/=?^_`{|}~]{6,20}$")) {
                 Toast.makeText(getActivity(), "Make sure your password meets requirement", Toast.LENGTH_LONG).show();
                 return;
             }
@@ -120,17 +124,15 @@ public class Register extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-
                         String user_id = mAuth.getCurrentUser().getUid();
-                        DatabaseReference current_user = mRef.child(user_id);
-                        current_user.child("username").setValue(username);
-                        current_user.child("profile_pic").setValue("default");
+                        User account = new User(username, email, user_id);
+                        mRef.child(user_id).setValue(account);
 
                         mProgress.dismiss();
 
                         Fragment fragment = new UserProfile();
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+                        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
                     }
                 }
             });

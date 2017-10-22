@@ -1,80 +1,163 @@
 package recurrent.recipe;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
 
 public class RecipeView extends Fragment {
 
     final static String RecipeArgKey = "recipes";
-    Recipe recipe;
-    private StorageReference mStorage;
-    private FirebaseUser curr_user;
+    private Recipe recipe;
+    private User user;
     private String user_id;
     private DatabaseReference mRef;
+    private StorageReference mStorage;
+    private FirebaseUser curr_user;
+    private RatingBar rb;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recipe = (Recipe)getArguments().getParcelable(RecipeArgKey);
-    }
-
-    // The onCreateView method is called when Fragment should create its View object hierarchy,
-    // either dynamically or via XML layout inflation.
-    @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup parent, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.recipe_view, parent, false);
-        getActivity().setTitle("Recipe details");
+        recipe = getArguments().getParcelable(RecipeArgKey);
+        mRef = FirebaseDatabase.getInstance().getReference();
+        mStorage = FirebaseStorage.getInstance().getReference();
         this.curr_user = FirebaseAuth.getInstance().getCurrentUser();
         if (curr_user != null) {
             this.user_id = curr_user.getUid();
+            mRef.child("users/").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                        for (DataSnapshot child : children) {
+                            user = child.getValue(User.class);
+                            if (user.getUnique_id().equals(user_id)) {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
+    }
+
+    @Override
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup parent, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.recipe_view, parent, false);
+        getActivity().setTitle("Recipe details");
         return view;
     }
 
-    // This event is triggered soon after onCreateView().
-    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Recipe details");
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-//        mStorage = FirebaseStorage.getInstance().getReference();
-        mRef = FirebaseDatabase.getInstance().getReference();
+        ImageView imageStrip = (ImageView) view.findViewById(R.id.ivRecipeView);
+        rb = (RatingBar) view.findViewById(R.id.rbRatingBar);
+
+        mRef.child("users").child(user_id).child("ratedRecipes").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                if (dataSnapshot.exists()) {
+                    Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                    for (DataSnapshot child : children) {
+                        RatedRecipe temp = child.getValue(RatedRecipe.class);
+                        if(temp.getRatedRecipe_id().equals(recipe.getKey())){
+                            float i = temp.getRating();
+                            rb.setRating(i);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+            }
+        });
+
+        rb.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if(user == null){
+                    return;
+                }
+
+                DatabaseReference mRated = mRef.child("users/" + user_id + "ratedRecipes/");
+                if (user.getRatedRecipes().isEmpty()) {
+                    RatedRecipe newRatedRecipe = new RatedRecipe(recipe.getKey(), rating);
+                    user.addRatedRecipe(newRatedRecipe);
+                    recipe.incrementNumOfRating();
+                    mRef.child("recipes/" + recipe.getKey()).child("num_of_rating").setValue(recipe.getNum_of_rating());
+                    recipe.updateRating(rating);
+                    mRef.child("recipes/" + recipe.getKey()).child("rating").setValue(recipe.getRating());
+                    mRef.child("users/" + user_id).child("ratedRecipes").setValue(user.getRatedRecipes());
+                } else {
+                    for (int index = 0; index < user.getRatedRecipes().size(); index++) {
+                        // means you have already rated
+                        if (user.getRatedRecipes().get(index).getRatedRecipe_id().equals(recipe.getKey())) {
+                            recipe.updateRating(user.getRatedRecipes().get(index).getRating() * -1);
+                            user.getRatedRecipes().get(index).updateRating(rating);
+                            recipe.updateRating(user.getRatedRecipes().get(index).getRating());
+                            mRef.child("recipes/" + recipe.getKey()).child("rating").setValue(recipe.getRating());
+                            mRef.child("users/" + user_id).child("ratedRecipes").child(Integer.toString(index)).setValue(user.getRatedRecipes().get(index));
+                            return;
+                        }
+                    }
+                    RatedRecipe newRatedRecipe = new RatedRecipe(recipe.getKey(), rating);
+                    user.addRatedRecipe(newRatedRecipe);
+                    recipe.incrementNumOfRating();
+                    mRef.child("recipes/" + recipe.getKey()).child("num_of_rating").setValue(recipe.getNum_of_rating());
+                    recipe.updateRating(rating);
+                    mRef.child("recipes/" + recipe.getKey()).child("rating").setValue(recipe.getRating());
+                    mRef.child("users/" + user_id).child("ratedRecipes").child(Integer.toString(user.getRatedRecipes().size() - 1)).setValue(newRatedRecipe);
+                }
+            }
+        });
+
+        StorageReference storageImageRef = mStorage.child("UploadedRecipes").child(recipe.getKey()).child(recipe.getName() + ".jpg");
+        Glide.with(this.getContext())
+                .using(new FirebaseImageLoader())
+                .load(storageImageRef)
+                .into(imageStrip);
 
         TextView tvName, tvInstructions;
-        tvName  = (TextView) view.findViewById(R.id.tvRecipeName);
+        tvName = (TextView) view.findViewById(R.id.tvRecipeName);
         tvName.setText(recipe.getName());
 
         final ImageButton imgBtnBookmarkOn;
@@ -92,7 +175,7 @@ public class RecipeView extends Fragment {
             imgBtnBookmarkOn.setVisibility(View.GONE);
 
             //check if recipes is bookmarked
-            mRef.child("users/"+user_id+"/saved_recipes")
+            mRef.child("users/" + user_id + "/saved_recipes")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -100,7 +183,7 @@ public class RecipeView extends Fragment {
                                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                                 for (DataSnapshot child : children) {
                                     Recipe r = child.getValue(Recipe.class);
-                                    Log.d(TAG, "KEY1: "+ r.getKey());
+                                    Log.d(TAG, "KEY1: " + r.getKey());
                                     if (r.getKey().equals(recipe.getKey())) {
                                         //is bookmarked
                                         imgBtnBookmarkOff.setVisibility(View.GONE);
@@ -110,6 +193,7 @@ public class RecipeView extends Fragment {
                                 }
                             }
                         }
+
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
 
@@ -142,81 +226,88 @@ public class RecipeView extends Fragment {
             }
         });
 
-        ExpandableListView e = (ExpandableListView) view.findViewById(R.id.elvRecipe_view);
-        MyListAdapter adaptor = new MyListAdapter(recipe.toDisplayformat(), this.getContext());
+        ExpandableListView e = (ExpandableListView) view.findViewById(R.id.elvIngredients);
+        MyListAdapter adaptor = new MyListAdapter(recipe.ingredientsForDisplay(), this.getContext());
         e.setAdapter(adaptor);
         e.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                setListViewHeight(parent, groupPosition);
                 return false;
             }
         });
 
+        e = (ExpandableListView) view.findViewById(R.id.elvMethod);
+        adaptor = new MyListAdapter(recipe.methodForDisplay(), this.getContext());
+        e.setAdapter(adaptor);
+        e.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                setListViewHeight(parent, groupPosition);
+                return false;
+            }
+        });
     }
 
-    private void bookmark(DatabaseReference mRef, String user_id, Recipe recipe){
-        mRef.child("users/"+user_id+"/saved_recipes").push().setValue(recipe);
+    //TODO i stole this please fix
+    private void setListViewHeight(ExpandableListView listView, int group) {
+        ExpandableListAdapter listAdapter = listView.getExpandableListAdapter();
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.EXACTLY);
+        for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+            View groupItem = listAdapter.getGroupView(i, false, null, listView);
+            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+
+            totalHeight += groupItem.getMeasuredHeight();
+
+            if (((listView.isGroupExpanded(i)) && (i != group))
+                    || ((!listView.isGroupExpanded(i)) && (i == group))) {
+                for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
+                    View listItem = listAdapter.getChildView(i, j, false, null,
+                            listView);
+                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+
+                    totalHeight += listItem.getMeasuredHeight();
+                }
+            }
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        int height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getGroupCount() - 1));
+        if (height < 10)
+            height = 200;
+        params.height = height;
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 
-    private void unmark(final DatabaseReference mRef, final String user_id, final String rKey){
-        //TODO: CHANGE WAY OF ACCESSING DATABASE LATER
-        mRef.child("users/"+user_id+"/saved_recipes")
+    private void bookmark(DatabaseReference mRef, String user_id, Recipe recipe) {
+        mRef.child("users/" + user_id + "/saved_recipes").push().setValue(recipe);
+    }
+
+    private void unmark(final DatabaseReference mRef, final String user_id, final String rKey) {
+        mRef.child("users/" + user_id + "/saved_recipes")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                        for(DataSnapshot child: children){
+                        for (DataSnapshot child : children) {
                             Recipe r = child.getValue(Recipe.class);
-                            if (r.getKey().equals(rKey)){
+                            if (r.getKey().equals(rKey)) {
                                 String recipe_key = child.getKey();
-                                mRef.child("users/"+user_id+"/saved_recipes/"+recipe_key)
+                                mRef.child("users/" + user_id + "/saved_recipes/" + recipe_key)
                                         .removeValue();
-                                //debugging purpose
-                                Log.d(TAG, "KEY: "+ recipe_key);
                             }
                         }
-
                     }
+
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
                 });
     }
-//
-//
-//        tvInstructions = (TextView) view.findViewById(R.id.tvInstructions);
-//        tvInstructions.setText(recipe.getInstructions());
-//
-////        StorageReference myImagePath = mStorage.child("jin.jpg");
-////
-//////        final long ONE_MEGABYTE = 1024 * 1024;
-//////        myImagePath.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//////            @Override
-//////            public void onSuccess(byte[] bytes) {
-//////                // Data for "images/island.jpg" is returns, use this as needed
-//////                ImageView ivRecipeImage;
-//////                ivRecipeImage = (ImageView) getView().findViewById(R.id.ivRecipeImage);
-//////                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//////                ivRecipeImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, ivRecipeImage.getWidth(),
-//////                        ivRecipeImage.getHeight(), false));
-//////            }
-//////        });
-////        FirebaseImageLoader
-////        myImagePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-////            @Override
-////            public void onSuccess(Uri uri) {
-////                // Got the download URL for 'users/me/profile.png'
-////                ImageView ivRecipeImage;
-////                ivRecipeImage = (ImageView) getView().findViewById(R.id.ivRecipeImage);
-////                ivRecipeImage.setImageURI(uri);
-////            }
-////        });
-//        StorageReference myImagePath = mStorage.child("UploadedRecipes").child(user_id).child(recipe.getName() + ".jpg");
-//        ImageView ivRecipeImage;
-//        ivRecipeImage = (ImageView) getView().findViewById(R.id.ivRecipeImage);
-//        Glide.with(this)
-//                .using(new FirebaseImageLoader())
-//                .load(myImagePath)
-//                .into(ivRecipeImage);
 }

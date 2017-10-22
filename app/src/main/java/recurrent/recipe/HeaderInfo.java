@@ -1,23 +1,17 @@
 package recurrent.recipe;
 
-import android.preference.PreferenceActivity;
-
 import java.util.ArrayList;
-
-/**
- * Created by admin on 15/10/2017.
- */
 
 public class HeaderInfo {
     String name;
     ArrayList<DetailInfo> list;
 
-    public HeaderInfo(String name){
+    public HeaderInfo(String name) {
         this.name = name;
         this.list = new ArrayList<>();
     }
 
-    public void addChild(DetailInfo i){
+    public void addChild(DetailInfo i) {
         list.add(i);
     }
 
@@ -26,11 +20,11 @@ public class HeaderInfo {
     }
 
 
-    public int size(){
+    public int size() {
         return list.size();
     }
 
-    public DetailInfo getChild(int i){
+    public DetailInfo getChild(int i) {
         return list.get(i);
     }
 }

@@ -1,120 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/upload_recipe_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:textSize="18sp"
-            android:text="@string/upload_recipe_text" />
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btnUploadImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#e0e0e0"
+            app:srcCompat="@drawable/upload" />
 
-        <EditText android:id="@+id/upload_recipe_name"
+        <RelativeLayout
+            android:id="@+id/tag_part"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/upload_recipe_text"
-            android:layout_margin="8dp"
+            android:layout_alignBottom="@id/btnUploadImage">
+
+            <GridLayout
+                android:id="@+id/existingTags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:columnCount="4"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_dessert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_column="0"
+                    android:text="#dessert" />
+
+                <Button
+                    android:id="@+id/btn_entree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_column="1"
+                    android:text="#entree" />
+
+                <Button
+                    android:id="@+id/btn_breakfast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_column="2"
+                    android:text="#Main" />
+
+                <Button
+                    android:id="@+id/btn_sushi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_column="3"
+                    android:text="#sushi" />
+
+            </GridLayout>
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/upload_recipe_name"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnUploadImage"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
             android:hint="@string/upload_recipe_title" />
 
-        <EditText android:id="@+id/upload_recipe_instructions"
+        <EditText
+            android:id="@+id/et_pick_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/upload_recipe_name"
-            android:layout_margin="8dp"
-            android:inputType="textCapSentences|textMultiLine"
-            android:hint="@string/upload_recipe_instructions" />
-        <Button android:id="@+id/btnAddInstructionsStep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/upload_recipe_btn_add_ingredient"
-            android:layout_alignTop="@+id/upload_recipe_instructions"
-            android:layout_alignRight="@+id/upload_recipe_name"
-            android:layout_alignEnd="@+id/upload_recipe_name" />
-        <TextView
-            android:id="@+id/tv_tip_added_instruction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="@string/cooking_time"
+            android:inputType="time" />
+
+        <View
+            android:id="@+id/upload_div1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/et_pick_time"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_below="@id/upload_recipe_instructions"
-            android:textSize="12sp"
-            android:textColor="@color/colorPrimary"
-            android:text="test instructions" />
+            android:background="@android:color/darker_gray" />
 
-        <EditText android:id="@+id/upload_recipe_ingredients"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_tip_added_instruction"
-            android:layout_margin="8dp"
-            android:hint="@string/upload_recipe_ingredients" />
-
-        <Button android:id="@+id/btnAddIngredient"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/upload_recipe_btn_add_ingredient"
-            android:layout_above="@+id/tv_tip_added_ingredient"
-            android:layout_alignLeft="@+id/btnAddInstructionsStep"
-            android:layout_alignStart="@+id/btnAddInstructionsStep" />
         <TextView
-            android:id="@+id/tv_tip_added_ingredient"
+            android:id="@+id/ingredientsHeading"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/et_pick_time"
+            android:layout_below="@id/upload_div1"
+            android:layout_marginTop="8dp"
+            android:text="Ingredients"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="28sp" />
+
+
+        <ListView
+            android:id="@+id/ingredients_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/ingredientsHeading"
+            android:layout_below="@id/ingredientsHeading"
+            android:layout_marginTop="8dp"
+            android:footerDividersEnabled="true" />
+
+        <RelativeLayout
+            android:id="@+id/addIngredient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/ingredientsHeading"
+            android:layout_below="@id/ingredients_list">
+
+            <EditText
+                android:id="@+id/upload_recipe_ingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/upload_recipe_ingredients"
+                android:textSize="18dp" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/btnAddIngredient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="8dp"
+                android:background="@null"
+                android:clickable="true"
+                android:padding="8dp"
+                app:srcCompat="@drawable/add" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/upload_div2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/addIngredient"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/instructionsHeading"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/ingredientsHeading"
+            android:layout_below="@id/upload_div2"
+            android:layout_marginTop="8dp"
+            android:text="Instructions"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="28sp" />
+
+        <ListView
+            android:id="@+id/instructions_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/instructionsHeading"
+            android:layout_below="@id/instructionsHeading"
+            android:layout_marginTop="8dp"
+            android:footerDividersEnabled="true" />
+
+        <RelativeLayout
+            android:id="@+id/addInstruction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/instructionsHeading"
+            android:layout_below="@id/instructions_list"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/upload_recipe_instructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/upload_recipe_instructions"
+                android:inputType="textCapSentences|textMultiLine" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/btnAddInstructionsStep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="8dp"
+                android:background="@null"
+                android:clickable="true"
+                android:padding="8dp"
+                app:srcCompat="@drawable/add" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/upload_div3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/addInstruction"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray" />
+
+        <Button
+            android:id="@+id/button_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_below="@id/upload_recipe_ingredients"
-            android:textSize="12sp"
-            android:textColor="@color/colorPrimary"
-            android:text="test ingredients" />
-
-        <ImageView
-            android:id="@+id/upload_recipe_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_below="@+id/tv_tip_added_ingredient"
+            android:layout_below="@id/upload_div3"
             android:layout_centerHorizontal="true"
-            app:srcCompat="@android:drawable/ic_menu_upload" />
-
-        <Button android:id="@+id/btnActivateCamera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/upload_recipe_take_photo"
-            android:layout_alignBottom="@+id/upload_recipe_image"
-            android:layout_alignLeft="@+id/upload_recipe_instructions"
-            android:layout_alignStart="@+id/upload_recipe_instructions"
-            android:layout_marginBottom="24dp" />
-
-        <Button android:id="@+id/btnUploadImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/upload_recipe_image"
-            android:layout_alignBottom="@+id/btnActivateCamera"
-            android:layout_alignRight="@+id/btnAddIngredient"
-            android:layout_alignEnd="@+id/btnAddIngredient" />
-
-
-        <Button android:id="@+id/button_upload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/upload_btn_save"
-            android:layout_below="@id/upload_recipe_image"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
-
-
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_secondary"
+            android:text="@string/upload_btn_save" />
 
     </RelativeLayout>
 </ScrollView>

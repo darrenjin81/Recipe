@@ -15,10 +15,7 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-/**
- * Created by admin on 18/09/2017.
- *
- */
+import java.text.DecimalFormat;
 
 public class RecipeSummary extends Fragment implements View.OnTouchListener {
 
@@ -27,57 +24,60 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
 
     public static String RecipeSummaryArgKey = "RecipeForSummary";
 
-    public RecipeSummary(){
+    public RecipeSummary() {
         gestureDetector = new GestureDetector(getActivity(), new GestureListener());
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recipe = (Recipe)getArguments().getParcelable(RecipeSummaryArgKey);
+        recipe = (Recipe) getArguments().getParcelable(RecipeSummaryArgKey);
     }
 
-    // The onCreateView method is called when Fragment should create its View object hierarchy,
-    // either dynamically or via XML layout inflation.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        // Defines the xml file for the fragment
         View v = inflater.inflate(R.layout.fragment_recipe_summary, parent, false);
         TextView t = (TextView) v.findViewById(R.id.tvSummary_title);
         t.setText(recipe.getName());
 
-        t = (TextView) v.findViewById(R.id.tvSummary_ingredients_num);
-        t.setText("4"); //TODO fix
-
         t = (TextView) v.findViewById(R.id.tvSummary_preptime_num);
-        t.setText("34H 92M"); //TODO fix
+        t.setText(recipe.getCookingTime()+ " mins");
+
+        t = (TextView) v.findViewById(R.id.tvSummary_ingredients_num);
+        t.setText(recipe.getIngredients().size() + "");
 
         t = (TextView) v.findViewById(R.id.tvSummary_cals_num);
-        t.setText("499");//TODO fix
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        if(recipe.getNum_of_rating() == 0){
+            t.setText("review me");
+        }else{
+            t.setText(twoDForm.format(recipe.getRating()/recipe.getNum_of_rating()) + " / 5.0");
+        }
 
 
-        ImageView image = (ImageView) v.findViewById(R.id.ivSummary_pic) ;
+        ImageView image = (ImageView) v.findViewById(R.id.ivSummary_pic);
         StorageReference mStorage = FirebaseStorage.getInstance().getReference();
         StorageReference mRef = mStorage.child("UploadedRecipes")
                 .child(recipe.getKey()).child(recipe.getName() + ".jpg");
-//        StorageReference myImagePath = recipe.getStorageReference();
         Glide.with(this)
                 .using(new FirebaseImageLoader())
                 .load(mRef)
                 .into(image);
-        //image.setImageResource(getResources().getIdentifier(recipe.image,"drawable",getContext().getPackageName()));
 
 
         v.setOnTouchListener(this);
         return v;
     }
 
-    // This event is triggered soon after onCreateView().
-    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(recipe.getName());
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        // Setup any handles to view objects here
-        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
+
     }
 
     @Override
@@ -85,7 +85,6 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
         return gestureDetector.onTouchEvent(event);
     }
 
-    //TODO I stole this is that ok...
     private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
         private static final int SWIPE_THRESHOLD = 100;
@@ -111,8 +110,7 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
                         }
                         result = true;
                     }
-                }
-                else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                     if (diffY > 0) {
                         onSwipeBottom();
                     } else {
@@ -135,17 +133,16 @@ public class RecipeSummary extends Fragment implements View.OnTouchListener {
 
     public void onSwipeTop() {
         //transition to recipe view
-        if(recipe == null){
+        if (recipe == null) {
             return;
         }
         Bundle args = new Bundle();
         args.putParcelable(RecipeView.RecipeArgKey, recipe);
-        Fragment nextFrag= new RecipeView();
+        Fragment nextFrag = new RecipeView();
         nextFrag.setArguments(args);
 
-        //TODO if we need browse, then its getParent().get()Parent()
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(((ViewGroup)getView().getParent()).getId(), nextFrag, "FRAG_FEED")
+                .replace(R.id.flContent, nextFrag, "FRAG_FEED")
                 .addToBackStack(null)
                 .commit();
     }

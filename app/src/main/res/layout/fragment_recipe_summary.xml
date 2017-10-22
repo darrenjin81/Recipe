@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <!--Temporary text-->
-
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -16,113 +15,103 @@
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:cropToPadding="false"
-            android:scaleType="centerCrop"
-            />
+            android:scaleType="centerCrop" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient"/>
+            android:background="@drawable/gradient" />
     </FrameLayout>
 
-
-    <TextView
-    android:id="@+id/tvSummary_title"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Title"
-    android:layout_alignParentBottom="true"
-    android:textColor="#ffffff"
-    android:textSize="40sp"
-    android:layout_marginBottom="120dp"
-    android:layout_marginLeft="25dp"
-    />
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <GridLayout
+        android:id="@+id/glRecipeSummary"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:orientation="horizontal"
+        android:rowCount="2"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="46dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="75dp"
-        >
+        android:layout_centerHorizontal="true">
 
         <TextView
             android:id="@+id/tvSummary_ingredients_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="num"
+            android:layout_column="0"
+            android:layout_gravity="center"
+            android:layout_marginRight="14dp"
+            android:layout_row="0"
             android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:layout_weight="33.33"
-            android:gravity="center_horizontal"
-
-            />
+            android:textSize="18dp"
+            tools:text="num" />
 
         <TextView
             android:id="@+id/tvSummary_preptime_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="numH numM"
+            android:layout_column="1"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_row="0"
             android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:layout_weight="33.33"
-            android:gravity="center_horizontal"
-            />
+            android:textSize="18dp"
+            tools:text="numH numM" />
 
         <TextView
             android:id="@+id/tvSummary_cals_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="num"
+            android:layout_column="2"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:layout_row="0"
             android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:layout_weight="33.33"
-            android:gravity="center_horizontal"
+            android:textSize="18dp"
+            tools:text="cal num" />
 
-            />
-    </LinearLayout>
+        <TextView
+            android:layout_column="0"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_row="1"
+            android:text="@string/fragment_recipe_summary_ingredients"
+            android:textColor="#ffffff" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+        <TextView
+            android:layout_column="1"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:layout_row="1"
+            android:text="@string/fragment_recipe_summary_preparation_time"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:layout_column="2"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:layout_row="1"
+            android:text="Rating"
+            android:textColor="#ffffff" />
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/tvSummary_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/glRecipeSummary"
+        android:layout_alignLeft="@id/glRecipeSummary"
+        android:textColor="#ffffff"
+        android:textSize="40sp"
+        tools:text="Title" />
+
+    <TextView
+        android:id="@+id/tvDragHint"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
-        >
-
-        <TextView
-            android:id="@+id/tvIngredients"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ingredients"
-            android:textColor="#ffffff"
-            android:textSize="14sp"
-            android:layout_weight="33"
-            android:gravity="center_horizontal"
-
-            />
-
-        <TextView
-            android:id="@+id/tvPrepTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Preparation Time"
-            android:textColor="#ffffff"
-            android:textSize="14sp"
-            android:layout_weight="33"
-            android:gravity="center_horizontal"
-            />
-
-        <TextView
-            android:id="@+id/tvCal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Calories"
-            android:textColor="#ffffff"
-            android:textSize="14sp"
-            android:layout_weight="33"
-            android:gravity="center_horizontal"
-
-            />
-    </LinearLayout>
-
-
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
+        android:textSize="12sp"
+        android:layout_marginBottom="5dp"
+        android:text="Swipe down to view recipe" />
 
 </RelativeLayout>

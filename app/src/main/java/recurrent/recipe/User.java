@@ -3,31 +3,50 @@ package recurrent.recipe;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by kitty on 28/9/2017.
- */
+import java.util.ArrayList;
 
 public class User implements Parcelable {
 
-    static int user_id = 0;
     private String username;
+    private String emailAddress;
+    private String unique_id;
 
-    public User(){
+    private ArrayList<RatedRecipe> ratedRecipes;
 
+    public User() {
+        this.ratedRecipes = new ArrayList<RatedRecipe>();
     }
 
-    public User(String username) {
+    public User(String username, String emailAddress, String key) {
+
         this.username = username;
+        this.emailAddress = emailAddress;
+        this.unique_id = key;
+        this.ratedRecipes = new ArrayList<RatedRecipe>();
     }
 
     private User(Parcel in) {
-        user_id = in.readInt();
+        unique_id = in.readString();
         username = in.readString();
+        emailAddress = in.readString();
+        ratedRecipes = in.readArrayList(null);
     }
 
     //getters
     public String getUsername() {
         return username;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public String getUnique_id() {
+        return unique_id;
+    }
+
+    public ArrayList<RatedRecipe> getRatedRecipes() {
+        return ratedRecipes;
     }
 
     @Override
@@ -38,9 +57,10 @@ public class User implements Parcelable {
     // write your object's data to the passed-in Parcel
     @Override
     public void writeToParcel(Parcel out, int flags) {
-
-        out.writeInt(this.user_id);
+        out.writeString(this.unique_id);
+        out.writeString(this.emailAddress);
         out.writeString(this.username);
+        out.writeList(this.ratedRecipes);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -53,4 +73,8 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
+    public void addRatedRecipe(RatedRecipe key) {
+        ratedRecipes.add(key);
+    }
 }

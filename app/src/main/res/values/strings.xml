@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Recipe</string>
+    <string name="app_name">Recipedia</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -13,41 +13,35 @@
     <string name="navigation_saved_recipes">Saved Recipes</string>
     <string name="navigation_search_recipes">Search Recipes</string>
     <string name="navigation_my_profile_page">My Profile</string>
+    <string name="navigation_browse">Browse</string>
 
     <!--Fragment Login-->
     <string name="fragment_login_text">Please login with your details below:</string>
     <string name="fragment_login_email">E-mail</string>
     <string name="fragment_login_password">Password</string>
-    <string name="fragment_login_btnRegister">Don\'t have an account? Register!</string>
+    <string name="fragment_login_btnRegister">Don\'t have an account? ~ Register</string>
     <string name="fragment_login_btnLogin">Login</string>
     <string name="fragment_login_btnSignOut">Sign out</string>
 
     <!--Fragment Register-->
-    <string name="fragment_register_text">Please enter your desired email you wish to register with:</string>
+    <string name="fragment_register_text">Welcome! Please enter your details below:</string>
     <string name="fragment_register_btnCreate">Create</string>
     <string name="fragment_register_username">Put your desired username here</string>
     <string name="fragment_register_password">Put your password here</string>
-    <string name="fragment_register_check_valid">check!!!</string>
+    <string name="fragment_register_check_valid">Check</string>
     <string name="fragment_register_check_password">Re-enter your password</string>
     <string name="fragment_register_password_format_tip">Your password should be no shorter than 6 characters\nYour password should contain one lowercase letter, one uppercase letter, one number and one special character</string>
 
     <!--Fragment Upload-->
     <string name="upload_recipe_text">Fill in the details for your recipe below:</string>
     <string name="upload_btn_save">Save</string>
-    <string name="upload_recipe_title">Put the title of your recipe here</string>
+    <string name="upload_recipe_title">Title</string>
     <string name="upload_recipe_instructions">Instructions</string>
-    <string name="upload_recipe_ingredients">Ingredients</string>
-    <string name="upload_recipe_image">upload image</string>
-    <string name="upload_recipe_take_photo">take photo</string>
-    <string name="upload_recipe_btn_add_ingredient">add</string>
-
-
-
-
-
-    <!--Search bar-->
-    <string name="search_title">Searchy</string>
-    <string name="search_hint">Searchyy!!!</string>
+    <string name="upload_recipe_ingredients">Add an Ingredient</string>
+    <string name="upload_recipe_image">Upload Image</string>
+    <string name="upload_recipe_take_photo">Take Photo</string>
+    <string name="upload_recipe_btn_add_ingredient">Add</string>
+    <string name="cooking_time">Cooking Time</string>
 
     <!--Fragment UserProfile-->
     <string name="fragment_user_profile_text">My Profile</string>
@@ -62,7 +56,22 @@
     <string name="fragment_edit_profile_tvUsername">Username</string>
     <string name="fragment_edit_profile_tvEmail">E-mail</string>
     <string name="fragment_edit_profile_btnChangePhoto">Change Photo</string>
+    <string name="fragment_edit_profile_instructions">Please enter the details you want to change below, and hit save when you are done.</string>
 
-    <!--Fragment changePassword-->
+    <!--Fragment RecipeSummary-->
+    <string name="fragment_recipe_summary_ingredients">Ingredients</string>
+    <string name="fragment_recipe_summary_preparation_time">Preparation Time</string>
+    <string name="fragment_recipe_summary_calories">Calories</string>
+
+    <!--Fragment ChangePassword-->
     <string name="fragment_change_password_btnChangePwd">Change</string>
+    <string name="fragment_change_password_old">Enter your old password</string>
+    <string name="fragment_change_password_new">Enter your new password</string>
+    <string name="fragment_change_password_reenter">Re-enter your new password</string>
+
+    <!--Search bar-->
+    <string name="search_title">Search</string>
+    <string name="search_hint">Search</string>
+
+
 </resources>

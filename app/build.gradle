@@ -5,11 +5,12 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "recurrent.recipe"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -34,6 +35,7 @@ dependencies {
     compile 'com.google.firebase:firebase-storage:11.4.0'
     compile 'com.firebaseui:firebase-ui-storage:0.6.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'de.hdodenhof:circleimageview:2.2.0'
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

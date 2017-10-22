@@ -9,16 +9,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by admin on 15/10/2017.
- */
-
 public class MyListAdapter extends BaseExpandableListAdapter {
 
     private ArrayList<HeaderInfo> list;
     private Context context;
 
-    public MyListAdapter(ArrayList<HeaderInfo> list, Context c){
+    public MyListAdapter(ArrayList<HeaderInfo> list, Context c) {
         this.list = list;
         this.context = c;
     }
@@ -63,7 +59,7 @@ public class MyListAdapter extends BaseExpandableListAdapter {
         HeaderInfo headerInfo = (HeaderInfo) getGroup(groupPosition);
         View v;
         LayoutInflater inf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inf.inflate(R.layout.groupheading, null);
+        v = inf.inflate(R.layout.groupheading, null);
 
         TextView heading = (TextView) v.findViewById(R.id.heading);
         heading.setText(headerInfo.getName());
@@ -90,4 +86,5 @@ public class MyListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
     }
+
 }
